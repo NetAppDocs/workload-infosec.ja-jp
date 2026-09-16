@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: get-help.html 
+keywords: help, ticket, open support case, support, netapp support, technical support, call support, phone number, open ticket, web ticket, open an issue 
+summary: NetApp は、Workload Factoryとそのクラウドサービスをさまざまな方法でサポートします。ナレッジベース（KB）の記事やコミュニティフォーラムなど、充実した無料のセルフサポートオプションが24時間365日ご利用いただけます。サポート登録には、Webチケットによるリモートテクニカルサポートが含まれます。 
+---
+= Amazon FSx for NetApp ONTAP に関するヘルプを取得する（NetApp Workload Factory）
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp は、Workload Factory とそのクラウドサービスをさまざまな方法でサポートします。ナレッジベース（KB）の記事やコミュニティフォーラムなど、充実した無料のセルフサポートオプションが24時間365日ご利用いただけます。サポート登録には、Webチケットによるリモートテクニカルサポートが含まれています。
+
+
+
+[[get-support-for-fsx-for-ontap]]
+== FSx for ONTAP のサポートを受ける
+
+FSx for ONTAP、そのインフラストラクチャ、またはサービスを使用するソリューションに関する技術サポートについては、当該製品の Workload Factory ドキュメントにある「ヘルプの取得」を参照してください。
+
+link:https://docs.netapp.com/us-en/storage-management-fsx-ontap/start/concept-fsx-aws.html#getting-help["Amazon FSx for ONTAP"^]
+
+Workload Factoryおよびそのストレージソリューションとサービスに関する技術サポートを受けるには、以下のサポートオプションをご利用ください。
+
+
+
+[[use-self-support-options]]
+== セルフサポートオプションを利用する
+
+これらのオプションは、24時間年中無休で無料でご利用いただけます。
+
+* ドキュメント
++
+現在表示中の NetApp Workload Factory のドキュメントです。
+
+* https://kb.netapp.com["ナレッジベース"^]
++
+NetApp Workload Factoryのナレッジベースを検索して、問題のトラブルシューティングに役立つ記事を見つけてください。
+
+* http://community.netapp.com/["コミュニティ"^]
++
+NetApp Workload Factoryコミュニティに参加して、進行中のディスカッションをフォローしたり、新しいディスカッションを開始したりしましょう。
+
+
+
+
+
+[[create-a-case-with-netapp-support]]
+== NetApp サポートでケースを作成する
+
+上記のセルフサポートオプションに加えて、サポートを有効化した後は、NetApp サポートスペシャリストと連携してあらゆる問題を解決することができます。
+
+.始める前に
+「ケースの作成」機能を使用するには、まずサポートに登録する必要があります。NetApp Support Siteの認証情報をWorkload Factoryのログインに関連付けてください。link:support-registration.html["サポートへの登録方法について説明します"]。
+
+.手順
+. Workload Factory コンソールの右上で、*ヘルプ＞サポート*を選択します。
++
+このオプションを選択すると、新しいブラウザタブで NetApp Console が開き、サポートダッシュボードが読み込まれます。
+
+. 「リソース」ページで、「テクニカルサポート」の下にある利用可能なオプションからいずれかを選択してください。
++
+.. 電話で担当者とお話しになりたい場合は、*お問い合わせください*を選択してください。netapp.com のページに移動し、お電話いただける電話番号が記載されています。
+.. 「ケースを作成」を選択して、NetApp サポートスペシャリストとのチケットを開きます：
++
+*** *サービス*：*NetApp Workload Factory* を選択します。
+*** *ケースの優先度*：ケースの優先度を低、中、高、または緊急から選択します。
++
+これらの優先事項に関する詳細については、フィールド名の横にある情報アイコンにマウスカーソルを合わせてください。
+
+*** *事象の説明*：問題の詳細な説明を、該当するエラーメッセージや実行したトラブルシューティング手順を含めて提供してください。
+*** *追加のメールアドレス*：この問題について他の方にも通知したい場合は、追加のメールアドレスを入力してください。
+*** *添付ファイル（任意）*：最大5つの添付ファイルを一度に1つずつアップロードできます。
++
+添付ファイルは1ファイルあたり25MBまでです。以下のファイル拡張子がサポートされています：txt、log、pdf、jpg/jpeg、rtf、doc/docx、xls/xlsx、およびcsv。
+
+
+
+
+
++
+image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/screenshot-create-case.png["NetApp サポートでケースを作成するための「ケースの作成」フォームのスクリーンショット。"]
+
+
+
+.終了後の操作
+サポートのケース番号が記載されたポップアップが表示されます。NetAppのサポート スペシャリストがお客様のケースを確認し、間もなくご連絡いたします。
+
+サポートケースの履歴を確認するには、*設定 > タイムライン*を選択し、「サポートケースの作成」という名前のアクションを探してください。一番右にあるボタンをクリックすると、アクションを展開して詳細を表示できます。
+
+ケースを作成しようとした際に、以下のエラーメッセージが表示される場合があります。
+
+「選択されたサービスに対してケースを作成する権限がありません」
+
+このエラーは、NSS アカウントとそれに関連付けられている記録上の会社が、NetApp Console アカウントのシリアル番号（例：960xxxx）またはシステムシリアル番号と同じ記録上の会社でない可能性があることを意味します。以下のいずれかの方法でサポートを受けることができます。
+
+* 製品内チャットを使用する
+* 技術的な内容以外のケースを提出するには https://mysupport.netapp.com/site/help[]
+
+
+
+
+[[manage-your-support-cases-preview]]
+== サポート案件を管理する（プレビュー）
+
+アクティブおよび解決済みのサポートケースは、NetApp Console から直接表示および管理できます。NSSアカウントおよび所属企業に関連付けられたケースを管理できます。
+
+ケースマネジメント機能はプレビュー版として利用可能です。今後のリリースでは、このユーザー体験をさらに洗練させ、機能強化を加えていく予定です。製品内のチャット機能を使用して、フィードバックをお送りください。
+
+次の点に注意してください。
+
+* ページ上部のケース管理ダッシュボードには、2つの表示方法があります。
++
+** 左側の画面には、ご提供いただいたユーザー NSS アカウントで過去 3 ヶ月間にオープンされた案件の総数が表示されます。
+** 右側の画面には、ユーザーのNSSアカウントに基づいて、過去3か月間に貴社レベルで開設されたケースの総数が表示されます。
+
+
++
+表に表示されている結果は、選択したビューに関連する事例を反映しています。
+
+* 関心のある列を追加または削除したり、優先度やステータスなどの列の内容をフィルタリングしたりできます。その他の列は、ソート機能のみを提供します。
++
+詳細については、以下の手順をご覧ください。
+
+* 案件ごとに、案件メモを更新したり、既に「クローズ済み」または「クローズ保留中」の状態になっていない案件をクローズしたりする機能を提供しています。
+
+
+.手順
+. Workload Factory コンソールの右上で、*ヘルプ＞サポート*を選択します。
++
+このオプションを選択すると、NetApp Console が新しいブラウザタブで開き、サポートダッシュボードが読み込まれます。
+
+. 「ケース管理」を選択し、プロンプトが表示されたら、NSSアカウントを NetApp Console に追加します。
++
+「ケース管理」ページには、お客様の NetApp Console ユーザーアカウントに関連付けられている NSS アカウントに関する未解決のケースが表示されます。これは、「NSS 管理」ページの最上部に表示されている NSS アカウントと同じものです。
+
+. テーブルに表示される情報を必要に応じて変更できます。
++
+** *組織のケース*の下にある*表示*を選択すると、貴社に関連付けられているすべてのケースが表示されます。
+** 日付範囲を変更するには、正確な日付範囲を選択するか、別の期間を選択してください。
++
+image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/screenshot-case-management-date-range.png["ケース管理ページの表の上にあるオプションのスクリーンショット。正確な日付範囲、または過去7日間、30日間、3か月間を選択できます。"]
+
+** 列の内容をフィルタリングします。
++
+image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/screenshot-case-management-filter.png["ステータス列のフィルターオプションのスクリーンショット。アクティブやクローズなどの特定のステータスに一致するケースを除外できます。"]
+
+** テーブルに表示される列を変更するには、image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/icon-table-columns.png["表に表示されるプラスアイコン"]を選択してから、表示する列を選択します。
++
+image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/screenshot-case-management-columns.png["テーブルに表示できる列を示すスクリーンショット。"]
+
+
+
+. image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/icon-table-action.png["表の最後の列に表示される、3つの点が描かれたアイコン"]を選択し、利用可能なオプションのいずれかを選択して、既存のケースを管理します：
++
+** *ケースを表示*：特定のケースに関する詳細情報を表示します。
+** *ケースメモの更新*：問題に関する詳細情報を入力するか、*ファイルのアップロード*を選択して最大5つのファイルを添付してください。
++
+添付ファイルは1ファイルあたり25MBまでです。以下のファイル拡張子がサポートされています：txt、log、pdf、jpg/jpeg、rtf、doc/docx、xls/xlsx、およびcsv。
+
+** *ケースを閉じる*：ケースを閉じる理由の詳細を入力し、*ケースを閉じる*を選択してください。
+
+
++
+image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/screenshot-case-management-actions.png["テーブルの最後の列にあるメニューを選択した後に実行できる操作を示すスクリーンショット。"]
+
+

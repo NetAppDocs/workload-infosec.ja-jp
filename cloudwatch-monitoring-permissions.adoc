@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: cloudwatch-monitoring-permissions.html 
+keywords: CloudWatch monitoring permissions, monitoring stack, file system metrics, CloudWatch alarms, CloudWatch dashboards, Amazon SNS, event logs, ONTAP credentials, secretsmanager 
+summary: CloudWatchの監視権限はNetApp Workload Factoryではオプションであり、別の監視スタックをデプロイする場合にのみ適用されます。 
+---
+= Amazon CloudWatch の NetApp Workload Factory に対する監視権限
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Amazon CloudWatch の監視権限はオプションであり、NetApp Workload Factory では個別の監視スタックをデプロイする場合にのみ適用されます。監視スタックは、ファイルシステムメトリクスの収集、イベントログの公開、CloudWatch ダッシュボードとアラームの管理、および Amazon SNS を介したアラート通知の送信により、運用上の可視性を提供します。また、スタックは監視に必要な ONTAP 認証情報を取得するためのアクセスも必要とします。
+
+
+
+[[required-cloudwatch-monitoring-permissions]]
+== 必須のCloudWatch監視権限
+
+オプションの監視スタックには、以下の権限が必要です。
+
+[cols="2,3"]
+|===
+| アクセス許可 | 目的 
+
+
+| fsx:Describe* / fsx:ListTagsForResource | ファイルシステムのメトリクスを収集する 
+
+
+| cloudwatch:PutMetricData / cloudwatch:PutDashboard / cloudwatch:PutMetricAlarm / cloudwatch:DescribeAlarms / cloudwatch:Delete* | ダッシュボードとアラームを管理する 
+
+
+| logs:CreateLogGroup / logs:CreateLogStream / logs:PutLogEvents | イベントログを公開する 
+
+
+| sns:Publish | アラート通知を送信する 
+
+
+| secretsmanager:GetSecretValue | 監視用のONTAP認証情報を取得する 
+|===

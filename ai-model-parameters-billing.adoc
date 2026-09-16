@@ -1,0 +1,53 @@
+---
+sidebar: sidebar 
+permalink: ai-model-parameters-billing.html 
+keywords: AI model parameters, Amazon Bedrock billing, AI usage limits, model configuration, inference profile, Claude model, deterministic parameters, cost visibility, AI governance 
+summary: NetApp Workload Factoryは、AIガバナンスに関連するモデル構成、使用範囲、および課金範囲を定義します。 
+---
+= AIモデルのパラメータとNetApp Workload Factoryの課金
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factoryは、AIガバナンスに関連するモデル構成、使用範囲、および課金範囲を定義します。設定されたモデルは決定論的なパラメータを使用し、一貫性のある分析結果をサポートするために構造化されたJSONを返します。AWSはAmazon Bedrockの推論処理費用をお客様のアカウントに請求しますが、Workload FactoryはAIの使用状況を追跡し、アカウントごとの月額コストを可視化します。これらのセクションでは、モデルのパラメータと、AIの利用に適用される制限について説明します。
+
+
+
+[[model-and-parameters]]
+== モデルとパラメータ
+
+[cols="2,3"]
+|===
+| パラメータ | Value 
+
+
+| モデル | Anthropic Claude （クロスリージョン推論プロファイルを使用） 
+
+
+| 温度 | 0（決定論的、ランダム性なし） 
+
+
+| 最大出力トークン数 | 2,048 
+
+
+| 最大推論ステップ数 | 分析1件あたり15 
+
+
+| 出力形式 | 構造化JSON（概要、重大度、根本原因、是正措置） 
+|===
+
+
+[[billing-and-usage-limits]]
+== 請求および使用制限
+
+* AWS は Bedrock の推論処理費用をお客様のアカウント（お客様の推論プロファイル、お客様の認証情報）に請求します。
+* Workload Factoryは、AIの使用状況を内部で追跡します。
+* Workload Factoryは、アカウントごとの月間コストを可視化します。
++
+link:https://docs.netapp.com/us-en/workload-fsx-ontap/track-costs.html["NetApp Workload Factoryでストレージコストを追跡する"^]
+
+

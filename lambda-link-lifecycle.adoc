@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: lambda-link-lifecycle.html 
+keywords: Lambda link lifecycle, deployment, health monitoring, image updates, lambda UpdateFunctionCode, CloudFormation, Terraform, removal 
+summary: NetApp Workload Factoryは、Lambdaリンクのライフサイクル制御を利用して、運用上のリスクを最小限に抑えながら、デプロイメント、ヘルスモニタリング、および制御されたイメージ更新を管理します。 
+---
+= NetApp Workload FactoryのLambdaリンクのライフサイクル
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factoryは、Lambdaリンクのライフサイクル制御を利用して、運用上のリスクを最小限に抑えながら、デプロイメント、ヘルスモニタリング、および制御されたイメージ更新を管理します。Amazon CloudFormationスタックを再デプロイすることなく、 `lambda:UpdateFunctionCode`権限を使用して、Lambdaリンクコンテナイメージを更新し、改善点やセキュリティパッチをデプロイできます。ライフサイクル制御では、リンクの状態を監視する方法や、Lambdaリンクとその関連リソースが不要になったときに削除する方法も定義されます。
+
+
+
+[[lifecycle-control-points]]
+== ライフサイクル管理ポイント
+
+* デプロイ：Amazon CloudFormation または Terraform スタックのデプロイを介して自動化
+* 監視：ヘルスチェックで接続の問題を検出し、障害カウンターで信頼性を追跡します。
+* 削除：CloudFormation スタックを削除すると、AWS アカウントから Lambda と関連リソースが削除されます。
+

@@ -1,0 +1,73 @@
+---
+indexpage:
+  title: NetApp Workload Factoryの情報セキュリティ
+  summary: NetApp Workload Factoryには、データの収集、保存、保持、アクセス方法など、セキュリティとデータ保護に関するガイダンスが含まれています。このリファレンスを使用して、アーキテクチャ、権限、およびコンプライアンス体制を理解し、より迅速で一貫性のあるセキュリティレビューとオンボーディングプロセスをサポートしてください。
+  keywords: information security, data protection, NetApp, Workload Factory
+  lead: NetApp Workload Factoryには、データの収集、保存、保持、アクセス方法など、セキュリティとデータ保護に関するガイダンスが含まれています。このリファレンスを使用して、アーキテクチャ、権限、およびコンプライアンス体制を理解し、より迅速で一貫性のあるセキュリティレビューとオンボーディングプロセスをサポートしてください。
+  tiles:
+  - title: はじめに
+    links:
+    - title: NetApp Workload Factoryの情報セキュリティについて学ぶ
+      url: "/learn-about-workload-factory-infosec.html"
+    - title: オンボーディングセキュリティワークフロー
+      url: "/onboarding-security-workflow.html"
+  - title: セキュリティと接続性
+    links:
+    - title: セキュリティモデルの概要
+      url: "/security-model.html"
+    - title: コンプライアンスとセキュリティ体制
+      url: "/compliance-security-posture.html"
+    - title: 接続性と信頼の経路
+      url: "/connectivity-trust-paths.html"
+  - title: アイデンティティ、資格情報、そして最小限の特権
+    links:
+    - title: AWS認証情報フロー
+      url: "/aws-credential-flow.html"
+    - title: 認証情報の種類
+      url: "/credential-types.html"
+    - title: 認証情報の保存オプション
+      url: "/credential-storage-options.html"
+    - title: 最小限の権限要件
+      url: "/least-privilege-permissions.html"
+  - title: データガバナンス、プライバシー、ライフサイクル
+    links:
+    - title: データ処理とデータ所在地
+      url: "/data-handling-residency.html"
+    - title: 暗号化と鍵管理
+      url: "/encryption-key-management.html"
+  - title: 可観測性（ログ、メトリクス、テレメトリ）
+    links:
+    - title: 可観測性の概要
+      url: "/observability-overview.html"
+    - title: メトリクスとテレメトリのリファレンス
+      url: "/metrics-telemetry.html"
+  - title: 生成AIセキュリティ制御
+    links:
+    - title: AI制御の概要
+      url: "/ai-controls-overview.html"
+    - title: BedrockのAI診断へのオプトイン
+      url: "/amazon-bedrock-opt-in.html"
+    - title: AIツールの境界
+      url: "/ai-tool-boundaries.html"
+    - title: AIモデルのパラメータと課金
+      url: "/ai-model-parameters-billing.html"
+  - title: ONTAPオペレーションとLambdaリンク
+    links:
+    - title: Lambdaリンクの概要
+      url: "/lambda-link-overview.html"
+    - title: LambdaリンクのIAM権限
+      url: "/lambda-link-iam-permissions.html"
+  - title: ナレッジとサポート
+    links:
+    - title: サポートに登録
+      url: "/register-support.html"
+    - title: ヘルプを表示
+      url: "/get-help.html"
+  - title: ブログとコミュニティ
+    links:
+    - title: NetApp Console
+      url: https://www.netapp.com/console
+    - title: NetApp Data Services
+      url: https://www.netapp.com/data-services/
+    - title: NetAppコミュニティ
+      url: https://community.netapp.com/

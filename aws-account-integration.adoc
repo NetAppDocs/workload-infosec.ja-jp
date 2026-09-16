@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: aws-account-integration.html 
+keywords: AWS account integration, sts assume role, IAM role, external ID, temporary credentials, cross-account access, confused deputy attack, role trust policy, onboarding 
+summary: Workload Factory は AWS sts AssumeRole を使用して AWS アカウントの一時的な認証情報を取得するため、長期的な AWS アクセスキーはサービスによって保存されません。 
+---
+= AWS アカウントと NetApp Workload Factory の統合
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Workload FactoryはAWS `sts:AssumeRole`を使用してAWSアカウントの一時的な認証情報を取得するため、長期的なAWSアクセスキーはサービスによって保存されません。オンボーディング時に、承認されたAWS API操作に対してWorkload Factoryが引き受けることができるIAMロールを設定します。この際、不正なクロスアカウントアクセスを防止するために、外部IDを使用します。Workload Factoryは、実行時に生成された有効期限の短い認証情報を使用します。この認証情報は、AWSによって各セッション終了後に自動的に期限切れとなります。
+
+
+
+[[aws-account-configuration]]
+== AWSアカウントの設定
+
+Workload Factory が AWS アカウントにアクセスできるようにするには：
+
+. AWS アカウントに IAM ロールをデプロイします（CloudFormation または手動で）。
+. ロールの信頼ポリシーで、外部IDによってゲートされた上で、Workload Factory のサービスプリンシパルがそのロールを引き受けることができるようにしてください。
+. お客様と Workload Factory の間でのみ共有される一意の秘密識別子（UUID v4）として外部 ID を使用します。
++
+IAMロールの信頼ポリシーに条件として組み込む(`sts:ExternalId`）。
+
++
+外部IDは、混乱した代理人による攻撃を防ぎます。クロスアカウントアクセスモデルでは、攻撃者がお客様のロールARNを発見したとしても、対応する外部IDも所持していなければ、そのロールを引き受けることはできません。AWSは、サードパーティのクロスアカウントアクセスにはこのパターンを推奨しています。詳細については、AWS IAMのドキュメントページlink:https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html["第三者が所有するAWSアカウントへのアクセス"^]を参照してください。
+
++
+外部IDは、クレデンシャルのオンボーディング時に一度生成され、Workload Factoryのデータベースにロール ARNとともに暗号化されて保存されます。
+
+. Workload Factory にロール ARN と外部 ID を登録します。
+
+
+
+
+[[runtime]]
+== ランタイム
+
+実行時に、Workload Factory はお客様の IAM ロールを引き受け、各 AWS API 操作に必要な短期間の認証情報を取得します。
+
+. Workload Factory がお客様のロール ARN と外部 ID を使用して `sts:AssumeRole`を呼び出します。
+. AWSは一時的な認証情報（アクセスキー、シークレットキー、セッショントークン）を返します。
+. Workload Factoryは、お客様のアカウントにおけるAWS API操作のために一時的な認証情報を使用します。
+. 認証情報は自動的に期限切れになります（デフォルトでは1時間）。
+

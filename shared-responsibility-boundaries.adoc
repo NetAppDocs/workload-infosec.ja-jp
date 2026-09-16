@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: shared-responsibility-boundaries.html 
+keywords: shared responsibility, NetApp responsibilities, AWS responsibilities, customer responsibilities, IAM roles, VPC controls, credential governance, encryption, evidence to capture 
+summary: NetApp Workload Factory のセキュリティ責任は、NetApp（SaaS運用）、AWS（クラウドインフラストラクチャおよびマネージドサービス）、およびお客様（顧客設定）の間で共有されます。 
+---
+= NetApp Workload Factoryの共同責任の境界
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory のセキュリティ責任は、NetApp （SaaS運用）、AWS （クラウドインフラストラクチャおよびマネージドサービス）、およびお客様（顧客設定）の間で共有されます。各当事者の責任範囲を理解することで、AWS環境を正しく構成し、セキュリティ上のギャップを回避することができます。これらの境界線は、NetApp が運用するもの、AWS が保護するもの、およびお客様自身が設定・維持する必要があるものを明確にします。
+
+
+
+[[netapp-responsibilities-service-side]]
+== NetAppの責任範囲（サービス側）
+
+NetAppは、Workload Factory SaaSプラットフォームの運用とセキュリティ確保を担当しています。これには、保存された構成参照と運用データのサービス側での処理が含まれます。
+
+
+
+[[aws-responsibilities-cloud-platform]]
+== AWSの責任範囲（クラウドプラットフォーム）
+
+AWS は、デプロイメントやワークフローで使用されるクラウドインフラストラクチャとマネージドサービス（例：IAM/STS、FSx for ONTAP、CloudWatch、KMS、Secrets Manager、CloudFormation、Lambda、およびネットワークプリミティブ）のセキュリティに責任を負います。
+
+
+
+[[customer-responsibilities-your-configuration]]
+== お客様の責任（お客様の設定）
+
+お客様は以下の責任を負います：
+
+* AWS IAMロール、信頼ポリシー、および最小権限のアクセス許可
+* VPCの制御（サブネット、セキュリティグループ、ルーティング、エンドポイント、およびエグレス）
+* クレデンシャル管理（ワークフローで必要な場合は ONTAP クレデンシャルを含む）
+* 暗号化とキー管理の決定（たとえば、FSx for ONTAP のオプションのカスタマー管理 KMS キー）
+* 監視、アラート、データ保持ポリシー、およびインシデント対応プロセス
+
+
+
+
+[[evidence-to-capture]]
+== 収集する証拠
+
+* IAMロールの信頼関係（外部ID条件を含む）
+* IAM権限階層の選択とポリシー成果物
+* ネットワーク境界の決定（AWS APIのみか、LambdaリンクなどのVPC実行コンポーネントか）
+* 可観測性に関する決定と保持に関する期待
+* AI有効化の決定（AI診断は、明示的に無効化されない限り、デフォルトで有効になります）
+

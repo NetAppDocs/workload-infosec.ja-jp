@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: observability-overview.html 
+keywords: observability, telemetry, Tracker, audit logging, OpenTelemetry, AI usage metering, AWS Timestream, operational records, monitoring 
+summary: 可観測性シグナルは、運用監視、トラブルシューティング、および調査をサポートするのに役立ちます。NetApp Workload Factoryにおける可観測性には、サービス動作、AIの使用状況、およびWorkload Factoryを通じて実行されたアクションを可視化するメトリクス、テレメトリ、および運用レコードが含まれます。 
+---
+= NetApp Workload Factoryの可観測性について
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+可観測性シグナルは、運用監視、トラブルシューティング、および調査をサポートします。NetApp Workload Factoryの可観測性には、サービスの動作、AIの使用状況、およびWorkload Factoryを通じて実行されるアクションを可視化するメトリクス、テレメトリ、および運用記録が含まれます。テレメトリと運用記録は、内部監視と顧客向け監査の可視性をサポートし、トラッカーは、サポート対象の運用の進捗状況、ステータス、および詳細を確認するのに役立ちます。
+
+
+
+[[telemetry-and-operational-records]]
+== テレメトリおよび運用記録
+
+Workload Factoryは、以下のテレメトリおよび運用記録タイプを使用します：
+
+* OpenTelemetry トレースは OTLP HTTP 経由で SigNoz にエクスポートされます（内部オブザーバビリティ）
+* AIの使用状況計測（トークン数、モデルコスト）はAWS Timestreamに保存されます。
+* NetApp Console監査記録（アクション名、ステータス、リクエスト／レスポンスのメタデータ、タイムスタンプ）
+
+
+
+
+[[audit-logging-in-workload-factory]]
+== Workload Factoryにおける監査ログ
+
+Workload Factoryには、監視機能であるTrackerが搭載されており、どの操作がいつ実行されているかを監視できます。Trackerを使用すると、FSx for ONTAPの進捗状況とステータス、クレデンシャル、およびリンク操作を追跡し、操作タスクとサブタスクの詳細を確認し、問題や障害を診断できます。
+
+Trackerでは、いくつかの操作が可能です。ジョブは、期間（過去24時間、7日間、14日間、または30日間）、ワークロード、ステータス、およびユーザーでフィルタリングしたり、検索機能を使用してジョブを検索したり、ジョブテーブルをCSVファイルとしてダウンロードしたりできます。
+
+* link:https://docs.netapp.com/us-en/workload-fsx-ontap/monitor-operations.html["Workload Factory の Tracker を使用して操作を監視する"^]
+
+
+
+
+[[related-information]]
+== 関連情報
+
+* link:metrics-telemetry.html["NetApp Workload Factoryのメトリクスとテレメトリ"]
+

@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: lambda-link-overview.html 
+keywords: Lambda link overview, ONTAP-native operations, VPC deployment, security architecture, NetApp Console agent, CloudFormation, container image 
+summary: NetApp Workload Factory は、VPC にデプロイされた AWS Lambda 関数である _link_ を使用して、Amazon FSx for NetApp ONTAP API がこれらの操作を公開していない場合に、ONTAP ネイティブ操作を AWS アカウント境界内に保持します。 
+---
+= NetApp Workload Factory の Lambda リンクについて
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory は、VPC にデプロイされた AWS Lambda 関数である _link_ を使用して、Amazon FSx for NetApp ONTAP API がこれらの操作を公開していない場合でも、ONTAP ネイティブ操作を AWS アカウント境界内に保持します。このリンクはお客様のサブネットとセキュリティグループ内で実行されるため、実行コンポーネントはお客様の AWS 環境内に留まります。Workload Factory は、利用可能な AWS サービス API ではなく、ONTAP への直接アクセスが必要な操作に対してのみリンクを呼び出します。リンクのアーキテクチャを、NetApp Console エージェントのセキュリティおよび運用プロファイルと比較します。
+
+
+
+[[link-security-architecture]]
+== リンクセキュリティアーキテクチャ
+
+Workload Factory リンクは、Workload Factory アカウントと 1 つ以上の FSx for ONTAP ファイルシステムとの間に信頼関係と間接的な接続を作成します。
+
+以下の表は、Lambdaリンクのセキュリティアーキテクチャの概要を示しています。この情報を使用して、AWSアカウントにおけるLambda関数のデプロイおよび実行方法（ネットワーク構成、実行環境、運用上の制限など）を理解してください。
+
+[cols="2,3"]
+|===
+| プロパティ | 詳細 
+
+
+| コンピューティング | AWS Lambda（コンテナイメージ） 
+
+
+| ランタイム | Node.js 22 
+
+
+| 導入 | CloudFormation AWS アカウントのスタック 
+
+
+| VPCの配置 | お客様のサブネット、お客様のセキュリティグループ 
+
+
+| Timeout | 呼び出しごとに10秒 
+
+
+| 呼び出し | 同期（RequestResponse） 
+
+
+| パッケージの種類 | コンテナイメージ（NetApp ECR） 
+|===
+以下の図は、Lambdaリンクのセキュリティアーキテクチャを示しています。
+
+image:infosec-link-diagram.png["Lambdaリンクのセキュリティアーキテクチャを示す図。"]
+
+
+
+[[lambda-link-versus-netapp-console-agent]]
+== Lambda link対NetApp Console agent
+
+LambdaリンクとNetApp Consoleエージェントは、異なる目的を果たし、セキュリティおよび運用上の影響もそれぞれ異なります。
+
+[cols="1,2,2"]
+|===
+| 寸法 | リンク（Lambdaベース） | NetApp コンソールエージェント（VM/Pods ベース） 
+
+
+| ランタイムモデル | サーバーレス（AWS Lambda）、顧客によるデプロイ | 顧客がデプロイしたVM/コンテナ。NetAppコンソールサービスポッドを実行します。 
+
+
+| 主な範囲 | コントロールプレーン ONTAP REST 操作（AWS API が当該操作をサポートしていない場合のみ） | データサービスのオーケストレーションとサポート 
+
+
+| データサービスサポート | データサービスは提供していません | データサービスをホストできます（NetApp コンソールサービスポッドを実行します） 
+
+
+| 運営上の諸経費 | 常時稼働のVMはありません | VMライフサイクル管理とアップグレード 
+|===
+
+
+[[related-information]]
+== 関連情報
+
+システム間の接続性マップ全体については、link:connectivity-trust-paths.html["NetApp Workload Factory の接続性と信頼パス"]を参照してください。

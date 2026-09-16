@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: ontap-execution-options.html 
+keywords: ONTAP execution options, Lambda link, NetApp Console Agent, VPC, outbound-only connectivity, network boundaries, credential boundaries, auditability, lifecycle management 
+summary: 一部のNetApp Workload Factoryのワークフローでは、AWS APIを通じて公開されていないONTAPネイティブの操作が必要です。Workload Factoryは、これらの操作をAWSアカウントの境界内に保持するための2つの実行オプションを提供しています。 
+---
+= NetApp Workload FactoryにおけるONTAPの実行オプション
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+いくつかの NetApp Workload Factory のワークフローでは、AWS API を通じて公開されていない ONTAP ネイティブの操作が必要です。Workload Factory は、これらの操作を AWS アカウントの境界内に留める 2 つの実行オプションを提供します：VPC 内から ONTAP 操作を実行する Lambda リンク、および EC2 インスタンスからの送信専用接続を使用する NetApp Console Agent です。どちらのオプションでも、ネットワーク、認証情報、ライフサイクルに関する決定事項をセキュリティモデルの範囲内に保ちながら、必要な ONTAP 操作を実行できます。
+
+
+
+[[execution-options]]
+== 実行オプション
+
+Lambdaリンク（VPC内のAWS Lambda）:: VPC内からONTAP RESTおよび読み取り専用のONTAP CLI診断を実行しますが、ONTAPを外部に公開しません。
+NetApp Console Agent（お客様のVPC内のEC2、送信専用）:: プロキシされた ONTAP 処理を実行します。エージェントが発信接続を開始し、Workload Factory がエージェントへの着信接続を開始することはありません。
+
+
+
+
+[[security-considerations]]
+== セキュリティに関する考慮事項
+
+* ネットワーク境界：必要な送信ポート（443/22）と宛先を確認してください。
+* 認証情報の境界：ONTAP 認証情報を Workload Factory に保存する（エンベロープ暗号化）か、AWS Secrets Manager から参照するかを決定します。
+* 監査可能性：コンポーネントの動作および障害に関する運用記録を確認します。
+* ライフサイクル管理：更新と削除がどのように行われるかを確認します。
+
+
+
+
+[[related-information]]
+== 関連情報
+
+* link:lambda-link-overview.html["NetApp Workload FactoryのLambdaリンクの概要"]
+* link:connectivity-trust-paths.html["NetApp Workload Factory の接続性と信頼パス"]
+* link:encryption-key-management.html["NetApp Workload Factoryの暗号化と暗号化キー管理"]
+

@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: security-model.html 
+keywords: security model, shared responsibility, IAM assume-role, STS credentials, ONTAP-native operations, VPC execution components, observability, data handling 
+summary: NetApp Workload Factoryは、お客様のAWS環境でAmazon FSx for NetApp ONTAP上で実行されるワークロードの管理と最適化を支援するSaaSコントロールプレーンです。 
+---
+= NetApp Workload Factory のセキュリティモデルについて
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factoryは、AWS環境でAmazon FSx for NetApp ONTAP上で実行されるワークロードの管理と最適化を支援するSaaSコントロールプレーンです。セキュリティの成果は、NetApp、AWS、およびお客様の組織間での責任共有によって決まります。
+
+
+
+[[high-level-security-model]]
+== 高レベルのセキュリティモデル
+
+* Workload Factoryは、IAMのassume-roleモデルを使用して、お客様のアカウント内のAWS APIを呼び出すための一時的なAWS STS認証情報を取得します。
+* ワークフローによっては、AWS API を通じて公開されていない ONTAP ネイティブの操作が必要となる場合があります。そのような操作は、お客様がデプロイした実行コンポーネント（Lambda リンクなど）を使用して、VPC 内で実行できます。
+* 観測可能性シグナル（メトリクス、テレメトリ、運用記録）は、運用監視および調査をサポートします。
+
+
+
+
+[[key-review-questions]]
+== 重要な復習問題
+
+* Workload Factoryは、お客様のAWSアカウントに対してどのようなアクセス権限（ロールの信頼＋アクセス許可）を必要としますか？
+* 想定されるワークフロー（AWS APIのみの操作、またはVPCコンポーネントを介したONTAPネイティブ操作）には、どの実行パスが適用されますか？
+* どのようなデータカテゴリ（設定/メタデータ、運用ログ/イベント、テレメトリ）が処理され、それらはどこに保存されますか？
+* どのような監視シグナルが存在し、それらの保持特性はどのようなものですか？
+
+
+
+
+[[whats-next]]
+== 次の手順
+
+* link:shared-responsibility-boundaries.html["NetApp Workload Factoryの共同責任の境界"]
+* link:connectivity-trust-paths.html["NetApp Workload Factory の接続性と信頼パス"]
+* link:least-privilege-permissions.html["NetApp Workload Factoryの最小権限のアクセス許可階層"]
+

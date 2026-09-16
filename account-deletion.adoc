@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: account-deletion.html 
+keywords: account deletion, data removal, offboarding, file system deletion, credential deletion, link deletion, notification channel deletion, IAM role deletion, Lambda link deletion, CloudWatch monitoring stack deletion 
+summary: アカウントの削除はセルフサービス操作ではありません。これは、Workload Factory サービスと AWS アカウント内のリソースの両方に関わるオフボーディングワークフローです。 
+---
+= NetApp Workload Factoryアカウントの削除
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+アカウントの削除はセルフサービス操作ではありません。これは、Workload Factory サービスとAWSアカウント内のリソースの両方が関わるオフボーディングワークフローです。クリーンアップには、Workload Factory アカウント、FSx for ONTAP ファイルシステム、認証情報、リンク、通知チャネル、および関連するIAM、AWS Lambda、Amazon CloudWatch リソースに関連するデータの安全な削除が含まれます。この操作は元に戻すことができません。
+
+Workload Factory アカウントを削除する必要がある場合は、link:get-help.adoc["NetAppサポートにお問い合わせください。"]

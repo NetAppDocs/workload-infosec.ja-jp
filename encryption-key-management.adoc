@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: encryption-key-management.html 
+keywords: encryption, key management, AWS KMS, encryption at rest, envelope encryption, FSx for ONTAP, credential protection, kms CreateGrant 
+summary: NetApp Workload Factoryは保存データの暗号化を使用し、Workload FactoryとAWSサービス全体にわたる明確なキー管理責任を定義しています。 
+---
+= NetApp Workload Factoryの暗号化と暗号化キー管理
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factoryは保存データの暗号化を使用し、Workload FactoryとAWSサービス全体にわたる明確なキー管理責任を定義しています。Amazon FSx for NetApp ONTAPファイルシステムの場合、独自のAWS KMSキーを選択するか、AWSが管理するデフォルトのキーを使用できます。また、FSx for ONTAPはそのキーを使用して暗号化操作を実行します。Workload Factoryは、保存されたONTAPクレデンシャルを保護するためにエンベロープ暗号化も使用しています。
+
+
+
+[[kms-encryption-at-rest-scope-for-fsx]]
+== FSxにおけるKMSの保存時暗号化範囲
+
+Workload Factory を使用して FSx for ONTAP ファイルシステムを作成する場合、保存データの暗号化用に独自の AWS KMS キーをオプションで指定できます。キーを指定しない場合、Workload Factory は AWS が管理するデフォルトの FSx キーを使用します。
+
+暗号化されるもの:: 基盤となる EBS ボリュームに保存されているすべてのデータは、FSx for ONTAP ファイルシステムをバックアップします（AWS FSx による保存時の暗号化）。
+鍵の所有権:: KMSキーはAWSアカウント内に存在します。
+キーの選択と使用に必要な権限:: Workload Factory には以下が必要です：
++
+--
+* `kms:DescribeKey`
+* `kms:ListKeys`
+* `kms:ListAliases`
+* `kms:CreateGrant`（FSx for ONTAP サービスがキーを使用できるようにするため）
+
+
+--
+キーアクセスパターン:: Workload Factoryは、お客様のKMSキーを使用してデータを直接暗号化または復号化することはありません。ファイルシステム作成時に、Amazon FSx for NetApp ONTAP APIにキーIDを渡します。暗号化処理はAmazon FSx for NetApp ONTAPが実行します。
+
+
+
+
+[[credential-protection-service-side-envelope-encryption]]
+== 認証情報保護（サービス側エンベロープ暗号化）
+
+Workload Factory を使用して ONTAP クレデンシャル（管理者パスワード）を保存すると、永続化する前にエンベロープ暗号化を使用して保護されます。
+
+暗号化方式:: 資格情報レコードごとに一意のデータ暗号化キー（DEK）を使用したAES-256-CBC。
+エンベロープ暗号化フロー::
++
+--
+. 認証情報ごとに固有の256ビットDEKが生成されます。
+. DEKは認証情報（パスワード）を暗号化します。
+. DEK自体はルートキーで暗号化され、暗号化された認証情報とともに保存されます。
+. 平文のDEKは保存されません。
+
+
+--
+暗号化コンテキスト:: 各データキーは、特定の認証情報レコードに暗号学的に紐付けられており、レコード間でキーが再利用されるのを防いでいます。
+代替案：AWS Secrets Manager:: サービスに暗号化されたパスワードを保存する代わりに、ONTAP 認証情報をご自身のアカウントの AWS Secrets Manager に保存できます。Workload Factory はパスワードを一切認識したり保存したりしません。Secrets Manager の ARN を Lambda リンクに渡し、Lambda が実行時にお客様の VPC 内でパスワードを取得します。
+
+
+
+NOTE: AWS Secrets Manager は、GovCloud アカウントに必要です。

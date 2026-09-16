@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: ask-me-security-architecture.html 
+keywords: Ask Me security architecture, RAG, retrieval-augmented generation, prompt injection, security classifier, domain scoping, tool-use governance, model data isolation, session-scoped context 
+summary: Ask Me は、NetApp Workload Factory に組み込まれた生成 AI 搭載アシスタントです。Amazon FSx for NetApp ONTAP および Workload Factory のトピックに関するリアルタイムの会話サポートを提供します。 
+---
+= NetApp Workload Factory の Ask Me セキュリティアーキテクチャ
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ask Me は、NetApp Workload Factory に組み込まれた生成AI搭載アシスタントです。Amazon FSx for NetApp ONTAP および Workload Factory のトピックに関するリアルタイムの会話サポートを提供します。回答は検証済みのNetAppドキュメントに基づいており、Ask Me は公開インターネットにアクセスしたり、顧客データを使用してモデルをトレーニングしたりすることはできません。複数のセキュリティ層により、悪意のあるクエリをブロックし、応答をサポート対象ドメインに限定し、ユーザー入力がシステム命令を上書きするのを防ぎます。Ask Me がツールを使用する場合、認証境界、読み取り専用クエリの強制、一時的なサンドボックス、および監査ログが、実行の制限と監視に役立ちます。
+
+Workload Factory の *管理* 設定からいつでも Ask Me を無効にできます。これにより、ユーザーアカウントのアシスタント機能が無効になります。link:https://docs.netapp.com/us-en/workload-setup-admin/manage-genai-features.html["GenAI機能の管理方法について詳しくはこちらをご覧ください。"^]
+
+
+
+[[rag-architecture-in-ask-me]]
+== Ask MeにおけるRAGアーキテクチャ
+
+Ask Meは、検索拡張生成（RAG）を使用しています。
+
+* 厳選されたナレッジベース：回答は、検証済みで公開された NetApp ドキュメントの管理されたコーパスに基づいています。
+* 検索スコアリングとフィルタリング：モデルのコンテキストには、十分に関連性の高いコンテンツのみが含まれます。
+* インターネットアクセスなし：モデルは外部コンテンツの取得、閲覧、またはスクレイピングができません。
+* 出典の明記：回答には、使用した出典資料への参照が含まれます。
+
+
+
+
+[[multi-layer-prompt-security]]
+== 多層プロンプトセキュリティ
+
+* レイヤー1：セキュリティ分類器（LLM-as-a-judge）は、悪意のあるクエリ（プロンプトインジェクション、権限昇格、データ漏洩、ソーシャルエンジニアリング、ポリシー違反）をブロックします。
++
+システムはブロックされたクエリをログに記録しますが、生成モデルはそれらを認識しません。
+
+* レイヤー2：システムプロンプトの強化により、ユーザー入力がシステム命令を上書きすることを防止します。
+* レイヤー 3：ドメインスコープにより、FSx ONTAP および Workload Factory のトピックへの応答が制限されます。
+* レイヤー4：ツール使用ガバナンスはパラメータを検証し、強化されたサンドボックス内でクエリを実行します。モデルは任意の操作を実行できません。
+
+
+
+
+[[model-data-isolation-and-privacy]]
+== モデルデータの分離とプライバシー
+
+* 顧客データに基づくモデルトレーニングは行いません。
+* リクエストレベルの分離（テナント間のデータ漏洩なし）
+* セッションスコープの会話コンテキストと限定された履歴
+* 永続的なモデルメモリはありません
+* マネージド推論インフラストラクチャ
+
+
+
+
+[[tool-use-and-agentic-security]]
+== ツールの使用とエージェントのセキュリティ
+
+* 認可スコープ付きツール（ユーザー権限の境界が適用される）
+* 厳格なツール実行タイムアウト
+* 取得したデータのための、一時的なセッションスコープのサンドボックス
+* 許可リストによる読み取り専用クエリの強制
+* 機密パラメータのスクラビングによるツール呼び出しの監査可能性
+

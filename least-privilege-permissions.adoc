@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: least-privilege-permissions.html 
+keywords: infosec, security, data handling, data retention, data collection, permissions, credentials, iam, assume role, least privilege, compliance, soc 2, govcloud, amazon bedrock, lambda, link, fsx for ontap, logging, audit, access control, onboarding, hardening 
+summary: NetApp Workload Factoryは、情報セキュリティとデータ保護の実践を重視しており、データ処理方法とアクセス要件に重点を置き、最小権限構成と潜在的なセキュリティ強化に関するガイダンスを提供しています。 
+---
+= NetApp Workload Factoryの最小権限のアクセス許可階層
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Workload Factory の IAM 権限は、最小権限の要件に合わせていつでも制限できます。例えば、特定のリソース（ARN）へのアクセスを制限したり、タグや CIDR 範囲などの IAM 条件を適用したりできます。
+
+
+
+[[tiered-permission-model]]
+== 階層型権限モデル
+
+Workload Factoryは、最小権限の原則に沿った階層型権限モデルを採用しています。AWS認証情報を追加する際に、有効にする機能レベルを選択できます。読み取り専用の検出機能から始めて、必要に応じて拡張していくことができます。
+
+Workload Factoryは、外部IDを使用してSTS経由で引き受けるAWSアカウント内のIAMロールを通じて、すべての権限を付与します。
+
+Workload Factoryは、インラインセッションポリシーを使用して、各API呼び出しの範囲をさらに詳細に指定します。
+
+Workload Factory コンソールでは、AI チャット機能 _Ask Me_ が、制限オプションを提案し、AWS に適用する更新されたポリシーを生成することで、安全に権限を調整するのに役立ちます。
+
+
+
+[[granting-permissions]]
+== 権限の付与
+
+Workload FactoryにAWS認証情報を追加する際、有効にする権限レベルを選択できます。階層はいつでも有効または無効にできます。
+
+階層は累積的です。上位の階層を有効にすると、下位のすべての階層も自動的に有効になります。
+
+
+
+[[security-controls]]
+== セキュリティ管理
+
+* 外部ID（混乱した代理の保護）
+* 操作ごとのセッションポリシー（リクエストごとの最小権限）
+* タグベースの条件（セキュリティグループの変更は Workload Factory で作成されたリソースに限定される）
+* シークレットARNスコープ（Secrets Managerへのアクセスを `FSxSecret*`に制限）
+* 実行時権限の検証（対象を絞った修復のために不足しているアクション/リソースが報告されます）
+
+
+
+
+[[permissions-documentation]]
+== 権限に関するドキュメント
+
+Workload Factory の権限に関する主な参照先は、Workload Factory のセットアップおよび管理に関するドキュメントの link:https://docs.netapp.com/us-en/workload-setup-admin/permissions-reference.html["権限リファレンス"^] です。ストレージ IAM ポリシーからアクセス許可を削除した場合の影響については、こちらの資料をご参照ください。

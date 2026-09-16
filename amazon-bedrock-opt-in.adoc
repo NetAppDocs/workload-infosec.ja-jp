@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: amazon-bedrock-opt-in.html 
+keywords: Amazon Bedrock, AI diagnostics, opt-in, inference profile, IAM permissions, Lambda link, SSH 
+summary: NetApp Workload Factory のAI診断機能は、Amazon Bedrockを使用してイベントを分析し、この機能はデフォルトで有効になっています。 
+---
+= NetApp Workload Factory AI診断向けのAmazon Bedrockのオプトイン
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload FactoryのAI診断機能は、Amazon Bedrockを使用してイベントを分析し、この機能はデフォルトで有効になっています。Workload Factoryが選択したBedrockモデルを呼び出し、診断データを収集するには、IAM権限、推論プロファイル、およびSSH機能を備えた接続済みLambdaリンクを設定する必要があります。これらのコンポーネントのいずれかが欠落している場合、またはBedrock構成が削除された場合、AI診断は利用できなくなります。
+
+AI診断はデフォルトで有効になっています。
+
+
+
+[[before-you-begin]]
+== 開始する前に
+
+* アカウントにAWS Bedrock推論プロファイルが含まれていることを確認してください。
+* 診断データ収集のために、SSH機能を備えた接続済みのLambdaリンクが必要です。
+
+
+
+
+[[steps]]
+== 手順
+
+. IAM ロールに Bedrock 権限を付与する：
++
+** `bedrock:InvokeModel`
+** `bedrock:InvokeModelWithResponseStream`
+** `bedrock:ListInferenceProfiles`
+** `bedrock:GetInferenceProfile`
+
+
+. Workload Factory の設定で、推論プロファイルの ARN を設定します。
+
+
+前提条件となる要素が一つでも欠けている場合、システムは不足している具体的な要素を報告し、AI機能は非アクティブ状態のままになります。
+
+
+
+[[disable-ai-diagnostics]]
+== AI診断を無効にする
+
+AI診断を無効にするには：
+
+* Bedrock の権限を IAM ロールから削除するか、
+* Workload Factoryの設定でBedrockの設定を削除します。
+
+
+AI診断は直ちに利用できなくなり、残留するデータ処理は発生しません。
+
+
+
+[[region-and-cross-region-inference-profiles]]
+== 地域および地域間推論プロファイル
+
+Bedrock の推論は、推論プロファイルで指定された AWS リージョンで実行されます。リージョン間推論プロファイルを使用する場合、AWS は標準的な AWS Bedrock の動作に従って、プロファイルの設定で指定された任意のリージョンにリクエストをルーティングする可能性があります。データは AWS インフラストラクチャの外部に持ち出されません。

@@ -1,0 +1,120 @@
+---
+sidebar: sidebar 
+permalink: register-support.html 
+keywords: support registration, register for support, support, nss account, add nss account 
+summary: NetAppテクニカルサポートでサポートケースを開く前に、NetApp Support SiteアカウントをWorkload Factoryに追加し、サポートへの登録を行う必要があります。 
+---
+= NetAppサポートへの登録
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetAppテクニカルサポートでサポートケースを開く前に、NetApp Support SiteアカウントをWorkload Factoryに追加し、サポートへの登録を行う必要があります。
+
+NetApp Workload Factoryおよびそのストレージ ソリューションとサービスに特化したテクニカル サポートを受けるには、サポートへの登録が必要です。サポートへの登録は、Workload Factoryとは別のWebベースのコンソールであるNetApp Consoleから行う必要があります。
+
+サポートに登録しても、クラウド プロバイダのファイルサービスに対するNetAppサポートは有効になりません。クラウド プロバイダのファイルサービス、そのインフラストラクチャ、またはそのサービスを使用するソリューションに関するテクニカルサポートについては、該当製品のWorkload Factoryドキュメントの「Getting help」を参照してください。
+
+link:https://docs.netapp.com/us-en/storage-management-fsx-ontap/start/concept-fsx-aws.html#getting-help["Amazon FSx for ONTAP"^]
+
+
+
+[[support-registration-overview]]
+== サポート登録の概要
+
+アカウントIDサポートサブスクリプションの登録（NetApp Consoleのサポートリソースページにある20桁の960xxxxxxxxxシリアル番号）は、お客様の単一のサポートサブスクリプションIDとして機能します。各NetAppアカウントレベルのサポートサブスクリプションは登録が必要です。
+
+登録することで、サポートチケットの発行や自動ケース生成などの機能を利用できるようになります。登録は、以下に説明するように NetApp Support Site （NSS） アカウントを NetApp Console に追加することで完了します。
+
+
+
+[[register-your-account-for-netapp-support]]
+== NetAppサポートにお客様のアカウントを登録します
+
+サポートに登録してサポートの利用権限を有効にするには、アカウント内の1人のユーザーが NetApp Support Site アカウントを NetApp Console のログインに関連付ける必要があります。NetApp サポートへの登録方法は、すでに NetApp Support Site （NSS）アカウントをお持ちかどうかによって異なります。
+
+
+
+[[existing-customer-with-an-nss-account]]
+=== NSSアカウントをお持ちの既存顧客
+
+NSS アカウントをお持ちの NetApp のお客様は、NetApp Console からサポートに登録するだけで済みます。
+
+.手順
+. Workload Factory コンソールの右上で、*ヘルプ＞サポート*を選択します。
++
+このオプションを選択すると、新しいブラウザタブで NetApp Console が開き、サポートダッシュボードが読み込まれます。
+
+. NetApp コンソールメニューから「管理」を選択し、次に「認証情報」を選択します。
+. 「ユーザー認証情報」を選択します。
+. 「NSS認証情報の追加」を選択し、NetApp Support Site（NSS）認証プロンプトに従ってください。
+. 登録手続きが正常に完了したことを確認するには、ヘルプアイコンを選択し、*サポート*を選択してください。
++
+「リソース」ページには、お客様のアカウントがサポート対象として登録されていることが表示されます。
+
++
+image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/screenshot-support-registration.png["アカウントのシリアル番号と緑色のチェックボックス、および「サポートに登録済み」というテキストが表示されたスクリーンショット。"]
+
++
+他のNetApp Console ユーザーが NetApp Support Site アカウントを NetApp Console ログインに関連付けていない場合、同じサポート登録ステータスは表示されません。ただし、これはお客様の NetApp アカウントがサポート対象として登録されていないことを意味するわけではありません。アカウント内の少なくとも1人のユーザーがこれらの手順を完了していれば、アカウントは登録済みです。
+
+
+
+
+
+[[existing-customer-but-no-nss-account]]
+=== 既存顧客だがNSSアカウントは持っていない
+
+既存のライセンスとシリアル番号をお持ちのNetAppの既存のお客様で、NSSアカウントをお持ちでない場合は、NSSアカウントを作成し、NetApp Consoleのログインに関連付ける必要があります。
+
+.手順
+. NetApp Support Site アカウントを作成するには、 https://mysupport.netapp.com/site/user/registration["NetApp Support Site ユーザー登録フォーム"^]
++
+.. 適切なユーザーレベルを選択してください。通常は *NetApp Customer/End User* です。
+.. シリアル番号フィールドには、上記で使用した NetApp アカウントシリアル番号（960xxxx）を必ずコピーしてください。これにより、アカウント処理が迅速化されます。
+
+
+. 新しい NSS アカウントを NetApp Console のログインに関連付けるには、<<NSSアカウントをお持ちの既存顧客>> の手順を完了してください。
+
+
+
+
+[[brand-new-to-netapp]]
+=== NetAppをご利用いただくのが初めての方へ
+
+NetAppを初めてご利用になる方で、NSSアカウントをお持ちでない場合は、以下の手順に従ってください。
+
+.手順
+. Workload Factory コンソールの右上で、*ヘルプ＞サポート*を選択します。
++
+このオプションを選択すると、新しいブラウザタブで NetApp Console が開き、サポートダッシュボードが読み込まれます。
+
+. サポートリソースページからアカウントIDのシリアル番号をご確認ください。
++
+image:https://raw.githubusercontent.com/NetAppDocs/workload-family/main/media/screenshot-serial-number.png["ヘルプメニューのスクリーンショット。「サポート」が最初のオプションとして表示されています。"]
+
+.  https://register.netapp.com["NetAppのサポート登録サイト"^]に移動し、*登録済みの NetApp のお客様ではありません*を選択します。
+. 必須項目（赤いアスタリスクが付いている項目）を入力してください。
+. 「Product Line」フィールドで「Cloud Manager」を選択し、該当する請求プロバイダーを選択してください。
+. 上記のステップ2のアカウントシリアル番号をコピーし、セキュリティチェックを完了してから、NetAppのグローバルデータプライバシーポリシーを読んだことを確認してください。
++
+この安全な取引を完了するために、ご提供いただいたメールアドレスに直ちにメールが送信されます。確認メールが数分以内に届かない場合は、迷惑メールフォルダをご確認ください。
+
+. メール本文から操作内容を確認してください。
++
+確認すると、リクエストが NetApp に送信され、NetApp Support Site アカウントを作成することをお勧めします。
+
+. NetApp Support Site アカウントを作成するには、 https://mysupport.netapp.com/site/user/registration["NetApp Support Site ユーザー登録フォーム"^]
++
+.. 適切なユーザーレベルを選択してください。通常は *NetApp Customer/End User* です。
+.. 必ず上記のアカウントシリアル番号（960xxxx）をコピーして、シリアル番号欄に入力してください。これにより、アカウント処理が迅速化されます。
+
+
+
+
+.終了後の操作
+NetApp のサポート担当者がこのプロセス中にご連絡いたします。これは新規ユーザー向けの初回のみのオンボーディング手順です。
+
+NetApp Support Site アカウントを取得したら、<<NSSアカウントをお持ちの既存顧客>>の手順を完了して、アカウントを NetApp Console ログインに関連付けてください。

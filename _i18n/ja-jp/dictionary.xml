@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blocks>
+  <block id="2b859bdd0724463bc73eb5932ed2ed66" category="summary">アカウントの削除はセルフサービス操作ではありません。これは、Workload Factory サービスと AWS アカウント内のリソースの両方に関わるオフボーディングワークフローです。</block>
+  <block id="5ff9ed8c4178ec2e9c10e6d1d3da1217" category="doc">NetApp Workload Factoryアカウントの削除</block>
+  <block id="7fde2ba3bd37d747ed35a03c577bb9d1" category="paragraph">アカウントの削除はセルフサービス操作ではありません。これは、Workload Factory サービスとAWSアカウント内のリソースの両方が関わるオフボーディングワークフローです。クリーンアップには、Workload Factory アカウント、FSx for ONTAP ファイルシステム、認証情報、リンク、通知チャネル、および関連するIAM、AWS Lambda、Amazon CloudWatch リソースに関連するデータの安全な削除が含まれます。この操作は元に戻すことができません。</block>
+  <block id="410ae14faf47c279f9bdedb5819f9a60" category="inline-link-macro">NetAppサポートにお問い合わせください。</block>
+  <block id="3f9baa755be3c9ccf5080ea27b0772b2" category="paragraph">Workload Factory アカウントを削除する必要がある場合は、<block ref="7f02e71bcfb1d0f39a81070d94f8a643" category="inline-link-macro-rx"></block></block>
+  <block id="6bbb30b8b8c8fe5560c2804da49e6af7" category="summary">NetApp Workload Factoryには、モデルへのアクセス、データ範囲、および実行時動作に対するセキュリティ制御を適用しながら、診断を加速する生成AI機能が含まれています。</block>
+  <block id="e8c4c2868ea0fa769118dd556706e4d1" category="doc">NetApp Workload FactoryにおけるAIコントロールについて説明します</block>
+  <block id="9bcb6f26ba53c54499d5f5026b646e0b" category="inline-link-macro">GenAI機能の管理方法について詳しくはこちらをご覧ください。</block>
+  <block id="fecb06443f7f948d4a2ea111e6b5f107" category="paragraph">Workload Factoryは、デフォルトでAI診断を有効にしています。Workload Factoryの「管理」設定から、生成AI機能をいつでも無効にできます。<block ref="853233ea0a21fe68ecb7e12de39d4670" category="inline-link-macro-rx"></block></block>
+  <block id="c077dab057b370330c1646eadd7f70ab" category="section-title">セキュリティ関連のAI機能の概要</block>
+  <block id="53d966acb83fbf13237edc79bfaea056" category="paragraph">Workload Factoryは現在、生成AIを以下の機能に適用しています：</block>
+  <block id="5df9c2deaf80db2928ed1cf29bfd0aea" category="list-text">Ask Me アシスタント（厳選された NetApp ドキュメントを用いた RAG、ソースに基づく回答）</block>
+  <block id="f8e5e7514e924e1f8218ff0dc23c7274" category="list-text">レイテンシ分析</block>
+  <block id="c7662117373f4644bd1a3497e82f1ce5" category="list-text">EMSイベント分析</block>
+  <block id="9b5a66520940453b03f844cb38d72d2f" category="list-text">エラーログ分析</block>
+  <block id="8be01ddbf61005f350dbf7cbdfb2d66f" category="section-title">AI診断のためのAWS Bedrockの概要</block>
+  <block id="5dd43a0cfc93fdd19830298ed84d8c44" category="paragraph">Workload Factory は、AI推論にAmazon Bedrockを使用しています。推論処理は、お客様のAWSアカウント内で、お客様が設定した認証情報と推論プロファイルに基づいて実行されます。</block>
+  <block id="30f60d67f457bb040dffde52197a54da" category="section-title">関連情報</block>
+  <block id="a7305f17c9c78120a105937788840ac9" category="inline-link-macro">NetApp Workload Factory AI診断向けのAmazon Bedrockのオプトイン</block>
+  <block id="d148b43a3ae9d5e82a59c193e49eee9e" category="list-text"><block ref="d148b43a3ae9d5e82a59c193e49eee9e" category="inline-link-macro-rx"></block></block>
+  <block id="dbe91f3531ce822c66e2f77bf0ff1200" category="inline-link-macro">NetApp Workload FactoryにおけるAIツールの境界</block>
+  <block id="c03ef281041f188eacb73ae1d18cde8d" category="list-text"><block ref="c03ef281041f188eacb73ae1d18cde8d" category="inline-link-macro-rx"></block></block>
+  <block id="4410d8f2a84d1b14222e0e159f0d9a61" category="inline-link-macro">AIモデルのパラメータとNetApp Workload Factoryの課金</block>
+  <block id="38e6bd55e31b82c14c3d9744d049ba77" category="list-text"><block ref="38e6bd55e31b82c14c3d9744d049ba77" category="inline-link-macro-rx"></block></block>
+  <block id="1c15bf90be726f196464953bbb4dc136" category="summary">NetApp Workload Factoryは、AIガバナンスに関連するモデル構成、使用範囲、および課金範囲を定義します。</block>
+  <block id="494fc894e95696554ebeb72dc8f2037a" category="paragraph">NetApp Workload Factoryは、AIガバナンスに関連するモデル構成、使用範囲、および課金範囲を定義します。設定されたモデルは決定論的なパラメータを使用し、一貫性のある分析結果をサポートするために構造化されたJSONを返します。AWSはAmazon Bedrockの推論処理費用をお客様のアカウントに請求しますが、Workload FactoryはAIの使用状況を追跡し、アカウントごとの月額コストを可視化します。これらのセクションでは、モデルのパラメータと、AIの利用に適用される制限について説明します。</block>
+  <block id="d9f2d6e495b2cb0502320b8ef3623859" category="section-title">モデルとパラメータ</block>
+  <block id="83f499a540b1323009c200d6f8cc9396" category="cell">パラメータ</block>
+  <block id="689202409e48743b914713f96d93947c" category="cell">Value</block>
+  <block id="a559b87068921eec05086ce5485e9784" category="cell">モデル</block>
+  <block id="93cb7849f8e4782ae2bfa21720c598ac" category="cell">Anthropic Claude （クロスリージョン推論プロファイルを使用）</block>
+  <block id="ee7a8e262285ed49ea1b4e4ae11525bd" category="cell">温度</block>
+  <block id="48e9fc36b204a2099ab831b365b6e5e6" category="cell">0（決定論的、ランダム性なし）</block>
+  <block id="0c4b2e159710159da14ab6848bcac93c" category="cell">最大出力トークン数</block>
+  <block id="4546199e2bcb9ae49a13edef9675fd03" category="cell">2,048</block>
+  <block id="8ac70ea8d0c793b3e8ee7af67cb91f60" category="cell">最大推論ステップ数</block>
+  <block id="342841a028831d0c3b2feae7cee698d0" category="cell">分析1件あたり15</block>
+  <block id="b1fd524d1a770d5164c7a33f8ca7cd6d" category="cell">出力形式</block>
+  <block id="7c7d74fa530af6d305077a3f4d6f814b" category="cell">構造化JSON（概要、重大度、根本原因、是正措置）</block>
+  <block id="98c6394b6621e399cd73126ff36140cd" category="section-title">請求および使用制限</block>
+  <block id="a1f52b0194ce78e15d6ef482a5321f72" category="list-text">AWS は Bedrock の推論処理費用をお客様のアカウント（お客様の推論プロファイル、お客様の認証情報）に請求します。</block>
+  <block id="771181943926b1da411e87179f0ab27f" category="list-text">Workload Factoryは、AIの使用状況を内部で追跡します。</block>
+  <block id="769d47774022d6c80c69dd93ee66d933" category="list-text">Workload Factoryは、アカウントごとの月間コストを可視化します。</block>
+  <block id="6e214930ad4c4be61200c2a216575e81" category="inline-link-macro">NetApp Workload Factoryでストレージコストを追跡する</block>
+  <block id="5196ee3fb77ce0848eae57833ca62aed" category="paragraph"><block ref="5196ee3fb77ce0848eae57833ca62aed" category="inline-link-macro-rx"></block></block>
+  <block id="e97ab6f4131f5b9ec5e45328dcb325ae" category="summary">NetApp Workload Factory は、AI 機能が AWS および ONTAP 環境とどのように連携するかについて厳格な境界を適用しているため、意図しない変更のリスクを冒すことなく、AI による診断を信頼できます。</block>
+  <block id="1c59ac37dd5834d4e80a55468a38e065" category="paragraph">NetApp Workload Factory は、AI 機能が AWS および ONTAP 環境とどのように連携するかについて厳格な境界を適用しているため、意図しない変更のリスクを負うことなく、AI による診断を信頼することができます。Amazon Bedrock は、変更コマンドをブロックし、サイズと実行によって出力を制限する読み取り専用の AWS CLI および ONTAP CLI 診断ツールを使用しており、使用されるデータはすべて一時的なものであり、NetApp Workload Factory または AWS によって保持されることはありません。</block>
+  <block id="99e36afa6e809a7a0a4694de97f43eac" category="section-title">ツールの安全制御</block>
+  <block id="d421fd439cd14456726791338b3b397e" category="cell">ツール</block>
+  <block id="fa97f6975c9b94a252d204cd22159ff4" category="cell">機能</block>
+  <block id="1c548bf536628d534b09d62e0a545943" category="cell">安全対策</block>
+  <block id="069bdc3d0a3d5b5daf28a9d6a85d6dfe" category="cell">AWS CLI（読み取り専用）</block>
+  <block id="299f207659f3c98b5c59d74487ca3f31" category="cell">読み取り専用のAWS CLIコマンド（describe、list、get）を実行する</block>
+  <block id="30ab48a36cdf117f820d3e0d6b4aad35" category="cell">すべての変更動詞（作成、削除、変更、更新、配置、削除）をブロックします。1ステップあたり最大10個のコマンド。出力は20 KBで切り捨てられます。</block>
+  <block id="cd8f980146ff8887a23ad9f4b343d055" category="cell">ONTAP CLI（読み取り専用）</block>
+  <block id="93574d2a3e4102c66ff8c1f7087506b6" category="cell">SSHを使用して読み取り専用のONTAP CLIコマンドを実行する</block>
+  <block id="ff0c011b6e2082290213b8388b19ad5d" category="cell">すべての変更動詞（削除、破壊、作成、変更、移動）をブロックします。出力は途中で途切れています。</block>
+  <block id="6668dbaebbef204707cbe35fa766a0c6" category="paragraph">エージェントは、リソースを変更、作成、または削除することはできません。観察と診断のみ実行できます。</block>
+  <block id="a00c4cab5e9d364ce369935f94fee391" category="section-title">データ保持とモデルトレーニングの境界</block>
+  <block id="9864c955d82f2ecb1f1a031b8fbd7d3e" category="paragraph">AWSのポリシーに基づき、Amazon Bedrockは、基盤モデルのトレーニングや改善のために、お客様の入力データや出力データを保存または使用することはありません。オンデマンド推論（Workload Factoryで使用）の場合、AWSはデータを一時的に処理し、レスポンスを返した後はデータを保持しません。</block>
+  <block id="9d531c975ce097da7725355ae17fb1c3" category="summary">NetApp Workload Factory のAI診断機能は、Amazon Bedrockを使用してイベントを分析し、この機能はデフォルトで有効になっています。</block>
+  <block id="ba71c1cb5d07fb91003d787902c2a3f1" category="paragraph">NetApp Workload FactoryのAI診断機能は、Amazon Bedrockを使用してイベントを分析し、この機能はデフォルトで有効になっています。Workload Factoryが選択したBedrockモデルを呼び出し、診断データを収集するには、IAM権限、推論プロファイル、およびSSH機能を備えた接続済みLambdaリンクを設定する必要があります。これらのコンポーネントのいずれかが欠落している場合、またはBedrock構成が削除された場合、AI診断は利用できなくなります。</block>
+  <block id="9dc1b11166e27edee2fda460e005866d" category="paragraph">AI診断はデフォルトで有効になっています。</block>
+  <block id="135b308ed83c53f1516b7c754566d1c4" category="section-title">開始する前に</block>
+  <block id="6b9e93ed2ca4995ed5020e829ee74872" category="list-text">アカウントにAWS Bedrock推論プロファイルが含まれていることを確認してください。</block>
+  <block id="e52c186bb2ec666bad706eac58c11684" category="list-text">診断データ収集のために、SSH機能を備えた接続済みのLambdaリンクが必要です。</block>
+  <block id="f3a29486bed19a90f2da6d007818b427" category="section-title">手順</block>
+  <block id="ed9925e33f059da661be93824fabe524" category="list-text">IAM ロールに Bedrock 権限を付与する：</block>
+  <block id="f80c2c54334d4ddca4016b89152c6684" category="list-text"><block ref="93804e96d3f417a0088c564647dd28e9" prefix="" category="inline-code"></block></block>
+  <block id="1ed1b1bc988715ea858abe38c168d87a" category="list-text"><block ref="00fe52afa6e3b9a0d389f529a2b88242" prefix="" category="inline-code"></block></block>
+  <block id="71d01806cd25e89067c25b4f03e9a607" category="list-text"><block ref="9aa5a97dfe3f7608d8ee28e7db3c4e2c" prefix="" category="inline-code"></block></block>
+  <block id="4e736cb1760a43a4bf2b5d861b6deb96" category="list-text"><block ref="fdd997ab8b4252f76acdda855bb7b890" prefix="" category="inline-code"></block></block>
+  <block id="8d2f944126aa3776530914d9cce41ac3" category="list-text">Workload Factory の設定で、推論プロファイルの ARN を設定します。</block>
+  <block id="2e46c4f22dd5fbcf4b0021f46ce46d88" category="paragraph">前提条件となる要素が一つでも欠けている場合、システムは不足している具体的な要素を報告し、AI機能は非アクティブ状態のままになります。</block>
+  <block id="e964ca39b2e842b42299bc712f166a01" category="section-title">AI診断を無効にする</block>
+  <block id="7cae80ae4bd977a217c945958096022a" category="paragraph">AI診断を無効にするには：</block>
+  <block id="961cab9afeeea01bea4a84253b010868" category="list-text">Bedrock の権限を IAM ロールから削除するか、</block>
+  <block id="0be5f97a00a16175aec818af4317ed81" category="list-text">Workload Factoryの設定でBedrockの設定を削除します。</block>
+  <block id="ed6aaceb654c5cac96be1119defd1a29" category="paragraph">AI診断は直ちに利用できなくなり、残留するデータ処理は発生しません。</block>
+  <block id="feb8c117671c9de82b7c6352b3d52cc1" category="section-title">地域および地域間推論プロファイル</block>
+  <block id="f21e73c1489ac2e57ffa406d97b2d73b" category="paragraph">Bedrock の推論は、推論プロファイルで指定された AWS リージョンで実行されます。リージョン間推論プロファイルを使用する場合、AWS は標準的な AWS Bedrock の動作に従って、プロファイルの設定で指定された任意のリージョンにリクエストをルーティングする可能性があります。データは AWS インフラストラクチャの外部に持ち出されません。</block>
+  <block id="726a9a8fb885f84a6d2dfe878f59fbe0" category="summary">NetApp Workload Factory において、Ask Me のアクセスセキュリティは、認証済みセッション、ユーザーレベルのアカウンタビリティ、および実行時操作中の保護されたシークレット情報の取り扱いに重点を置いています。</block>
+  <block id="3d618645d3498f69f5d37e67c9b379e0" category="doc">NetApp Workload Factory のアクセス制御について質問する</block>
+  <block id="dcd80fd5edfa6ead4efd9478b1c0cc95" category="paragraph">NetApp Workload Factory の Ask Me アクセスセキュリティは、認証済みセッション、ユーザーレベルの責任、および実行時操作中の保護された秘密情報の取り扱いに重点を置いています。認証制御は各セッションを検証し、操作を特定のユーザーに関連付けます。機密性の高い認証情報は、実行時に管理対象のシークレット保管庫から取得され、ログから削除されます。このサービスは、非ルートコンテナの実行や制限付き CORS 許可リストなど、インフラストラクチャ制御も適用します。</block>
+  <block id="c75f7811d70d17dbcd88e9d03752cbed" category="section-title">認証</block>
+  <block id="1cc70d8a654c4e9b5c941e389ad489cb" category="list-text">暗号化検証（オーディエンス、発行者、RS256などのアルゴリズムチェックを含む）を備えた署名付きJWT認証</block>
+  <block id="67b6862f2cf6dae107611df50c352214" category="list-text">サービス境界におけるミドルウェアによる認証</block>
+  <block id="f997fbce46729230f1ad5564b7f519e3" category="list-text">ユーザーIDスコープにより、インタラクションを特定のユーザーに帰属させることができます</block>
+  <block id="41fa2c5097cbc21e84d4106110404422" category="section-title">認証情報の保護と機密情報の取り扱い</block>
+  <block id="9f8cb2c7fbe5efb43ba2888cd4dc5f8e" category="list-text">安全な保管庫ストレージ：サービスで使用される機密性の高い認証情報は、管理されたシークレット保管庫に保存され、実行時に取得されます。アプリケーションコード、設定ファイル、またはコンテナイメージには、シークレットは一切保存されません。</block>
+  <block id="c75876bb514e678e9a12f221684262f6" category="list-text">ログのスクラビング：機密情報（認証情報、トークン、パスワード、アクセスキー、証明書）は、ログに書き込まれる前に削除されます。</block>
+  <block id="e5317fc5d3796683a4c93e248a4c5275" category="section-title">インフラストラクチャセキュリティ</block>
+  <block id="8c0bd5d5c2dcfa444a51e4e703f2a839" category="list-text">非ルートコンテナの実行</block>
+  <block id="f3d694bf7f865bf170f15710c70a99a2" category="list-text">CORSは信頼できるNetAppドメインの明示的な許可リストに制限されています</block>
+  <block id="29b544b7f9105464ed90d087fc012be3" category="summary">Workload Factoryは、Ask Meに対して複数の実行モードを提供しており、それぞれ異なるセキュリティおよびプライバシー特性を備えています。</block>
+  <block id="0bc7779ba04609f0114d1e54d6d8bd6a" category="doc">Ask Me の実行モード（NetApp Workload Factory）</block>
+  <block id="176c0c672c45c0b4a8ffa7f56e8301b8" category="paragraph">NetApp Workload Factoryは、Ask Meに対して複数の実行モードを提供しており、それぞれ異なるセキュリティおよびプライバシー特性を備えています。Ask Meがツール統合を使用する場合、例えばお客様自身のWorkload Factoryリソースにクエリを実行する場合、ツールの実行は多層的な安全対策によって制御されます。ツールによる実行は、認証されたユーザーの権限の範囲内で行われ、各操作の期間と範囲に制限が適用されます。取得されたデータは、外部からのアクセスを遮断する一時的なセッションサンドボックス内に保持され、セッションが終了すると破棄されます。独立したプロンプトとコード制御により読み取り専用のクエリが強制され、監査記録には機密値が削除されたツールアクティビティが記録されます。</block>
+  <block id="066686cff38824dd878357963f1513a2" category="section-title">ツール実行時の安全対策</block>
+  <block id="10012e9b651267c0ec9b822714cc02d4" category="list-text">認証済みユーザーの権限の範囲内で動作する、認可スコープ付きツールです。</block>
+  <block id="4cc276b05e83bdc6b175983b4378edda" category="list-text">ツールの実行タイムアウトは、長時間実行される操作を制限します。</block>
+  <block id="cb1ea3340234c342d8d94ee35c51f607" category="list-text">一時的なデータサンドボックスは、ツールによって取得されたデータをセッションスコープ内に保存し、エンジンレベルでの外部アクセス、ファイル I/O、ネットワーク呼び出し、および拡張機能の読み込みをブロックし、セッションが終了すると破棄されます。</block>
+  <block id="4a18b8cd4094d5f672b0a8dae417eb5d" category="list-text">読み取り専用クエリの強制適用は、厳格な許可リストを通じて生成されたクエリを検証します。</block>
+  <block id="d710010e0d2baa783791784e3d57d143" category="list-text">プロンプトによるセキュリティとコードによるセキュリティは、それぞれ独立して適用されます。</block>
+  <block id="872510473c7f763a017cbe86ee5ae176" category="list-text">ツール呼び出しの監査可能性ログには、ツール名、パラメータ、タイムスタンプ、および結果ステータスが記録され、機密性の高い値はスクラビングされます。</block>
+  <block id="3cd81a828d8fa1bac1b008b4c892fc23" category="section-title">出力制御</block>
+  <block id="fea2b723bd0e8247849d583b847768f7" category="list-text">トークン制限の適用</block>
+  <block id="5043a8cc5b2c5f7970099e63eeae7adc" category="list-text">分類/セキュリティ上重要な操作のための決定論的出力（温度0）</block>
+  <block id="1193cc315470e6651ba59bf15a1b680e" category="list-text">早期終了とクリーンアップ機能を備えたストリーミング配信</block>
+  <block id="84e51729284810e633d934f0d3530ddb" category="summary">NetApp Workload Factory では、Ask Me のプライバシー制御により、データ損失を制限し、セッション処理を分離し、ユーザーインタラクションのプライバシー境界を維持します。</block>
+  <block id="ab2cc103bc81d3687636957d91d9d4c7" category="doc">NetApp Workload Factoryにおける「Ask Me」のプライバシーと可用性</block>
+  <block id="0856dac79486a675def47f589855eb64" category="paragraph">NetApp Workload Factory の Ask Me プライバシー制御は、データ損失を制限し、セッション処理を分離して、ユーザーとのやり取りにおけるプライバシー境界を維持します。お客様の入力は、基盤モデルのトレーニングや改善には使用されない管理 AI サービスによって処理されます。取得された運用データは、セッション期間中、一時的なインメモリストレージに保持され、永続化または共有されることはありません。複数のクラウドリージョンにまたがるマルチモデルのフォールバックチェーンは、プライマリモデルが制限されたり利用できなくなったりした場合の可用性をサポートし、同じセキュリティ制御がフォールバックモデル全体に適用されます。</block>
+  <block id="7893c40302bea4a7c251158a7d5c0560" category="section-title">データ処理とプライバシー</block>
+  <block id="70c67cc51ddcc6fae98db335264b7e66" category="list-text">プロンプト内のユーザーデータ：管理されたAIサービスによって処理されますが、そのサービスはお客様の入力を基盤モデルのトレーニングや改善には使用しません。</block>
+  <block id="990df1a42608bc2b2f98daf2372c949c" category="list-text">ナレッジベースコンテンツ：厳選・公開されたNetAppドキュメントのみ。お客様のデータは含まれません。</block>
+  <block id="6f9e6664636f4e61aafb8a438a443823" category="list-text">運用データ：ユーザーが自身のリソースを照会した場合にのみ取得され、セッション期間中は一時的なインメモリストレージに保持され、永続化または共有されることはありません。</block>
+  <block id="bbc49b83eca8142ad967876a2a0f5d12" category="list-text">監査ログ：クエリのメタデータ（匿名化されたユーザーID、タイムスタンプ、期間）がログに記録され、機密性の高いフィールドは削除されます。</block>
+  <block id="5e255b6263c3cb5dc5faeff30dd532ca" category="list-text">フィードバックデータ：匿名化されたユーザーID以外の個人を特定できる情報ではなく、クエリIDに紐づけられて別に保存されます。</block>
+  <block id="4587c55d0b69068ae905e1c801815913" category="section-title">可用性および隔離制御</block>
+  <block id="9ba597a84273f48354e8d317f59a6d51" category="paragraph">Ask Meは、複数のクラウドリージョンにまたがるマルチモデルフォールバックチェーンを採用しています。</block>
+  <block id="2647a2a20846fca38169bcfbe422b9b2" category="paragraph">プライマリモデルがスロットリングされているか利用できない場合、システムは代替モデルにフェイルオーバーできます。</block>
+  <block id="6ffc50082367ca8f241ae15499f60a8f" category="paragraph">すべてのモデルは、同じセキュリティ管理、システムプロンプトの強化策、および隔離保証の対象となります。</block>
+  <block id="3dee54594ab631b026c7e35e2abfa494" category="summary">Ask Me は、NetApp Workload Factory に組み込まれた生成 AI 搭載アシスタントです。Amazon FSx for NetApp ONTAP および Workload Factory のトピックに関するリアルタイムの会話サポートを提供します。</block>
+  <block id="94024b6a9341753eb9da595d43050c94" category="doc">NetApp Workload Factory の Ask Me セキュリティアーキテクチャ</block>
+  <block id="58c3a153b26b04a5c316be8db2cd9894" category="paragraph">Ask Me は、NetApp Workload Factory に組み込まれた生成AI搭載アシスタントです。Amazon FSx for NetApp ONTAP および Workload Factory のトピックに関するリアルタイムの会話サポートを提供します。回答は検証済みのNetAppドキュメントに基づいており、Ask Me は公開インターネットにアクセスしたり、顧客データを使用してモデルをトレーニングしたりすることはできません。複数のセキュリティ層により、悪意のあるクエリをブロックし、応答をサポート対象ドメインに限定し、ユーザー入力がシステム命令を上書きするのを防ぎます。Ask Me がツールを使用する場合、認証境界、読み取り専用クエリの強制、一時的なサンドボックス、および監査ログが、実行の制限と監視に役立ちます。</block>
+  <block id="ff9736052d7d370e1ae69ebad07f33ce" category="paragraph">Workload Factory の *管理* 設定からいつでも Ask Me を無効にできます。これにより、ユーザーアカウントのアシスタント機能が無効になります。<block ref="853233ea0a21fe68ecb7e12de39d4670" category="inline-link-macro-rx"></block></block>
+  <block id="577bc4dc112ab4c8e8cfd8d0eb5d2555" category="section-title">Ask MeにおけるRAGアーキテクチャ</block>
+  <block id="3f6e9bab53072788746350d594a7477c" category="paragraph">Ask Meは、検索拡張生成（RAG）を使用しています。</block>
+  <block id="71c2afaad99cc83074d032f50f7c0aa9" category="list-text">厳選されたナレッジベース：回答は、検証済みで公開された NetApp ドキュメントの管理されたコーパスに基づいています。</block>
+  <block id="62f4e2a9ed32fda438dea78edd8195b1" category="list-text">検索スコアリングとフィルタリング：モデルのコンテキストには、十分に関連性の高いコンテンツのみが含まれます。</block>
+  <block id="bed822d85b12d7b58e908843396f1831" category="list-text">インターネットアクセスなし：モデルは外部コンテンツの取得、閲覧、またはスクレイピングができません。</block>
+  <block id="b57c15f3dddf9dda115cede5a25159c3" category="list-text">出典の明記：回答には、使用した出典資料への参照が含まれます。</block>
+  <block id="a5330c33254c7de8524f5af332093beb" category="section-title">多層プロンプトセキュリティ</block>
+  <block id="7914eee5de8e36104a935bc5f579ff80" category="list-text">レイヤー1：セキュリティ分類器（LLM-as-a-judge）は、悪意のあるクエリ（プロンプトインジェクション、権限昇格、データ漏洩、ソーシャルエンジニアリング、ポリシー違反）をブロックします。</block>
+  <block id="60030dd1ccbbd007fac3eb9138c6d6b8" category="paragraph">システムはブロックされたクエリをログに記録しますが、生成モデルはそれらを認識しません。</block>
+  <block id="1a677807db2508d9a4ac051ebb0768f0" category="list-text">レイヤー2：システムプロンプトの強化により、ユーザー入力がシステム命令を上書きすることを防止します。</block>
+  <block id="cd06628512deeae8de6374922492f098" category="list-text">レイヤー 3：ドメインスコープにより、FSx ONTAP および Workload Factory のトピックへの応答が制限されます。</block>
+  <block id="7122169c4ce3d9548bc6c731862439c8" category="list-text">レイヤー4：ツール使用ガバナンスはパラメータを検証し、強化されたサンドボックス内でクエリを実行します。モデルは任意の操作を実行できません。</block>
+  <block id="834723095a53fd6c3836a747278150c0" category="section-title">モデルデータの分離とプライバシー</block>
+  <block id="b314be9d9ebeb25a953d4aeb372ad8e8" category="list-text">顧客データに基づくモデルトレーニングは行いません。</block>
+  <block id="2d3a4fbfbff6299ecccaffe37805e49a" category="list-text">リクエストレベルの分離（テナント間のデータ漏洩なし）</block>
+  <block id="2cddd5749bee96ef05087d9e156ae048" category="list-text">セッションスコープの会話コンテキストと限定された履歴</block>
+  <block id="e1a684c5e3ea611e1593cd7f7e98aff0" category="list-text">永続的なモデルメモリはありません</block>
+  <block id="b26bd5f1116880b759dac4b86835199b" category="list-text">マネージド推論インフラストラクチャ</block>
+  <block id="82bf388a0c134ce533abd56ca4b81b19" category="section-title">ツールの使用とエージェントのセキュリティ</block>
+  <block id="b7c11ddb40ea8519a253c41e63aa5205" category="list-text">認可スコープ付きツール（ユーザー権限の境界が適用される）</block>
+  <block id="43bd3f99dad60cf3b504a4806e8efd85" category="list-text">厳格なツール実行タイムアウト</block>
+  <block id="f2814302f049d180ba3b82794f4bde8a" category="list-text">取得したデータのための、一時的なセッションスコープのサンドボックス</block>
+  <block id="7063379399c7234cf2a4a22caafffd10" category="list-text">許可リストによる読み取り専用クエリの強制</block>
+  <block id="6ceab7740d1de6752dfd5477ffa1324a" category="list-text">機密パラメータのスクラビングによるツール呼び出しの監査可能性</block>
+  <block id="ab1f4185efcb5bbc4a214ec19d6cec54" category="summary">Workload Factory は AWS sts AssumeRole を使用して AWS アカウントの一時的な認証情報を取得するため、長期的な AWS アクセスキーはサービスによって保存されません。</block>
+  <block id="9ee176a641628479b814c7b6505dd012" category="doc">AWS アカウントと NetApp Workload Factory の統合</block>
+  <block id="e02c505f6e0ac7acc608da217d247668" category="paragraph">Workload FactoryはAWS<block ref="60cfe31830d467874bb430da1683504e" prefix=" " category="inline-code"></block>を使用してAWSアカウントの一時的な認証情報を取得するため、長期的なAWSアクセスキーはサービスによって保存されません。オンボーディング時に、承認されたAWS API操作に対してWorkload Factoryが引き受けることができるIAMロールを設定します。この際、不正なクロスアカウントアクセスを防止するために、外部IDを使用します。Workload Factoryは、実行時に生成された有効期限の短い認証情報を使用します。この認証情報は、AWSによって各セッション終了後に自動的に期限切れとなります。</block>
+  <block id="0c0a16a32f49497826e028a8b6b9f599" category="section-title">AWSアカウントの設定</block>
+  <block id="78835ee24522289d341130fb462c9a92" category="paragraph">Workload Factory が AWS アカウントにアクセスできるようにするには：</block>
+  <block id="c4a7461079c708a80600df48eb4848b6" category="list-text">AWS アカウントに IAM ロールをデプロイします（CloudFormation または手動で）。</block>
+  <block id="c47ea185adaafb616a13323425ebdc62" category="list-text">ロールの信頼ポリシーで、外部IDによってゲートされた上で、Workload Factory のサービスプリンシパルがそのロールを引き受けることができるようにしてください。</block>
+  <block id="0e553e6ebc436676db40a8ec7f3401e3" category="list-text">お客様と Workload Factory の間でのみ共有される一意の秘密識別子（UUID v4）として外部 ID を使用します。</block>
+  <block id="dab52193c0b7c96f8de0abae60f44f02" category="paragraph">IAMロールの信頼ポリシーに条件として組み込む<block ref="527e02a980144079bed759572965ad4d" prefix="(" category="inline-code"></block>）。</block>
+  <block id="480d88e8a83656a3c985ca1a2daa8503" category="inline-link-macro">第三者が所有するAWSアカウントへのアクセス</block>
+  <block id="9244f4828a0e324379c40dc6922f1438" category="paragraph">外部IDは、混乱した代理人による攻撃を防ぎます。クロスアカウントアクセスモデルでは、攻撃者がお客様のロールARNを発見したとしても、対応する外部IDも所持していなければ、そのロールを引き受けることはできません。AWSは、サードパーティのクロスアカウントアクセスにはこのパターンを推奨しています。詳細については、AWS IAMのドキュメントページ<block ref="2c76028f2b337dbbc4926ab3a4b72246" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="1cc4e80bf3d683ba0c17a5f883d61e1d" category="paragraph">外部IDは、クレデンシャルのオンボーディング時に一度生成され、Workload Factoryのデータベースにロール ARNとともに暗号化されて保存されます。</block>
+  <block id="53596345adb986d3efd38de411c6622d" category="list-text">Workload Factory にロール ARN と外部 ID を登録します。</block>
+  <block id="bc366f2d0ba3d681e7a3899917c5d3de" category="section-title">ランタイム</block>
+  <block id="fecc61dc968737f49adcc9da1d230b37" category="paragraph">実行時に、Workload Factory はお客様の IAM ロールを引き受け、各 AWS API 操作に必要な短期間の認証情報を取得します。</block>
+  <block id="d06efa837f099cb67d03c9c8456d7185" category="list-text">Workload Factory がお客様のロール ARN と外部 ID を使用して<block ref="60cfe31830d467874bb430da1683504e" prefix=" " category="inline-code"></block>を呼び出します。</block>
+  <block id="a9861e24343346cefc9f830bf263cf54" category="list-text">AWSは一時的な認証情報（アクセスキー、シークレットキー、セッショントークン）を返します。</block>
+  <block id="1e1e222f383e069dc246730cecaa1214" category="list-text">Workload Factoryは、お客様のアカウントにおけるAWS API操作のために一時的な認証情報を使用します。</block>
+  <block id="597b9b5592f84d1d919062ea85bd5626" category="list-text">認証情報は自動的に期限切れになります（デフォルトでは1時間）。</block>
+  <block id="14e4912a8a586505d94c971d1bbacaf7" category="summary">AWS 認証情報フローでは、NetApp Workload Factory がオンボーディングおよび実行時操作中に、ロール識別子、外部 ID、および有効期限の短い AWS STS 認証情報をどのように処理するかについて説明します。</block>
+  <block id="ff6863b54000efd45e784f2fcde7a378" category="doc">AWS認証情報が NetApp Workload Factory を経由してどのように流れるか</block>
+  <block id="e2755506152c1befe07b6549cacb488a" category="paragraph">AWS 認証情報フローでは、NetApp Workload Factory は、オンボーディングおよび実行時操作中に、ロール識別子、外部 ID、および有効期限の短い AWS STS 認証情報を処理します。初回セットアップ時に、AWS アカウントに IAM ロールを作成し、Workload Factory のサービスプリンシパルと正しい外部 ID を必要とする信頼ポリシーを設定します。実行時、Workload Factory は保存されたロール ARN と外部 ID を使用して、リクエストごとのセッションポリシーによってスコープが設定された一時的な認証情報を要求し、キャッシュされた認証情報が期限切れになるまで再利用します。</block>
+  <block id="19ecd0e6c9086587f816b66d648b47a0" category="section-title">一度限りの設定</block>
+  <block id="c936ac94240f4645f36732d7fb10d2fd" category="paragraph">初回設定の場合、手順は以下のとおりです。</block>
+  <block id="fe67198c1e61538ba905b539fd8365e2" category="list-text">AWSアカウントでCloudFormationスタックを起動するか、IAMロールを手動で作成します。</block>
+  <block id="1ba365e306fd4fa2e5f0b295b879e929" category="list-text">IAMロール信頼ポリシーでは、次の2つの条件が指定されています：</block>
+  <block id="4461fa81f59d85d9924c88c7fb7e00ac" category="list-text">Workload Factory のサービスプリンシパルのみがこれを引き受けることができます。</block>
+  <block id="3188da71d8ac17967ea36eb802da03b8" category="list-text">発信者は正しい外部IDを提示する必要があります。</block>
+  <block id="8d7ca58b12ae38bbb1942760b031d1d0" category="list-text">Workload Factoryは、ロールARNと外部ID（暗号化済み）をデータベースに保存します。</block>
+  <block id="fa3de990b5bcccf151926839424e09f2" category="section-title">実行時（すべてのAPI操作）</block>
+  <block id="294ce8b7d63bd1401a67312d0a505fa7" category="paragraph">実行時、Workload Factory は保存されたロール ARN と外部 ID を使用して、各 API 操作の一時的な AWS STS 認証情報を取得します。流れは次のとおりです：</block>
+  <block id="10b56ad2521ef13efb640687235e47f1" category="list-text">Workload Factoryは、MySQLから保存されているロールARNと外部IDを取得します。</block>
+  <block id="9e710733e20056d09fcd47395661b9e6" category="list-text">この機能は、Redisにキャッシュされた、このロール用の一時的なAWS STS認証情報セットを確認します。</block>
+  <block id="e3b8d472293eec41e076ebabdfbcc8a1" category="list-text">キャッシュミスが発生すると、Workload Factory は<block ref="60cfe31830d467874bb430da1683504e" prefix=" " category="inline-code"></block>をロール ARN と外部 ID を使用して呼び出します。この呼び出しには、リクエストごとに適用されるインラインセッションポリシーが含まれており、その操作に必要な特定の AWS アクションのみに権限を制限します。</block>
+  <block id="53ec05b6f2d9b229782f2b6125e01735" category="list-text">AWS STSは、有効期限タイムスタンプ付きの一時的な認証情報（アクセスキーID、シークレットアクセスキー、セッショントークン）を返します。</block>
+  <block id="1e90c36cf67ae2cb0157b04801355f96" category="list-text">Workload Factoryはこれらの認証情報をRedisにキャッシュし、それらを使用して対象のAWS APIを呼び出します。</block>
+  <block id="02d70cc371a9167688107fc1a6d13f09" category="list-text">キャッシュ ヒット時、Workload Factory はSTS呼び出しをスキップし、キャッシュされた認証情報を直接使用します。</block>
+  <block id="cb4c3e01aaf122703ac7e52a63b3d3b1" category="section-title">セッションポリシー</block>
+  <block id="6852a3c8e320698878834ab376d990c2" category="paragraph">各STS呼び出しには、必要最小限のAWSアクションに限定されたインラインセッションポリシーが含まれています。</block>
+  <block id="e7f393434307ad9a8555a9c67321f258" category="inline-link-macro">最小権限のアクセス許可階層</block>
+  <block id="cbb5e9804027df0b96e7fe02b879a62c" category="list-text"><block ref="cbb5e9804027df0b96e7fe02b879a62c" category="inline-link-macro-rx"></block></block>
+  <block id="fc837fc5e6e014ebc97c4593d87fb98f" category="summary">CloudWatchの監視権限はNetApp Workload Factoryではオプションであり、別の監視スタックをデプロイする場合にのみ適用されます。</block>
+  <block id="664f9ba53f2826e4420c8dffbb62d0d9" category="doc">Amazon CloudWatch の NetApp Workload Factory に対する監視権限</block>
+  <block id="9719a757e141d3a745b73519b80dfdb4" category="paragraph">Amazon CloudWatch の監視権限はオプションであり、NetApp Workload Factory では個別の監視スタックをデプロイする場合にのみ適用されます。監視スタックは、ファイルシステムメトリクスの収集、イベントログの公開、CloudWatch ダッシュボードとアラームの管理、および Amazon SNS を介したアラート通知の送信により、運用上の可視性を提供します。また、スタックは監視に必要な ONTAP 認証情報を取得するためのアクセスも必要とします。</block>
+  <block id="dc7dfccd96c7694a7bb6d1e2e275bcbb" category="section-title">必須のCloudWatch監視権限</block>
+  <block id="e6f8079e099bab7dc2575e253443a2e2" category="paragraph">オプションの監視スタックには、以下の権限が必要です。</block>
+  <block id="ed5dea09095f671b801bee34ea28a319" category="cell">アクセス許可</block>
+  <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">目的</block>
+  <block id="8ce8bcb12a8bdce04c2f81be55e9ba4c" category="cell">fsx:Describe* / fsx:ListTagsForResource</block>
+  <block id="f85fc6b453431db91ab150460d6d922a" category="cell">ファイルシステムのメトリクスを収集する</block>
+  <block id="2761ae92090e17b2ca52b943588b546d" category="cell">cloudwatch:PutMetricData / cloudwatch:PutDashboard / cloudwatch:PutMetricAlarm / cloudwatch:DescribeAlarms / cloudwatch:Delete*</block>
+  <block id="1a3512c5b855d05b62b6fe9909e8bfb2" category="cell">ダッシュボードとアラームを管理する</block>
+  <block id="c5e696d75d884128f5099a46bf6d21ed" category="cell">logs:CreateLogGroup / logs:CreateLogStream / logs:PutLogEvents</block>
+  <block id="9e50c3b37fb8fcf0aa6ecada4fc3a9ce" category="cell">イベントログを公開する</block>
+  <block id="79b450f031f5478d5e79ee9957707c72" category="cell">sns:Publish</block>
+  <block id="17b5cdd3c71b1f00faeb23cc4b91d700" category="cell">アラート通知を送信する</block>
+  <block id="e6b67e3118c0caaf2206ab3d3fba8d67" category="cell">secretsmanager:GetSecretValue</block>
+  <block id="598f6048863cecce556922afa8d291e4" category="cell">監視用のONTAP認証情報を取得する</block>
+  <block id="6c40d30bb1ca07be160278b9f994579a" category="summary">NetApp Workload Factoryは、コンプライアンスとセキュリティを最優先事項として構築されています。</block>
+  <block id="cc81080b6d546bec3b01cabf6f36aa2e" category="doc">NetApp Workload Factoryのコンプライアンスとセキュリティ体制</block>
+  <block id="de7642ec23585171e85481d37460d1b2" category="inline-link-macro">AWSセキュリティ機能</block>
+  <block id="35f62e923d44055320a12d6c838d458d" category="inline-link-macro">SOC2 Type 1、SOC2 Type 2、およびHIPAA準拠</block>
+  <block id="cddc0a69475707b84763a676a1727546" category="paragraph">NetApp Workload Factoryは、コンプライアンスとセキュリティを最優先事項として構築されています。Workload Factory のすべてのワークロードは、Amazon FSx for NetApp ONTAP上で実行されます。<block ref="ccc35ad3502dffbee7f06fd01d3728f9" category="inline-link-macro-rx"></block>に加えて、NetApp Workload Factoryには<block ref="e86a36a05fdd4305f4b311c13761ae3b" category="inline-link-macro-rx"></block>があります。</block>
+  <block id="5bc45c9bf327952786de480d68cc107d" category="inline-link-macro">エンタープライズアプリケーションをデプロイするためのAWSソリューション</block>
+  <block id="0441d5bf0a23a68dbdd7f9feb476efee" category="paragraph">Amazon FSx for NetApp ONTAP for NetApp Workload Factory は<block ref="eada645bedd6ca3d760173ba22baf6b0" category="inline-link-macro-rx"></block>であり、AWS Well-Architected のベストプラクティスに準拠しています。</block>
+  <block id="7983e147954dfa2e8743f23572229520" category="summary">NetApp Workload Factoryは、AWS API、お客様のAWSアカウントリソース、AWS Lambdaリンク、およびAmazon Bedrockと通信しますが、それぞれ独自のプロトコル、ポート、および認証方法を使用します。</block>
+  <block id="1920d251d691069accc22a3d1bcaba44" category="doc">NetApp Workload Factory の接続性と信頼パス</block>
+  <block id="f8fc59f0e6818f6c3db56e8dc00c8822" category="paragraph">NetApp Workload Factoryは、AWS API、お客様のAWSアカウントリソース、AWS Lambdaリンク、およびAmazon Bedrockと通信しますが、それぞれ独自のプロトコル、ポート、および認証方法を使用します。これらの接続は、AWS管理プレーン、ONTAPデータプレーン、およびLambdaリンクトラフィックを分離するグループに整理されており、信頼境界を個別に評価できます。</block>
+  <block id="9ec30f7c36c152443984edea0e6e14a7" category="section-title">接続経路</block>
+  <block id="934eedda48f3691ea5465efd3e113f2f" category="paragraph">Workload Factory は、AWS および ONTAP リソースの検出、プロビジョニング、管理においてそれぞれ特定の目的を果たす、複数の異なる接続パスを確立します。一部のパスは想定される AWS 認証情報を使用して Workload Factory 自体から開始されますが、他のパスは VPC 内で動作する Lambda リンクを経由して実行され、ONTAP 管理エンドポイントを公開せずに到達します。Amazon Bedrock へのオプションのパスは、AI による診断をサポートしており、組織がその機能を有効にした場合にのみ有効になります。</block>
+  <block id="b8a51f2bd780535b70d478986aa11589" category="paragraph">次のセクションでは、各パスについて、関連する AWS または ONTAP API、使用される認証情報または認証方法、およびパスがアクティブかどうかを決定する条件を説明します。これらのパスを理解することで、Workload Factory が必要とするネットワーク アクセスと権限、およびデータがアカウントまたは VPC の境界を越える場所を評価できます。</block>
+  <block id="2004d03d60d8b2cd77e1461c5b61565b" category="section-title">Workload Factory から AWS API へ</block>
+  <block id="59de850a29dedc0d2f42708e8e05cc74" category="paragraph">Workload Factory は<block ref="6e107a5a94df0112b15951ab1b891bfb" prefix=" " category="inline-code"></block>、<block ref="5aa5dc5dd39a96a6cc15d632e81a9e79" prefix=" " category="inline-code"></block>、<block ref="ef35f4b009bf7f09451d75684de74ccd" prefix=" " category="inline-code"></block>、<block ref="accc0694bafd8ddabcad8b6cb26a1516" prefix=" " category="inline-code"></block>、<block ref="7e0b7635b07893eb3257107ea13a1f5b" prefix=" " category="inline-code"></block>、<block ref="86b9655fc5dc5294de71caed3e1659c2" prefix=" " category="inline-code"></block>、<block ref="91ba632194abd61293c8cc67e8cdc7e2" prefix=" " category="inline-code"></block>、<block ref="a42fab80239a4985ad316ffb95a3377b" prefix=" " category="inline-code"></block>、およびEC2/VPC APIをサブネットとセキュリティグループの検出に使用します。</block>
+  <block id="d86c221fde6a9b4d41d725a4818d4f75" category="list-text">収集サービスは、約5時間ごとにスキャンを実行します。</block>
+  <block id="9aa2184f9fcc796f33e0cf4f126cf634" category="list-text">CRUD操作はオンデマンドで実行されます。</block>
+  <block id="5724df2ebd894289f5bdbbcbdea3cd15" category="list-text">すべての呼び出しは、外部IDを持つSTS が想定する一時的な認証情報を使用します。</block>
+  <block id="bccd3fac644cfc4a607107429fcceee1" category="section-title">Workload Factory からお客様の AWS アカウントリソースへ（オーケストレーションと自動化）</block>
+  <block id="46e471bcde178f2b76e1abfe67f8f181" category="paragraph">Workload Factory はAWSと連携して、リソースの通信と作成を行います。オーケストレーションと自動化は、いくつかの方法で行われます。</block>
+  <block id="e4e1db11f250481b7137a90139432b88" category="list-text">AWS CloudFormation テンプレート：Workload Factory は AWS CloudFormation テンプレートを使用して、ロールやファイルシステムなどのリソースを作成します。たとえば、ユーザーインターフェースでファイルシステムを作成すると、Workload Factory は CloudFormation を直接呼び出し、お客様の AWS アカウントにリダイレクトします。</block>
+  <block id="60ed1107d1dada0e9646b0cbb4fcb255" category="list-text">AWS API 呼び出し：Workload Factory は AWS API 呼び出し（STS<block ref="1c3820ee21e6a64fa15846545bcc066a" prefix=" " category="inline-code"></block>）を使用して、FSx for ONTAP 関連のアクティビティの API コマンドを送信します。</block>
+  <block id="a961e934a62decc83935d2d2e5fa0cb9" category="list-text">AWS Lambda：Workload Factory はCloudFormationを使用して、ONTAP と通信するリンク用の AWS Lambda 関数をデプロイします。</block>
+  <block id="e1db8e2a56ea8cf0d41f276c56ecb6f8" category="paragraph">次の図は、Workload Factory が NetApp AWS アカウントと、FSx for ONTAP ファイルシステムを持つお客様の AWS アカウントとの間の信頼関係をどのように使用するかを示しています。</block>
+  <block id="d237790c579caeb1fa9125d550e5b50c" category="inline-image-macro">Workload Factory が、NetApp AWS アカウントと FSx for ONTAP ファイルシステムを使用するお客様の AWS アカウントの間の信頼関係をどのように利用しているかを示す図。（AssumeRole）</block>
+  <block id="2e7d22b5813df99c9d9038aced922c7f" category="paragraph"><block ref="2e7d22b5813df99c9d9038aced922c7f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c18d9a133a8ed541eb29fce415a3a84b" category="list-text">Workload Factory は、AWS IAM サービスからのお客様に合わせた外部 ID を使用して、AWS STS をリクエストします<block ref="1c3820ee21e6a64fa15846545bcc066a" prefix=" " category="inline-code"></block>。</block>
+  <block id="43adaf57f3a0770da3e705c838ba62a2" category="list-text">AWS IAMサービスはロールを取得し、セッションを作成します。</block>
+  <block id="aa4616f724e40e68d3716ef9782640fb" category="list-text">Workload Factoryは、セッション権限を付与したAWS APIリクエストを発行します。</block>
+  <block id="c373ba4fa35adcb6bca182d793c4f3b6" category="list-text">Workload Factory は、FSx for ONTAP コントロールプレーンから AWS API レスポンスを受け取ります。</block>
+  <block id="4607a346e8e47e521cfb07d41a147f61" category="section-title">Lambda から ONTAP 管理エンドポイントへのリンク</block>
+  <block id="332b1f00995da68f479e8b217c104d72" category="paragraph">Lambda リンクは、お客様の VPC 内で実行され、ONTAP を外部に公開することなくプライベートサブネットへのアクセスを可能にします。リンクから ONTAP 管理エンドポイントへのすべての接続は送信専用であるため、受信接続や公開エンドポイントは必要ありません。このリンクは、Amazon FSx for NetApp ONTAP API が公開していない ONTAP ネイティブ操作にのみ使用されます。</block>
+  <block id="ece05f8e2d4972922e2fcb291dc12529" category="paragraph">Workload Factory は、ボリューム、ストレージ VM、クラスタ操作、および読み取り専用の診断データとパフォーマンスデータに対して、以下のプロトコルを使用します：</block>
+  <block id="b66ff2d3ece48d89bce3d36ed76c5f49" category="list-text">HTTPS/443（REST）</block>
+  <block id="fb32b80ba4f3e6cd22920df0d52425f5" category="list-text">SSH/22（CLI）</block>
+  <block id="a99ed38ae07ad9ed8a94e6efb071e5b8" category="section-title">AWS Secrets Manager への Lambda リンク（ONTAP 認証情報の取得）</block>
+  <block id="ed9a2ed13c5aeb621e7b0ee815e893ce" category="paragraph">ONTAP 管理者認証情報が AWS Secrets Manager に保存されている場合にのみ使用します（代替案：エンベロープ暗号化を使用して Workload Factory で暗号化された認証情報）。</block>
+  <block id="ace9144505ea6857a27aadde01578b34" category="list-text">プロキシフォワーダーは、ヘッダー内で<block ref="25e31edc72bcf3571062157f991e9de1" prefix=" " category="inline-code"></block>（Base64エンコード）を渡します。</block>
+  <block id="510c7a3c568f469b5511b5d791746cc5" category="list-text">Lambdaは実行時に<block ref="94ed9c32bf92d650a520e3998280d7af" prefix=" " category="inline-code"></block>をリンク呼び出しして、パスワードを取得します。</block>
+  <block id="cfba9eedfac50a9cabbeb1cd0ed61724" category="paragraph">これにより、パスワードはアカウントの境界内に留まり、Workload Factoryからの送信が防止されます。</block>
+  <block id="7cc4f01f9125ae6ace52544648757a6a" category="section-title">Workload Factory およびお客様コンポーネントから Amazon Bedrock （AI診断）</block>
+  <block id="9ed233c5665b4bf8f1fee486b4e095c3" category="paragraph">このパスは、AI診断が有効になっている場合にのみ使用されます。</block>
+  <block id="8eb74886680dead600f77367a6a32f6a" category="list-text">イベントアナライザーは、EMS分析およびレイテンシー診断のためにこのパスを使用します。</block>
+  <block id="7ce55a0cf5e1eb9eb7a93c26c18de122" category="list-text">Bedrockは想定される認証情報と推論プロファイルARNを使用して実行されるため、データはNetAppのアカウントに流れません。</block>
+  <block id="f7c0f9cc515ca345268126e6176ea429" category="paragraph">Bedrockに送信されるデータには、EMSイベントJSON、QoS統計、ボリューム構成、集計データ、ノード情報などが含まれます。このパスは、組織ごとに推論プロファイルが構成されている場合にのみ有効になります <block ref="79d60968532630a7b0a00dfbd03dc2a0" prefix="(" category="inline-code"></block> テーブル）。</block>
+  <block id="345134d00b30745e8c2faf3e0dbbb1ad" category="section-title">接続グループ（プロトコル、ポート、認証）</block>
+  <block id="81d1746f1ef7e0ba5475a05ab2faae31" category="section-title">グループA — AWS管理プレーンの信頼パス（想定される認証情報）</block>
+  <block id="c2cc7082a89c1ad6631a2f66af5f00c0" category="cell">接続</block>
+  <block id="888a77f5ac0748b6c8001822417df8b6" category="cell">Protocol</block>
+  <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">ポート</block>
+  <block id="02674a4ef33e11c879283629996c8ff8" category="cell">送受信方向</block>
+  <block id="632c9594449737188c71ee1c8534f893" category="cell">認証</block>
+  <block id="e8730100794872b5467c7f3b5b33cba0" category="cell">Justification</block>
+  <block id="1435bf5191023e27f6e0247733a8a2ff" category="cell">STS AssumeRole</block>
+  <block id="0e8433f9a404f1f3ba601c14b026d321" category="cell">HTTPS</block>
+  <block id="13f3cf8c531952d72e5847c4183e6910" category="cell">443</block>
+  <block id="22deca082ade85414f1df367d6f74f40" category="cell">WF → AWS STS（お客様アカウント）</block>
+  <block id="05bd4cc2777d48d996089a39b2bf1a96" category="cell">IAM認証情報 + ExternalId</block>
+  <block id="c3c6e9eea8ead32fc1107eca2f3b5cff" category="cell">一時的なクロスアカウント認証情報を取得する</block>
+  <block id="215b75cf50d25d149785877a0cdee99d" category="cell">FSx API （Describe/Create/Update/Delete）</block>
+  <block id="1784104faa2efe08ebfd46bdf81bd21e" category="cell">WF → AWS FSx エンドポイント（お客様リージョン）</block>
+  <block id="48b85158c2f518d8291b4c5edbec0b15" category="cell">STS一時認証情報</block>
+  <block id="48cb0c774af3b484586e1d944f326c26" category="cell">ファイルシステムとボリュームのライフサイクル管理</block>
+  <block id="3ff0627bd67a8e73f7e0577dcaf36ca9" category="cell">EC2/VPC API</block>
+  <block id="f147cc2c1c1c75f0d245d922e00ca14e" category="cell">WF → AWS EC2エンドポイント</block>
+  <block id="76e1f28b9ea9ca6f3a929b8934714b05" category="cell">セキュリティグループ、サブネット、およびVPCの検出</block>
+  <block id="d08e1e5c214ca079fb6edac5a0bcc4cc" category="cell">CloudFormation API</block>
+  <block id="c4488e6cd34268dfbd153847b3b05b54" category="cell">WF → AWS CFN エンドポイント</block>
+  <block id="fd8725aab834a72e787820da0786d209" category="cell">IAMロールとFSxプロビジョニングのためのスタック展開</block>
+  <block id="53f562889d47914ba6a4012a3d790ed8" category="cell">Secrets Manager GetSecretValue</block>
+  <block id="1a74af026a026acb447766806965c174" category="cell">WF → AWS Secrets Manager エンドポイント（お客様アカウント）</block>
+  <block id="407e425eb179fc3fd901ad3f84ae4efb" category="cell">ONTAP 管理者パスワードの取得（Secrets Manager に保存されている場合）</block>
+  <block id="b2d4c16b0e16c2606fb037d3b1338b89" category="cell">KMS 暗号化 / 復号</block>
+  <block id="8e80963862f59fd4f72d80d7dceda51d" category="cell">WF → AWS KMSエンドポイント</block>
+  <block id="8ce7424e8f11fdf4956fde6f8c3fa0c1" category="cell">ボリューム暗号化キー操作</block>
+  <block id="d0695a081ddb999a9f6ffb4949df5f9c" category="paragraph">すべてのAWS API呼び出しは、お客様のリージョンエンドポイントを使用し、設定によってはVPCエンドポイントを経由してルーティングすることも可能です。</block>
+  <block id="b2f384d65099250d715074232d9a5401" category="section-title">グループB — ONTAPデータプレーン</block>
+  <block id="6f3d26af5808431dfe7b8403f9426f42" category="paragraph">ONTAPデータプレーンは常に Lambda リンクを介してプロキシされます。Workload Factory サービスは ONTAP に直接接続することはありません。</block>
+  <block id="0ec641cfacd36c8e22a334135e2abdac" category="cell">ONTAP REST API</block>
+  <block id="cb2eb02735afff3074257392e93bd8d6" category="cell">リンク（顧客VPC）→ ONTAP 管理 LIF</block>
+  <block id="edf996b862da8280affd18f1d5c5fe99" category="cell">基本認証（ユーザー名/パスワード）またはSecrets Manager ARN</block>
+  <block id="0f1f9a9e38e9658619ade4a1e2759ff0" category="cell">クラスタ、ボリューム、ストレージVM構成、QoS、EMSイベント、ARPステータス</block>
+  <block id="e026e036b530166555fa06f9fea01cb6" category="cell">ONTAP SSH CLI</block>
+  <block id="765553e6c7ac8592c389acb9878a050a" category="cell">SSH</block>
+  <block id="b6d767d2f8ed5d21a44b0e5886680cb9" category="cell">22</block>
+  <block id="2dd289d7d0075e1eff0d718e46ee27aa" category="cell">パスワード認証</block>
+  <block id="2e2e0e0de0b7fef17e4a62aaab50459e" category="cell">診断コマンド（QoS統計、df、イベントログ、効率）</block>
+  <block id="d059a1aef56a182931e83c3209af931e" category="paragraph">プロキシ転送装置のルーティング戦略（優先順位）：</block>
+  <block id="b4a3d39b46cef574ddb21b2e356e0be7" category="list-text">明示的<block ref="f86acaea49af96bf23ee15da456e27fd" prefix=" " category="inline-code"></block>ヘッダー：データベースから Lambda ARN を検索する</block>
+  <block id="04658116be5c64f65b1be9fd8fb7448e" category="list-text">ターゲットID（FSx ファイルシステムID）：関連するリンクを見つける</block>
+  <block id="12f1f76b96cbaafddb282fc4b44c47b7" category="list-text">コンソールエージェントID：メッセージブローカーを経由してコンソールエージェントにルーティングします</block>
+  <block id="ecd9ebf7b001e928559f1fd3bc8a6052" category="section-title">グループC — AWS Lambdaリンク（VPC内にデプロイ済み）</block>
+  <block id="bbb58b10e7d40c0b0deb812ef9011856" category="cell">Lambda Invoke</block>
+  <block id="e4a0c6e6e08ac1cb4147af60b54c55d8" category="cell">HTTPS（AWS SDK）</block>
+  <block id="79bf968d90afe68994150bf7698f1df8" category="cell">WF → AWS Lambda API（顧客アカウント）</block>
+  <block id="a9254769a1dd76a0df73e8a71260e4a9" category="cell">IAM <block ref="f83f9c33f721f289d66ffd89e3a3ce41" prefix="(" category="inline-code"></block>）</block>
+  <block id="76cdeb60cdefc3b4c94f2cb2660fec4e" category="cell">お客様のVPC内からONTAP REST/SSHコマンドを実行する</block>
+  <block id="e3ad54e422aab7218874c1863b96090f" category="cell">Lambda → ONTAP</block>
+  <block id="2d741f7abc04423a9862bf9ae62fb088" category="cell">HTTPS + SSH</block>
+  <block id="2f31c40986e8dc0c132986cbda5d2c9d" category="cell">443つまたは22つ</block>
+  <block id="1b6a81e86895083fc926a69be35e188e" category="cell">Lambda（顧客VPC）→ ONTAP管理LIF</block>
+  <block id="db7f4c250b3ae4a01e8989aade5d09ba" category="cell">基本認証／パスワード</block>
+  <block id="9384938bfde199d4b353206639d3a0b0" category="cell">パブリックに公開せずにONTAPへのプライベートサブネットアクセス</block>
+  <block id="fc0adf9103af87ce46bc0c5898c47ca6" category="section-title">グループD — NetApp Console Agent（お客様のVPC内のEC2、送信専用）</block>
+  <block id="622827a382eeb9d54331c790d60db214" category="cell">エージェントポーリング</block>
+  <block id="9b34cad0c53b3668e6641d03697b5661" category="cell">コンソールエージェント（顧客VPC）→WFメッセージブローカー</block>
+  <block id="2dded2d9f97ac53225e4ef68c72df2f1" category="cell">ベアラートークン（occm-accessスコープ）</block>
+  <block id="dc9b5ad560d443b6cf0838e87aa25415" category="cell">保留中の ONTAP コマンドのロングポーリング（7秒タイムアウト、再接続）</block>
+  <block id="c581d9d815c200e9df3184d5174af5b6" category="cell">エージェントの対応</block>
+  <block id="25d95961a44037e555767a429cb7864e" category="cell">ベアラートークン</block>
+  <block id="08214390845cc5df8204bf7e96d9f4f9" category="cell">ONTAPコマンドの実行結果を返す（オプションでzlib圧縮）</block>
+  <block id="cf0f9c52a31e1b44fd76f48980248e43" category="cell">コンソールエージェント → ONTAP</block>
+  <block id="492fe6a6827e44fd0e6547762b4b6bd5" category="cell">コンソールエージェント（顧客VPC）→ ONTAP管理LIF</block>
+  <block id="480f741ef152272acee96ce742387aff" category="cell">プロキシ経由の ONTAP 操作を実行する</block>
+  <block id="b9444cb3dc5b83d033f6c6af1c2e1f86" category="paragraph">重要な設計：Workload Factory は、Console エージェントへのインバウンド接続を開始することはありません。作業は Redis ストリームにキューイングされ、Console エージェントがポーリング<block ref="4d65a6c19dca928e21a88ff37c0e9735" prefix=" " category="inline-code"></block>して応答<block ref="1c3043a429b07721823d6155a5b9acc9" prefix=" " category="inline-code"></block>します。</block>
+  <block id="79348c7e721a0c008afa6b95f39dc565" category="section-title">グループE — CloudFormation カスタムリソースコールバック</block>
+  <block id="40c3bbddeabbec3d59d6eda35b29a052" category="cell">CloudFormation → WF Lambda</block>
+  <block id="1eca54c93ec125f91c117e07ec64d10b" category="cell">CloudFormation（お客様）→ WF Lambda （NetApp）</block>
+  <block id="fb895963c1d44b95c209bcd153fd59b2" category="cell">JWTトークン＋参照トークン</block>
+  <block id="e0322ca439031aafda614b08583cc83f" category="cell">IAMロール作成ステータスを報告し、ロールARNを返送する</block>
+  <block id="e856e69322c7ed0ca0680e75aeb17385" category="cell">ONTAP CloudFormationリソースプロバイダー → リンク</block>
+  <block id="333771fb25aca81e54ebde0acec9cc10" category="cell">CloudFormationリソース Lambda (顧客) → リンク Lambda (顧客)</block>
+  <block id="41dff7155cc7aeb11c06434f6a450bb3" category="cell">IAM</block>
+  <block id="25a63b73aacca9172dfaceae94ff97af" category="cell">スタック操作中に ONTAP リソースを作成／更新／削除する</block>
+  <block id="555bdfb3056b97d947bb3fdd0a60b675" category="section-title">概要：VPCのネットワーク要件</block>
+  <block id="2cb05e4bb7830be982f0922fed86b4cd" category="cell">コンポーネント</block>
+  <block id="6c7e3200049198face0d2648e9d1a27d" category="cell">インバウンド</block>
+  <block id="4c32be4a0b4f48cdd593aef35fd69e44" category="cell">アウトバウンド</block>
+  <block id="36df1b975561708b246ef1801ea416e5" category="cell">FSx for ONTAP</block>
+  <block id="fac8b42eed2e54d710207bfcae1c12f6" category="cell">Link Lambdaまたはコンソールエージェントのセキュリティグループからのポート443と22</block>
+  <block id="382b0f5185773fa0f67a8ed8056c7759" category="cell">該当なし</block>
+  <block id="96694e180ec2ada52bf7f4ddb312791d" category="cell">Lambdaのリンク</block>
+  <block id="6adf97f83acf6453d4a6a4b1070f3754" category="cell">None</block>
+  <block id="ad61932eaa32879e1e1efa0ac272c785" category="cell">ポート443（ONTAP、AWS APIs）およびポート22（ONTAP SSH）</block>
+  <block id="44ab4625cea7bdb83a5e0691d3d51e55" category="cell">コンソールエージェント EC2</block>
+  <block id="bd09c091dfa886af1c9be6289a3c9134" category="cell">ポート443（WFエンドポイント、ONTAP、AWS APIs）およびポート22（ONTAP SSH）</block>
+  <block id="7e67cec0ea4d32171dc5347d7661f5d2" category="cell">VPCエンドポイント（オプション）</block>
+  <block id="6be22adf48f6d9343a5352951dfb4c69" category="cell">STS、FSx、S3、Secrets Manager、Lambda、CloudFormation</block>
+  <block id="1872703bb79282695d90f8cda83ecc06" category="paragraph">顧客VPC内のどのコンポーネントも、インバウンドのインターネットアクセスを必要としません。すべての接続は、アウトバウンド開始（コンソールエージェントのポーリング）またはAWSサービスAPIを介した呼び出し（Lambda Invoke）のいずれかです。</block>
+  <block id="f6c34d9d3d48c5b5879c227d4d6e12dc" category="summary">NetApp Workload Factoryは、有効期限の短いAWS STS認証情報、暗号化されたロールメタデータ、および保持期間の制限動作を通じて、認証情報の取り扱いを保護します。</block>
+  <block id="3b0c3383d5d61f15cdad27bf2775b98a" category="doc">AWS認証情報の保持（NetApp Workload Factory）</block>
+  <block id="a0b52584d62a1d7d7af4d3239d5da90a" category="paragraph">Workload Factoryは、有効期限の短いAWS STS認証情報、暗号化されたロールメタデータ、および保持期間を限定した動作によって、認証情報の取り扱いを保護します。認証情報モデルは、保持されるロールメタデータと、API操作に使用される一時的なAWS認証情報を分離します。一時的な認証情報は限られた期間のみキャッシュされ、AWSの規定により自動的に期限切れとなります。認証情報を削除すると、Workload Factoryはそのアカウントの新しい認証情報を取得できなくなります。また、キャッシュされた認証情報はその後まもなく期限切れとなります。</block>
+  <block id="0502b5cf725a36e1c041a01526a92234" category="section-title">主要な動作</block>
+  <block id="1d4440ce26a05dd9649a2eb43eb33d00" category="list-text">Workload Factoryは、長期的なAWSアクセスキーを保存しません。</block>
+  <block id="d06411141baae93e4d511d325cfcf320" category="paragraph">Workload Factory は、ポインタ（ロール ARN）と共有シークレット（外部 ID）のみを保存します。どちらも単独では AWS へのアクセス権を付与しません。</block>
+  <block id="0273ce2abd44ea0cf868da9524d2b5b1" category="list-text">一時的なAWS STS認証情報には、AWSによって定められた最大1時間の有効期限があります。</block>
+  <block id="0197863e4b0839b457522adb30167125" category="paragraph">Workload Factory は、新しい STS 呼び出しを強制する前に、最大 30 分間、それらを Redis にキャッシュします。</block>
+  <block id="d45b70bec369ec4ccef2172b4f94fd1e" category="list-text">キャッシュされた認証情報セットの有効期限が15分未満になると、Workload Factoryはそれを破棄し、新しい認証情報を取得します。</block>
+  <block id="0338e06f5f0fe5bf55fa157e087eb46f" category="list-text">顧客による認証情報の削除により、Workload Factory がそのアカウントにアクセスする権限は即座に失効します。</block>
+  <block id="9a24c8efbb44dfb87cda7bb90a926c59" category="paragraph">次のAssumeRole呼び出しが失敗し、キャッシュされた認証情報は数分以内に期限切れになります。</block>
+  <block id="fad8988fa9bd966996b025d9c24dbf66" category="section-title">保持および保管の概要</block>
+  <block id="f6068daa29dbb05a7ead1e3b5a48bbee" category="cell">データ</block>
+  <block id="3841f7bd4e64aaa7d347cd96086a9586" category="cell">保管場所</block>
+  <block id="5907dfa776d7446e825f07d4102d8c19" category="cell">保持期間</block>
+  <block id="b28360efbf9aa709ed13e0fdc7e88ad8" category="cell">自動期限切れ？</block>
+  <block id="1d53b2f5b5014a41f2d49e4a97babb90" category="cell">削除方法</block>
+  <block id="88c812ee1df5f6fff7cd6eeaf9c27396" category="cell">IAMロールARN + 外部ID</block>
+  <block id="d4c405864e047749f9ee7b2e5f6d9a66" category="cell">MySQL（保存時は暗号化）</block>
+  <block id="0b9a60f3ef83b3e7cba2fce93fab0a25" category="cell">無期限（お客様が明示的に削除するまで保存されます）</block>
+  <block id="bafd7322c6e97d25b6299b5d6fe8920b" category="cell">×</block>
+  <block id="f96b06354f68e652066d2cae454f333f" category="cell">顧客がUIで「認証情報を削除」をクリックする</block>
+  <block id="ae9185f4e446e982b33d0c3b9edf1f04" category="cell">一時的なAWS STS認証情報（アクセスキー＋シークレット＋セッショントークン）</block>
+  <block id="715eb1967cffaf99ff237fb87a6fa8c8" category="cell">Redis（インメモリキャッシュ）</block>
+  <block id="c035c153ae48de66f6010380d94b2c2f" category="cell">最大30分（キャッシュの有効期限）。基となるSTS認証情報は、最大1時間（AWSのデフォルト設定）有効です。キャッシュは安全マージンとして、有効期限の5分前に削除されます。</block>
+  <block id="6e6effbec912a7a4b8d5b91212bb4c58" category="cell">はい（Redis の TTL により自動的に削除されます。AWS 認証情報の有効期限は AWS によって管理されます）</block>
+  <block id="086247a9b57fde6eefee2a0c4752242d" category="cell">自動</block>
+  <block id="a6f8d02fe54d516a28587f26a6544237" category="cell">ONTAP管理者パスワード</block>
+  <block id="f6f8ff1a50d889758847f4fa56e8f275" category="cell">MySQL（KMSを使用したAES-256-CBCエンベロープ暗号化）</block>
+  <block id="e3c47f368261eb6682877685ca7eac19" category="cell">無期限（お客様が認証情報を削除するか、ファイルシステムを削除するまで保存される）</block>
+  <block id="f0f0b7c2eedc262f1af4d00cf3ad2ecf" category="cell">顧客が認証情報を削除するか、ファイルシステムの削除によってクリーンアップがトリガーされる</block>
+  <block id="a495a707f1cf261731c9b527fc225823" category="cell">復号化されたONTAPパスワード（平文）</block>
+  <block id="6fb94d64de368eebaefc11376a92ac5a" category="cell">メモリ内のみ（ディスクやキャッシュには書き込まれません）</block>
+  <block id="9aa83b2f84c624d29688c3194f41e7f4" category="cell">1回のリクエストにかかる時間（ミリ秒）</block>
+  <block id="26d7bd352f185ff7c6a9dd43caa896ca" category="cell">はい（リクエスト完了後にガベージコレクションされます）</block>
+  <block id="cf320560bda533883e94b5b7d9dc9878" category="section-title">セキュリティ管理</block>
+  <block id="c186ea202488f330bcfaaafc64c85ce4" category="list-text">外部IDは、混乱した代理攻撃を防ぎます。</block>
+  <block id="f9f189e023be339bbd33d48431556a4c" category="list-text">セッションポリシーは、リクエストごとに最小権限の原則を適用します。</block>
+  <block id="481a301175dd4247d5b9556a6374dda4" category="list-text">Workload Factory は、有効期限切れのリスクが高い期間が経過する前に、短期間有効な一時的な AWS STS 認証情報を更新します。</block>
+  <block id="eeab7c3969fdae921adb118fbf3d3f1d" category="list-text">Standard、GovCloud、および中国の環境では、リージョンとアカウントタイプの処理が異なります。</block>
+  <block id="ef60c259e73872c938221f42a2ccb690" category="list-text">Workload Factoryは、AWSの長期アクセスキーを一切保存しません。</block>
+  <block id="4626d3608ccdf498e764b541de73a548" category="list-text">Workload Factory は、IAM ロールの権限を一切変更しません。</block>
+  <block id="af4f3da4970cd851c41eec659122c5b7" category="list-text">Workload Factory は、ロールポリシーで付与された権限を超えて権限を昇格することはありません。</block>
+  <block id="e69cafbaeb332cd983cd466cf8d9d5e0" category="list-text">セッションポリシーは権限を縮小することしかできず、Workload Factory が権限を拡大することはありません。</block>
+  <block id="f154a6da0f2a341f9257f0017b75add0" category="summary">NNetApp Workload Factoryは、最小権限を維持し、ONTAP管理シークレットの漏洩リスクを軽減する認証情報処理パターンをサポートしています。</block>
+  <block id="cc06be1fbef58f121936fed2e204eb2a" category="doc">NetApp Workload Factoryの認証情報の保存オプション</block>
+  <block id="30b961c4b0e9eccb28df6abed8b42814" category="paragraph">NetApp Workload Factory は、最小権限を維持し、ONTAP 管理シークレットの露出を低減する認証情報の処理パターンをサポートします。AI を活用した診断機能は、診断エージェントがストレージ環境を変更することなく監視および診断できるように、利用可能な場合は読み取り専用の ONTAP 認証情報を使用します。Workload Factory が管理する暗号化ストレージを使用するか、AWS Secrets Manager に ONTAP パスワードを保存して Workload Factory に参照情報を提供することができます。この選択は、パスワードの保存場所、暗号化方法、および GovCloud サポートや認証情報のローテーションなどの要件の管理方法に影響します。</block>
+  <block id="a1e428bcb8f0fcd4da467f687d79332b" category="section-title">読み取り専用ONTAPアクセスモデル</block>
+  <block id="cf372876151e0497c59db8caa9ca8795" category="paragraph">イベント分析やレイテンシー診断などのAIを活用した機能では、Workload Factoryは利用可能な場合に読み取り専用のONTAP認証情報を使用します。読み取り専用の認証情報モデルにより、AI診断エージェントはストレージ環境を変更することができず、監視と診断のみを行います。</block>
+  <block id="8791c33a430986b264a8b4c3bc32a84e" category="section-title">認証情報保存オプションの比較</block>
+  <block id="2c4eed705dd3e0adf6e7194858d8dff7" category="section-title">AWS クレデンシャル</block>
+  <block id="78939fd96f284c76d571a9a3d22ef758" category="paragraph">AWS認証情報は常にIAMロールを通じて取得されます。Workload Factoryは、ロール情報を内部的に管理することも、AWS Secrets Managerから参照することもできます。</block>
+  <block id="054b4f3ea543c990f6b125f41af6ebf7" category="cell">オプション</block>
+  <block id="4ca56180e8e052a0e5eb0e7fac208e41" category="cell">何が保存されているか</block>
+  <block id="d7f2615c71a1567cc13cf3a7f7de0aea" category="cell">暗号化</block>
+  <block id="070bc13d076e31921b125cd73c84d926" category="cell">Workload Factory が管理</block>
+  <block id="20a0556d28df1507e2c212ce240c90c3" category="cell">ロールARNは秘密情報ではありません（そのまま保存されます）</block>
+  <block id="823a6e1d7fe661be55dd3af05f972b11" category="section-title">ONTAP クレデンシャル</block>
+  <block id="e73709ff72218cd920943c718b7a2ff5" category="paragraph">Workload Factory は、ONTAP 認証情報を暗号化されたストレージに内部的に管理するか、AWS Secrets Manager から参照することができます。この選択は、パスワードの保存方法、暗号化方法、およびローテーション方法に影響します。</block>
+  <block id="86a68e9c459458056330c045a41c57d0" category="inline-link-macro">ラムダリンク</block>
+  <block id="0fc01eb31152a65b65b06aca8d1f646e" category="paragraph">Workload Factory が <block ref="c27ea3a8c01bd7d77df27cfe5e3cb732" category="inline-link-macro-rx"></block> を通じて ONTAP ファイルシステム API と連携するには、ONTAP 認証情報が必要です。</block>
+  <block id="7c8da047234438ff6fdcefafe9d5972d" category="cell">パスワード（暗号化済み）</block>
+  <block id="fd7f8327e07980d08a5fe599b9d70007" category="cell">ONTAP管理者パスワード（暗号化済み）</block>
+  <block id="66202572295b92a52a1cf66db6641421" category="cell">ONTAPパスワードはAES-256エンベロープ暗号化を使用します</block>
+  <block id="7898cb92c418aeed6974ede9cb146462" category="cell">AWS Secrets Manager</block>
+  <block id="9919d79621f5578f34be0b47eeca41a5" category="cell">Secrets Manager ARN リファレンス</block>
+  <block id="34e1604282f26e4b436a72426b6f2e49" category="cell">Secrets Manager ARN</block>
+  <block id="7a43aa1893ca5ec50f552ce86c77808b" category="cell">Secrets ARN はシークレットではありません（そのまま保存されます）。AWS Secrets Manager がアカウント内のシークレットを暗号化します。</block>
+  <block id="015f8c34f52b6ef8a3361958660f5e88" category="section-title">その他の考慮事項</block>
+  <block id="c78765cb187d7e26cb0281a5350f4fde" category="list-text">GovCloud 要件</block>
+  <block id="fc34305055476598b077329368330811" category="list-text">標準のIAMロールが使用されます。ONTAP認証情報はSecrets Managerを使用する必要があります（パスワードの保存は許可されていません）。</block>
+  <block id="f1a42bd417390fc63b030a519624607a" category="list-text">回転</block>
+  <block id="442e83ed97b11c0d48e2d9535e640ed9" category="list-text">アカウント内のロールポリシーが更新されました。Workload Factory でONTAPパスワードを更新する（マネージドオプション）か、AWS Secrets Manager でパスワードをローテーションしてください。</block>
+  <block id="f3389b2a27ac62e216c0a923d7fbdbcc" category="summary">NetApp Workload Factory は、AWS コントロールプレーンの権限と直接 ONTAP 管理者アクセス権限を分離するために、分割認証情報モデルを使用しています。</block>
+  <block id="e9922b016c33bba7c9c9d84ecf29ebe5" category="doc">NetApp Workload Factoryの認証情報の種類</block>
+  <block id="beff09878665e703140b837eede1c7a6" category="paragraph">NetAppWorkload Factory は、AWS コントロールプレーンの権限と直接 ONTAP 管理者アクセスを分離するために、分割認証情報モデルを使用しています。AWS IAM ロールは、ファイルシステム管理、バックアップ管理、リソース検出などの操作のために、Workload Factory を AWS API に対して認証します。ONTAP 認証情報は、管理設定や診断を必要とする操作のために、Lambda リンクを介して ONTAP 管理エンドポイントへの直接アクセスを認証します。一部のワークフローでは、AWS API 操作と直接 ONTAP 管理タスクを組み合わせる場合に、両方の認証情報タイプが必要になります。</block>
+  <block id="565fa5e1db93c634426be4d41f1710dd" category="section-title">認証情報の種類</block>
+  <block id="9d99bc1b95915d546ee3708e10fe5161" category="paragraph">以下の表は、Workload Factoryで使用される2種類の認証情報と、それぞれの認証対象をまとめたものです。</block>
+  <block id="a99975719c36ede95f1c37579513e813" category="cell">認証情報の種類</block>
+  <block id="4a2d26d9fd7ead6ac2f9f353f67b8b1e" category="cell">認証先</block>
+  <block id="f5791a18ace280c34a57c2ee7a726d7b" category="cell">使用目的</block>
+  <block id="43341b30f0fabcf9416309f9cca12fb5" category="cell">AWS認証情報（AssumeRole）</block>
+  <block id="0dab9570ddf213c6e0fae718434ef3ba" category="cell">AWS API</block>
+  <block id="dd5f3936e73de2983ecb500b865b02de" category="cell">AWS FSxサービスAPIを経由するすべての操作</block>
+  <block id="cd8ea50a5f63ab458b3a22aa4cd48dcc" category="cell">ONTAP認証情報（管理者パスワード）</block>
+  <block id="8e317d80f529ce1d7ca46db73b54d17d" category="cell">ONTAP管理エンドポイント</block>
+  <block id="410d0e70b1edbf079a9b78970a4238d7" category="cell">直接 ONTAP REST API または CLI アクセスが必要な操作</block>
+  <block id="a7e2192ad1330d46664dfa273976aa8c" category="section-title">AWS認証情報のみを使用する操作</block>
+  <block id="1ae410e165862e7ca5a8f296e1c62fca" category="paragraph">これらの操作はAWS APIのみとやり取りし、IAMロールのみを必要とします。</block>
+  <block id="5e089350e1f2af6ed6097e31f62344a1" category="list-text">ファイルシステムの作成と削除</block>
+  <block id="76a2788635926d5e1cbf4d35efcbf110" category="list-text">ファイルシステムの容量とスループットの変化</block>
+  <block id="ddc9fa18196ccc730276667a00b659f2" category="list-text">バックアップの作成と管理</block>
+  <block id="9d99215728c3ef14ea731f7e24e62cc6" category="list-text">VPC、サブネット、およびセキュリティグループの検出</block>
+  <block id="786f29a84e083c5322cd588fbbdb2e79" category="list-text">KMSキーの列挙</block>
+  <block id="9822b0866423384a1582df70c4489c0e" category="list-text">CloudWatch メトリクスの取得</block>
+  <block id="f50c7eb48093f9eaddec2d98cb0f13a3" category="list-text">コストエクスプローラーのクエリ</block>
+  <block id="fb65541527bd19a3fd6a0585dbcb1391" category="list-text">FSx API を使用したタグ管理</block>
+  <block id="589addd8de85b5b5e23b0906b1f6e5cc" category="section-title">ONTAP認証情報のみの操作</block>
+  <block id="bed3ec9056f364e4b3e9b912033803ba" category="paragraph">これらの操作は、Lambda リンクを介して ONTAP 管理エンドポイントと直接通信し、ONTAP 管理者クレデンシャルが必要です：</block>
+  <block id="73887a7216c7862eedeafdaf79470ef1" category="list-text">ボリュームレベルのQoSポリシー設定</block>
+  <block id="639e157060f989b9087ec38832d9ff93" category="list-text">エクスポートポリシーとルールの管理</block>
+  <block id="d3c798a3ac54591ca732ef509eddbe09" category="list-text">ストレージVMプロトコル構成（NFS、CIFS、iSCSI）</block>
+  <block id="fc775abf552f5107cf58118acdca4554" category="list-text">igroupとLUNの管理</block>
+  <block id="759bc87efd1777e5afcb7f422a3db510" category="list-text">SnapMirror（レプリケーション）構成</block>
+  <block id="0f4f3b8a73497ee8f80b121c91126025" category="list-text">Snapshotポリシー管理（ONTAPレベル）</block>
+  <block id="cc35664c288da71f93905e9116fff34d" category="list-text">パフォーマンス診断（QoS統計、レイテンシの内訳）</block>
+  <block id="a6b4fd909af5d2fcde72b7c2e3a2cfdb" category="list-text">EMSイベントの取得と分析</block>
+  <block id="18e2f2ac274e1fb217141394b64a9c41" category="list-text">ランサムウェア対策保護状況の監視</block>
+  <block id="c393bc160f4e5923fa7685752ed84f61" category="list-text">FlexCache管理</block>
+  <block id="0a8a6a1ee58c6fddca9b280613ac93ac" category="list-text">ネットワークインターフェース（LIF）クエリ</block>
+  <block id="39cdb72cc6d2e3ebdf0700e691887da7" category="section-title">AWSとONTAPの両方のクレデンシャルを必要とする操作</block>
+  <block id="24f47cdbe9ddba774a7cc53e51d9032e" category="cell">ワークフロー</block>
+  <block id="e8bdf02bd1cb481bc9557c4d22266ad4" category="cell">AWS認証情報の使用目的</block>
+  <block id="2f82e6524b9401514cbbf62932cff72e" category="cell">ONTAPに使用される認証情報</block>
+  <block id="f6bd336f77d6bbbcd4b917f4fba4c7d9" category="cell">AIを活用したイベント分析</block>
+  <block id="977bd7e63b1d884a419ddeebf4afd5f5" category="cell">Bedrock の呼び出し、ファイルシステムの説明</block>
+  <block id="51052b9cf94a763b7f4c86958af6f045" category="cell">SSHを使用してEMSイベントを取得し、診断を実行する</block>
+  <block id="f43f59d4458b9306194ab73d939775d8" category="cell">ストレージVMセットアップによるファイルシステムの作成</block>
+  <block id="e86c9624181c46d2083d2e8dee7c2dfa" category="cell">ファイルシステムを作成する（AWS API）</block>
+  <block id="ac69e99e7bed81acc8545785cdb709a9" category="cell">ストレージ VM プロトコルを設定する（ONTAP REST）</block>
+  <block id="904efc62c0cd751e33561b4846f6fa42" category="cell">エクスポートポリシーによるボリューム作成</block>
+  <block id="db0b00f9d52f5ac7797006741bcf16aa" category="cell">ボリュームを作成する（AWS API）</block>
+  <block id="dacf0b194d617e3f1561ab80799219fd" category="cell">エクスポートポリシールールを設定する（ONTAP REST）</block>
+  <block id="3961fbd94fe41b05ca98e9abb78be253" category="cell">ストレージ容量管理</block>
+  <block id="00cb9ee7c3ac056df5aaeb769ec82b59" category="cell">ファイルシステムの容量を更新する（AWS API）</block>
+  <block id="f233f678066d205d60bc5cb3ebfcf93f" category="cell">アグリゲートの使用率を確認する（ONTAP SSH）</block>
+  <block id="6bed2e358e670cfa98d1b39afb879b37" category="inline-link-macro">ONTAP実行オプション</block>
+  <block id="1e796dbf2aac382810411df3b6bdb144" category="list-text"><block ref="1e796dbf2aac382810411df3b6bdb144" category="inline-link-macro-rx"></block></block>
+  <block id="6b02296fc7ee1a5b3b9fb737bdb79ade" category="inline-link-macro">Lambdaリンクの概要</block>
+  <block id="3a637c891389507f09b4ec7b6a87013d" category="list-text"><block ref="3a637c891389507f09b4ec7b6a87013d" category="inline-link-macro-rx"></block></block>
+  <block id="cbaba8a28a6d67e1ca8f691ad6cb56c9" category="summary">NetApp Workload Factoryは、サービスが処理する運用データ、各データクラスがセキュリティモデルにどのように適合するか、データがどこに保存されるか、どのくらいの期間保持されるか、そしてデータが顧客環境の外部に持ち出されるかどうかを説明するカテゴリにデータ処理を整理します。</block>
+  <block id="9bf00e1866b80ca4c74002ffeb0dc074" category="doc">NetApp Workload Factoryのデータ処理とデータレジデンシー</block>
+  <block id="028dfcf31e9eec96422b70079f977e80" category="paragraph">NetApp Workload Factoryは、サービスが処理する運用データ、各データクラスがセキュリティモデルにどのように適合するか、データがどこに保存されるか、どのくらいの期間保持されるか、そしてデータが顧客環境から外部に持ち出されるかどうかを説明するカテゴリにデータ処理を整理します。主要なデータクラスには、構成情報とメタデータ、運用ログとイベント、およびテレメトリが含まれます。保持されるデータには、FSx for ONTAP構成スナップショット、認証情報参照、AIの使用状況とコストデータ、監査記録、および短期間有効な応答キャッシュが含まれる場合があります。ストレージと処理の場所はデータタイプによって異なります。一部の情報は顧客のAWSアカウントに残りますが、その他の運用データはNetAppアカウントに保存されます。</block>
+  <block id="5566db23d46fd91cc060c15b48ecce53" category="section-title">Workload Factoryによって処理されるデータクラス</block>
+  <block id="80fa7f030dd7000ce682d92f705809d1" category="paragraph">NetApp Workload Factory は、以下のデータクラスを扱います。</block>
+  <block id="ea85cca4ee16476132db6c57669ee213" category="list-text">設定とメタデータ</block>
+  <block id="be292b22182c421b45477939fefef343" category="list-text">運用ログとイベント</block>
+  <block id="aa96a21412def0d916f43b639424f8e4" category="list-text">テレメトリー</block>
+  <block id="c39856a3026084916d0ed99e1692077f" category="section-title">Workload Factory が保持するデータクラス</block>
+  <block id="8b32b7c4f869653ee5a83a9028fe6ebd" category="paragraph">Workload Factory は以下のデータを保持します：</block>
+  <block id="280ba10bc1ac9ebbc6864d7f3be046c1" category="list-text">FSx構成スナップショット（スキャンごとに更新）</block>
+  <block id="18d323c192f98b783bbed221966e40f2" category="list-text">ONTAP認証情報参照、またはKMSエンベロープ暗号化で暗号化された認証情報（選択された認証情報モードによる）</block>
+  <block id="b5dcf21ad460fbac332b249a4e832e9e" category="list-text">EDAメトリクス</block>
+  <block id="ebc254b99fca0e4afb09548ef258dcb2" category="list-text">CloudFormation テンプレート（7日間<block ref="cfc36842a01da69c484ffdcc6782f437" prefix=" " category="inline-code"></block> ヘッダー）</block>
+  <block id="d727de0d06bec7d2b9099bd508d056ea" category="list-text">AIの利用状況とコストデータ</block>
+  <block id="59db218f773d8d5db413822cf5c7426c" category="list-text">監査記録</block>
+  <block id="956215ed6b96661f51142c0f12bd813d" category="list-text">Redis は（FSx の応答を）20 分の TTL でキャッシュします。</block>
+  <block id="23d2539ac7151e683b8105c95f1a66c7" category="section-title">情報が保管される場所</block>
+  <block id="c6368ae044df0f7bb26ed60afda5c591" category="section-title">AWSアカウント</block>
+  <block id="d207a3a124203dec0c75846dcfa10a7b" category="list-text">ONTAP管理者パスワードはAWS Secrets Managerに保存されます。</block>
+  <block id="0d38e2f79c2b365df7f3616017e1407f" category="list-text">Amazon Bedrock は、お客様の AWS アカウント内の STS が引き受けたロールを通じて、お客様の推論プロファイル ARN を使用して AI 推論（EMS 分析）を処理します。</block>
+  <block id="ac252743de820aac9183d9f76d4bed67" category="section-title">NetAppアカウント</block>
+  <block id="fa6063b1c2f2305250c0e4398ff9f643" category="list-text">FSx構成、バランスプラン、ARP構成、およびAI使用制限</block>
+  <block id="bf287b813cd334fda1fc42e415bf3dc7" category="list-text">一時的なAWS STS認証情報（Redisにキャッシュ）、レスポンスキャッシュ、ロック、およびデプロイメント状態</block>
+  <block id="f61c0a27e4ead4113f37e307fceeac09" category="list-text">CloudFormation/Terraformテンプレート、WAD構成記述子、および圧縮レポート</block>
+  <block id="9f80825b2d67b8ccab25b67e670760f5" category="list-text">AI使用状況計測とコレクターのパフォーマンス指標</block>
+  <block id="919e790bde6c7da375d06d2d8a044fef" category="list-text">EDA集計指標</block>
+  <block id="92d894d5716ae374c87da601cbacccdb" category="list-text">アクション監査証跡</block>
+  <block id="6b40fe616e882e0944d26d3ea87d304a" category="list-text">OpenTelemetry トレース</block>
+  <block id="bbd9411a6d291854c60271d3439ee880" category="section-title">地域に関する考慮事項</block>
+  <block id="abe9242cef0da471dbc68d909c9d8621" category="list-text">Amazon Bedrockサービスが利用可能なリージョンに保存されます。</block>
+  <block id="954fb89224dcaf3dd7429bab96fb407c" category="list-text">NetApp 内部は<block ref="c800b6d9163b0db7d28f86c1470a9542" prefix=" " category="inline-code"></block>および<block ref="66990c43bceabd79ab8196895199b083" prefix=" " category="inline-code"></block>で動作します。</block>
+  <block id="a92d3e715ef2a7ed211e6009563a902c" category="section-title">情報の保存期間</block>
+  <block id="73322e9e35cee6da3c337caeb533ff2d" category="paragraph">このセクションでは、保持対象となるカテゴリをまとめています。詳細な値とポリシーの動作については、リンク先のページを参照してください。</block>
+  <block id="8589dfb0bb3b523f38b239ab559e2c72" category="inline-link-macro">NetApp Workload Factoryの資格情報の保持</block>
+  <block id="0733fef15d62ccf9c261431ef42df61b" category="list-text">認証情報および一時的なAWS STS認証情報の保持：<block ref="a9a578100b37b86aeb2cd5835626afc6" category="inline-link-macro-rx"></block></block>
+  <block id="a25827110bb291fd46755a302146f425" category="inline-link-macro">メトリクスとテレメトリのリファレンス（NetApp Workload Factory）</block>
+  <block id="ff7b6d010ddfebcfc6e3fd38585677ce" category="list-text">運用指標およびテレメトリデータの保持：<block ref="fd0027182a45ff3b7d4b9d95b6132a74" category="inline-link-macro-rx"></block></block>
+  <block id="dda292edb7b8a84b69c1339c4c0e646d" category="list-text">監査記録の保持：NetApp Console の保持ポリシーによって管理されます（Workload Factory では制御されません）</block>
+  <block id="5a2452943f7e87634a32c49f7bd84c26" category="section-title">VPCからどのような情報が流出するのか</block>
+  <block id="071a0bfcf2ce46fea69a3f9c6b68aa38" category="paragraph">このセクションでは、送信データのカテゴリをまとめています。プロトコルレベルおよび機能レベルの詳細については、リンク先のページを参照してください。</block>
+  <block id="aada4803ecda33fbdba50eaa75990db0" category="section-title">Workload Factoryサービスへの管理プレーントラフィック</block>
+  <block id="329a732eb354c664b01d5b328cf2b3dc" category="paragraph">管理操作においては、FSx構成、ボリュームメタデータ、リソース識別子、および操作コマンドはHTTPS経由でWorkload Factoryサービス層に送信されます。</block>
+  <block id="3f810d26a3649952649e73f15de7fc3a" category="section-title">NetApp Console 監査サービスへの監査レコード</block>
+  <block id="86b11b03fdd00c1cdbe3af29e34d067d" category="paragraph">追跡対象となるすべての操作は、以下の情報を送信します。</block>
+  <block id="0b7816c36349fcccd699c7b0fd9d3afd" category="list-text"><block ref="caf9278667917c3aef31103d6fbe1703" prefix="" category="inline-code"></block></block>
+  <block id="55db2526c0581960f3596b52b27da887" category="list-text"><block ref="b35f75a8f71e57273061dd1a7e1c2ae5" prefix="" category="inline-code"></block></block>
+  <block id="cf9f9fbbb24544659ae4b59937ecb570" category="list-text"><block ref="9acb44549b41563697bb490144ec6258" prefix="" category="inline-code"></block></block>
+  <block id="00ccb764446d7498da09822aba3bdd4e" category="list-text"><block ref="ddbe01c861a066cc39136cbb178aaf7d" prefix="" category="inline-code"></block></block>
+  <block id="1fdf5a1a678d589d9ca7aa8789749632" category="list-text"><block ref="8e44f0089b076e18a718eb9ca3d94674" prefix="" category="inline-code"></block></block>
+  <block id="9a32d65a58550b7b8f3f756adcf02edf" category="list-text"><block ref="be579a850a97252f923168786a91703e" prefix="" category="inline-code"></block></block>
+  <block id="09ee8c1a7f266b5250eacba69484d747" category="list-text"><block ref="b08a2cadfbe48fb12bb2195a940a6784" prefix="" category="inline-code"></block></block>
+  <block id="f524c30054851604bd82fc7cff367a56" category="list-text"><block ref="705ec82ef96f67a4e58b9b0d5ed0e5ef" prefix="" category="inline-code"></block></block>
+  <block id="bcade9c0ff948ba3ee93f782d7ce8364" category="list-text"><block ref="75ba8d70e3692ba200f0e0df37b4d2ae" prefix="" category="inline-code"></block></block>
+  <block id="fc6665a8d61fbacff5523be209186adf" category="list-text"><block ref="eed79b69e88b6b19eb0f840ab8262891" prefix="" category="inline-code"></block></block>
+  <block id="b58041d95740524919a73ab4ec0670f1" category="section-title">AI分析トラフィック</block>
+  <block id="63ef8f38acf0e114ad2336eb184a5505" category="paragraph">FSx for ONTAP のAI診断のために送信される緊急管理システム（EMS）イベント、レイテンシデータ、およびエラーログは、設定済みの推論プロファイルを使用してAWSアカウント経由でAmazon Bedrockに転送されるため、このトラフィックはNetAppシステムに到達することなく、お客様の環境内に留まります。</block>
+  <block id="8a2bac91e3ae37c74dba268e2ef6915f" category="paragraph">AI分析トラフィックに関する詳細については、以下を参照してください。</block>
+  <block id="30ca66abb463fca0fd22112bf4667ff2" category="inline-link-macro">NetApp Workload FactoryのAI制御の概要</block>
+  <block id="aafd021def53891d88f564665606d572" category="list-text"><block ref="aafd021def53891d88f564665606d572" category="inline-link-macro-rx"></block></block>
+  <block id="0a0ca7728ee80f15b7af15f173e1e56e" category="inline-link-macro">Bedrock の NetApp Workload Factory AI 診断へのオプトイン</block>
+  <block id="b3ea09b77a8374fc60e5eb2669a918d6" category="list-text"><block ref="b3ea09b77a8374fc60e5eb2669a918d6" category="inline-link-macro-rx"></block></block>
+  <block id="2373e1b58a2ed340e05fba577fa94365" category="section-title">AWSサービスAPIトラフィック</block>
+  <block id="7eb8a4b8c5520978da3c0e025457d759" category="inline-link-macro">NetApp Workload Factoryの接続性と信頼パス</block>
+  <block id="af855410bc4a58d90213bfbee056d855" category="paragraph"><block ref="71ee473288a155db0dbd0d5fefa71686" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="5b9c1b2903f034b469924c617b47b67c" category="section-title">テレメトリとメトリクスの収集</block>
+  <block id="f406f0b73874e6cafd827de163156c75" category="inline-link-macro">メトリクスとテレメトリのリファレンス</block>
+  <block id="e57e2bc923995837ff538d9c024282a7" category="paragraph"><block ref="b9d4e31ca583f2187be09222de7f9453" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="48697474293da820e5a7c005448df7fa" category="section-title">構成およびメタデータ収集の範囲</block>
+  <block id="0068a0323bd6539def06d8b0fa5c57ad" category="section-title">ファイルシステムレベル</block>
+  <block id="f0dd3cec1ec6bb4658e61813fabe935c" category="list-text">ファイルシステム構成（展開タイプ Gen1/Gen2、スループット容量、ストレージ容量、ストレージタイプ）</block>
+  <block id="2f0ee28dcfcad6a8a12c9ac5f115aab6" category="list-text">優先サブネット、セキュリティグループ、VPC構成</block>
+  <block id="80ee4d109dd1f1caae1a49f62b6a3c79" category="list-text">KMS暗号化キーメタデータ</block>
+  <block id="7f4a88a55d2a158b3e00a64c6b68ae6f" category="list-text">ファイルシステムタグ</block>
+  <block id="90d5fd11904139ccdbcdada35530e0fa" category="list-text">ファイルシステムのライフサイクルステータス</block>
+  <block id="bfeaf9cab567bb7e7f3e1a174332067d" category="list-text">メンテナンスウィンドウの設定</block>
+  <block id="cd94bbed2b285afe8fe6102e61bbced9" category="section-title">ボリュームレベル（包括的）</block>
+  <block id="305c999fbe2fbfa8b16d07bfeab14cb3" category="list-text">ID と状態：ボリューム名、UUID、タイプ （rw/dp/ls）、スタイル （FlexVol/FlexGroup）、状態 （オンライン/オフライン/制限付き）、作成時間</block>
+  <block id="1956d59bfbd3088ba4a2baaeabdc000b" category="list-text">容量：合計サイズ、使用済み、利用可能、物理的に使用済み、使用率、SSD フットプリント、容量プール フットプリント、非アクティブ データ バイト/パーセント</block>
+  <block id="12e308f72cf6862315cd9ed96f225204" category="list-text">階層化：ポリシー （すべて/自動/なし/スナップショットのみ）、最低冷却日数</block>
+  <block id="9ba13ee93698fd39a84c0e67a39f243d" category="list-text">QoS：割り当てられたQoSポリシー名</block>
+  <block id="ea0f6e9564afc5dac07cfeb15db25b04" category="list-text">NAS構成：ジャンクションパス、エクスポートポリシーの割り当て、UNIXパーミッション、セキュリティスタイル（unix/ntfs/mixed）</block>
+  <block id="a16b25d52d57487eebef05811787ba8d" category="list-text">スナップショット：スナップショットの予約サイズ/割合/使用率、自動削除設定</block>
+  <block id="b59e8ed799230d3db57beeed9bfe6725" category="list-text">データ効率：圧縮タイプ／状態、重複排除、コンパクション、スペース削減</block>
+  <block id="01d53635596f8ad9f6299afa93a85e4e" category="list-text">自動サイズ調整：モード（grow/grow_shrink/off）、最小／最大サイズ、拡大／縮小しきい値</block>
+  <block id="ea523b9edeec037a21f317186b3aa0ed" category="list-text">SnapLock：タイプ（コンプライアンス/エンタープライズ/non_snaplock）、保持期間（最小/最大/デフォルト）、自動コミット期間</block>
+  <block id="20088a6d0fc4ba8f8d04b07b69646ac2" category="list-text">クローン：親ボリューム / スナップショット / ストレージ VM、FlexCloneであるか、スプリット ステータス</block>
+  <block id="090d9f7653873cc2e446f1fbc158dcb1" category="list-text">iノード/ファイル数：最大可能数、最大設定数、使用数</block>
+  <block id="219cde5b32e59e157749084e7603d6be" category="list-text">暗号化：有効/無効の状態</block>
+  <block id="b30a237b47062f46f72582ac798008f9" category="list-text">アクセス時間：atime更新の有効/無効と更新期間</block>
+  <block id="96aaa53169282f191b43594cf13d10c9" category="list-text">SnapMirror：保護ステータス、デスティネーションタイプ（クラウド/ONTAP）</block>
+  <block id="cc3343c2b7423a1c37f8801b55489add" category="list-text">FlexGroup リバランス：不均衡率、最大しきい値</block>
+  <block id="b40cc3eae64c70eb1298bab33c3eb077" category="list-text">ボリューム移動：デスティネーションアグリゲート、移動状態</block>
+  <block id="8dba558a09f6dd70879843fcb6e20902" category="list-text">FlexCacheエンドポイントタイプ：none/cache/origin</block>
+  <block id="78232bc87f587a46c8d6efd4eca900ad" category="list-text">タグ：ONTAPレベルのボリュームタグ</block>
+  <block id="d4c0272cdd163cfabd658e71a506d7af" category="section-title">スナップショットデータ</block>
+  <block id="48fef1ea10a1255f6db1a93dd1b7766d" category="list-text">スナップショット名、UUID、作成日時、有効期限</block>
+  <block id="a0516efcc065f2263cdec72234f66f5a" category="list-text">サイズ（バイト）</block>
+  <block id="81eee41fc5f53ae53fde1f2f554b0b98" category="list-text">SnapMirrorラベル</block>
+  <block id="e15a2a28325c4904f1c82e77e0362f30" category="list-text">SnapLock 有効期限とロック状態</block>
+  <block id="2b83268f011f292ffcd0044c34ee8663" category="list-text">状態（有効／無効／部分的）</block>
+  <block id="1b692c18891d951595efc9f917074ba9" category="list-text">ユーザーコメント</block>
+  <block id="e90c5d804d494501af208a17a1594ae8" category="list-text">スナップショット ポリシー：名前、有効状態、スケジュール コピー（カウント、保持期間、スケジュール名、プレフィックス、SnapMirror ラベル）</block>
+  <block id="bd4308f8ba5f92aa81fb16563206441d" category="section-title">エクスポート ポリシー</block>
+  <block id="235be3b036d762defee1e938c775ef06" category="list-text">ポリシー名、ID、関連付けられたストレージVM</block>
+  <block id="a70c3e25ae44702d8cab292471a81364" category="list-text">ルール：プロトコルリスト （NFS/CIFS/FlexCache）、クライアントのマッチパターン、読み取り専用ルール、読み取り / 書き込みルール、スーパーユーザールール、ルールインデックス/優先度</block>
+  <block id="ee1422b5d6e290df18dfcf978e3d5406" category="list-text">SUID、デバイス作成、chownモード、匿名ユーザーマッピング、NTFS UNIXセキュリティ設定</block>
+  <block id="e9e162df12af32bc52325a7d223f243b" category="section-title">S3アクセスポイント</block>
+  <block id="2f44341fac9cb3aaa4a6d5664a514ef1" category="list-text">ライフサイクル状態（利用可能／作成中／削除中／失敗／設定ミス）</block>
+  <block id="d93bd0414d4decbb2b2b727e948a15a1" category="list-text">作成日時、ARN、エイリアス、名前</block>
+  <block id="9c07439301d0e730fc14a78108195359" category="list-text">ファイル所有者ユーザーと種類（UNIX/WINDOWS）</block>
+  <block id="9bd768b301099000068db6ae5625a147" category="list-text">ネットワーク構成（インターネットアクセスとVPCアクセス、VPC ID）</block>
+  <block id="7361a183281559c3437dc1e10f08e1a2" category="list-text">AWSタグ</block>
+  <block id="37dc968fdafaf34d4746b11c74790e49" category="list-text">メタデータスキャン有効化、ジャーナリング有効化、CloudTrail ARN</block>
+  <block id="6890e4bdb0b9c4290869f51695b40541" category="section-title">ランサムウェア対策（ARP）</block>
+  <block id="556739c2e4ffe5768eead14e6e30733a" category="paragraph">Workload Factoryは、構成ステータスとイベントの詳細の両方を収集します。</block>
+  <block id="e3ed5a338aa91870c3bf5995d5b8d6fd" category="list-text">ボリュームごとの状態（有効／無効／dry_run／一時停止）</block>
+  <block id="ec44638b9ae40796b6bd010682505f98" category="list-text">攻撃される可能性（なし／低い／中程度／高い）</block>
+  <block id="9bd4c97545ee7a41521272a2ea2a4310" category="list-text">タイムスタンプ付き攻撃レポート</block>
+  <block id="e9eefcbbb416c4731b6e4204f2774b48" category="list-text">検出パラメータ：ファイル拡張子のしきい値、名前変更率の急増 %、エントロピー率の急増 %、ファイル作成 / 削除率の急増 %</block>
+  <block id="3d3b8c2b290857c7ecae49444149ff56" category="list-text">疑わしいファイル：ファイルパス、ファイル名、ファイル形式、疑わしい時刻、関連ボリューム</block>
+  <block id="cd5a3837e1ec8006d10bc8671c7bc53f" category="section-title">レプリケーション / SnapMirror</block>
+  <block id="1add1ab7b9f43f69569c0a72f307e1b0" category="list-text">リレーションシップUUID、状態、正常性ステータス</block>
+  <block id="0de40dc0da2ec628694fa942edc071de" category="list-text">ソースと宛先（ストレージVM、パス、クラスタ）</block>
+  <block id="ad969e28ca2ca61cb8385ba4664c425d" category="list-text">転送統計情報（転送バイト数、所要時間、終了時刻、状態）</block>
+  <block id="c5c000b9caddef2e96d8b292596c45b3" category="list-text">ポリシー（名前、タイプ：非同期/同期/継続的）</block>
+  <block id="7e37cf9a3f8489cdee79c6ca4b091a6a" category="list-text">スロットル設定</block>
+  <block id="70ecbeb2eea97451a3d59a4722c51fc9" category="list-text">遅延時間</block>
+  <block id="ad2fc7793e3b5f70a62c76c25c5229b6" category="list-text">異常の理由（メッセージとコード）</block>
+  <block id="54ea695e0584e00f7d97c136afa8d803" category="list-text">現在の転送エラー</block>
+  <block id="4cb91dd8573cd91819465297b1e6ea4e" category="section-title">igroup</block>
+  <block id="fbc8d259f078f29c42ae03a064aa5f68" category="list-text">名前、UUID、プロトコル（FCP/iSCSI/混合）、OSタイプ</block>
+  <block id="de128858496a0ba83813c6dbf1a182b2" category="list-text">イニシエータ（IQN/WWPN）、接続状態、最終確認時刻</block>
+  <block id="3820b97fa8822b722c7bd71859b5dd6b" category="list-text">LUNマッピング（論理ユニット番号、LUNの詳細）</block>
+  <block id="7b3c6a2d089eb1b6f8959e7e61a50c07" category="section-title">LUN</block>
+  <block id="de713001d8ffcd76acc3403b473c4d3f" category="list-text">名前、UUID、シリアル番号、OSの種類、有効状態</block>
+  <block id="a184c48d6808e36982cf0333a9c6e033" category="list-text">サイズ、使用容量、シンプロビジョニング設定</block>
+  <block id="7b10b7583cf0513528827416bdbb364c" category="list-text">場所（ボリューム、ノード、論理ユニットパス）</block>
+  <block id="7b1400db5556123f415f390a01234596" category="list-text">自動削除設定</block>
+  <block id="473dfbfaa1fe0147a2683e79f246600c" category="list-text">コンテナの状態、マッピングされた状態、読み取り専用状態</block>
+  <block id="0f7e668ff93662e5d101fdb4d6a5daf7" category="list-text">QoSポリシー</block>
+  <block id="894b687401632f32a70d809d71c5bcf5" category="list-text">パフォーマンス指標（IOPS、レイテンシ、読み取り / 書き込み / 合計別スループット）</block>
+  <block id="01777c324edecc4a479530e122ec62a3" category="list-text">整合性グループのメンバーシップ</block>
+  <block id="f24ce81f056d5acd59788df7f5ab36a1" category="section-title">FlexCache</block>
+  <block id="96fc9da10a6107f2b0bca54f2527adf0" category="list-text">元のボリューム/ストレージVM/クラスター、キャッシュサイズ、パス</block>
+  <block id="088688948761447e5026b4d760a078c6" category="list-text">ライトバック有効、DRキャッシュステータス</block>
+  <block id="f6d39e7a003fdd7c26f9cee861d14e0b" category="list-text">相対サイズ設定</block>
+  <block id="7a9c294cdd63a31ab612a74f0034b7fc" category="list-text">ディレクトリパスを事前入力する</block>
+  <block id="7729d2ed0f6230a427c9f0aae01b2ca0" category="list-text">キャッシュとオリジン間の接続状態</block>
+  <block id="fa0550db6a832cbd9782e9deb684d61b" category="section-title">ストレージVMレベル</block>
+  <block id="a2b69e4b1101ff2b26a08cc88e0ac019" category="list-text">名前、UUID、状態（実行中／停止中）、サブタイプ</block>
+  <block id="bd586d65170f401ac6cfdeff15beec79" category="list-text">有効/許可されているプロトコル（NFS、CIFS、iSCSI、FCP、NVMe、S3）</block>
+  <block id="b748ba2539622d3d57ae6a0daf0a20be" category="list-text">DNSサーバーとドメイン</block>
+  <block id="048bbe95f17ffd7de393dc4b4f4a48f9" category="list-text">名前サービススイッチの設定（passwd、group、hostsなど）</block>
+  <block id="82134d02ea7239ee72d84f019376be3c" category="list-text">IPインターフェース（名前、IPアドレス、サービス）</block>
+  <block id="9b71cdd2d3a51376864cbcb7c43b206a" category="list-text">割り当て済みアグリゲート</block>
+  <block id="5f0ca33f2460ea62edbb1294005773d1" category="list-text">ランサムウェア対策のデフォルトボリューム状態</block>
+  <block id="62c6cfa01ccd1bfca1270515cd16a869" category="list-text">スペース適用設定</block>
+  <block id="eb198e55a3d53e9dca85f82d111972e9" category="list-text">ピア関係（アプリケーション、状態、リモートクラスタ／ストレージVM）</block>
+  <block id="f1da4c6433fc3861698be29872fd7d1a" category="section-title">アグリゲート / ストレージレベル</block>
+  <block id="56328e52f2e54baa263645aa9f76cc0c" category="list-text">集約名、UUID、状態、RAID状態</block>
+  <block id="8055d1fb6870df68fe1be39145ac69da" category="list-text">ブロックストレージ：ディスク数、RAIDサイズ、使用可能/使用済み/合計容量、物理使用済み</block>
+  <block id="045a10b05cce4afa5e1adf1007d02a41" category="list-text">クラウドストレージの使用</block>
+  <block id="e1de2fb6b2c9245402f7263ba00d22d8" category="list-text">効率：比率、論理使用量、削減量</block>
+  <block id="eb6b7b49f18f5b7eca041d28cd9aa51e" category="list-text">暗号化、ミラー、SnapLock 設定</block>
+  <block id="6f2bb990139987fa3665ffdbf081d6d8" category="list-text">パフォーマンス指標（IOPS、レイテンシ、スループット）</block>
+  <block id="0339a3d0fdbbb769900e76ef052bffe7" category="section-title">利用状況指標（EDA）</block>
+  <block id="7c490ce488555626d759bd2477ecd7ad" category="list-text">データ収集頻度：容量/スループットは12時間ごと、レイテンシは20分ごと</block>
+  <block id="37dbd9e2f4c76770166547c2d0451e50" category="list-text">粒度：時間範囲ごとに約 60 データポイントに正規化</block>
+  <block id="2019e2fb7eaa57e3c022917375ae173a" category="inline-link-macro">メトリクスとテレメトリのリファレンス</block>
+  <block id="70a916723f9c52c40a4740994890e164" category="list-text">保持および保管に関する詳細：<block ref="ddf7221e3cfbcc0c7ac73522f7cb671b" category="inline-link-macro-rx"></block></block>
+  <block id="c54269ebc65c2b19febd69831886f43a" category="summary">NetApp Workload Factoryは保存データの暗号化を使用し、Workload FactoryとAWSサービス全体にわたる明確なキー管理責任を定義しています。</block>
+  <block id="bcfa10afbafff77f6e6fd4466a057841" category="doc">NetApp Workload Factoryの暗号化と暗号化キー管理</block>
+  <block id="65938dc0df1eff41650b9f2127f29d3b" category="paragraph">NetApp Workload Factoryは保存データの暗号化を使用し、Workload FactoryとAWSサービス全体にわたる明確なキー管理責任を定義しています。Amazon FSx for NetApp ONTAPファイルシステムの場合、独自のAWS KMSキーを選択するか、AWSが管理するデフォルトのキーを使用できます。また、FSx for ONTAPはそのキーを使用して暗号化操作を実行します。Workload Factoryは、保存されたONTAPクレデンシャルを保護するためにエンベロープ暗号化も使用しています。</block>
+  <block id="e9ef59cb448443e3512d0da7dd380612" category="section-title">FSxにおけるKMSの保存時暗号化範囲</block>
+  <block id="8bef3df53575f350c722ab06f22cedcb" category="paragraph">Workload Factory を使用して FSx for ONTAP ファイルシステムを作成する場合、保存データの暗号化用に独自の AWS KMS キーをオプションで指定できます。キーを指定しない場合、Workload Factory は AWS が管理するデフォルトの FSx キーを使用します。</block>
+  <block id="8b4493c97fa430a4bffa8d2eef4efcd0" category="list-text">暗号化されるもの</block>
+  <block id="95e01d29e76ba8caee4bd15e6adcaba9" category="list-text">基盤となる EBS ボリュームに保存されているすべてのデータは、FSx for ONTAP ファイルシステムをバックアップします（AWS FSx による保存時の暗号化）。</block>
+  <block id="46ae93d3722e7816b6f8be2a6131b2a8" category="list-text">鍵の所有権</block>
+  <block id="0fd9c0715a3b9a29f2171bbeba39ae05" category="list-text">KMSキーはAWSアカウント内に存在します。</block>
+  <block id="9caf46c2ea953918f6c9b35db2a47bab" category="list-text">キーの選択と使用に必要な権限</block>
+  <block id="8c48b6377072760489c2d3c9d617fee6" category="list-text">Workload Factory には以下が必要です：</block>
+  <block id="dfb668701678da9712efc2b20ffc334b" category="list-text"><block ref="07b068a2b55029d6b44b340463f0d1d8" prefix="" category="inline-code"></block></block>
+  <block id="f95d023a6ce4fdaea7a8c22d2df978b9" category="list-text"><block ref="f135b7d7ed012bd98709eefe7430e01d" prefix="" category="inline-code"></block></block>
+  <block id="70143e00bdd092c316a27d6dc5f9ccd9" category="list-text"><block ref="276e466538acff21910df6227231c79f" prefix="" category="inline-code"></block></block>
+  <block id="74053520cf190d0ed965409693e42819" category="list-text"><block ref="341d6f040d34917cbc708be689644fc5" prefix="" category="inline-code"></block>（FSx for ONTAP サービスがキーを使用できるようにするため）</block>
+  <block id="c4b4bb1d43e9827e1f7cad72dfbd8d38" category="list-text">キーアクセスパターン</block>
+  <block id="079e89f8ec40ed581f9520a4f43de3fa" category="list-text">Workload Factoryは、お客様のKMSキーを使用してデータを直接暗号化または復号化することはありません。ファイルシステム作成時に、Amazon FSx for NetApp ONTAP APIにキーIDを渡します。暗号化処理はAmazon FSx for NetApp ONTAPが実行します。</block>
+  <block id="93924bfac25af082b28708ea0a6f7760" category="section-title">認証情報保護（サービス側エンベロープ暗号化）</block>
+  <block id="a7609b1301c0a2661267db22dc1eb700" category="paragraph">Workload Factory を使用して ONTAP クレデンシャル（管理者パスワード）を保存すると、永続化する前にエンベロープ暗号化を使用して保護されます。</block>
+  <block id="0b29276e0e738649a2ec6cfa7a4f5782" category="list-text">暗号化方式</block>
+  <block id="5e21f2d02ccce77da19c03411ff50abb" category="list-text">資格情報レコードごとに一意のデータ暗号化キー（DEK）を使用したAES-256-CBC。</block>
+  <block id="b1c7eb06dec3b830a544a652954f1d18" category="list-text">エンベロープ暗号化フロー</block>
+  <block id="be5c9895b00667f49f4b23311912051a" category="list-text">認証情報ごとに固有の256ビットDEKが生成されます。</block>
+  <block id="73d2c701e05ff92f130b1b92f73202a7" category="list-text">DEKは認証情報（パスワード）を暗号化します。</block>
+  <block id="3268712d478768270e87fa178eef0eb2" category="list-text">DEK自体はルートキーで暗号化され、暗号化された認証情報とともに保存されます。</block>
+  <block id="96c40dbc419699af3deb2a8b85407458" category="list-text">平文のDEKは保存されません。</block>
+  <block id="411f9a778fff923b200136272bccc4a2" category="list-text">暗号化コンテキスト</block>
+  <block id="f6e11010bd34657eb7b96fb4372c6026" category="list-text">各データキーは、特定の認証情報レコードに暗号学的に紐付けられており、レコード間でキーが再利用されるのを防いでいます。</block>
+  <block id="ad1ad5d884d1d19b770599ea50e37b7b" category="list-text">代替案：AWS Secrets Manager</block>
+  <block id="e3df5e7a9db964244e3fdcd2792898a1" category="list-text">サービスに暗号化されたパスワードを保存する代わりに、ONTAP 認証情報をご自身のアカウントの AWS Secrets Manager に保存できます。Workload Factory はパスワードを一切認識したり保存したりしません。Secrets Manager の ARN を Lambda リンクに渡し、Lambda が実行時にお客様の VPC 内でパスワードを取得します。</block>
+  <block id="87b7d0cb9c26c755da6e31735102208f" category="admonition">AWS Secrets Manager は、GovCloud アカウントに必要です。</block>
+  <block id="429dd710c4499635ea141d2a6618ad53" category="summary">NetApp は、Workload Factoryとそのクラウドサービスをさまざまな方法でサポートします。ナレッジベース（KB）の記事やコミュニティフォーラムなど、充実した無料のセルフサポートオプションが24時間365日ご利用いただけます。サポート登録には、Webチケットによるリモートテクニカルサポートが含まれます。</block>
+  <block id="3e47dd6c1c31a28a814c68e2545e736c" category="doc">Amazon FSx for NetApp ONTAP に関するヘルプを取得する（NetApp Workload Factory）</block>
+  <block id="3c6efe0ce159fb5b8ee4882bcf3ad973" category="paragraph">NetApp は、Workload Factory とそのクラウドサービスをさまざまな方法でサポートします。ナレッジベース（KB）の記事やコミュニティフォーラムなど、充実した無料のセルフサポートオプションが24時間365日ご利用いただけます。サポート登録には、Webチケットによるリモートテクニカルサポートが含まれています。</block>
+  <block id="6a7b2c9c4cec65ad972b108fa0a1192b" category="section-title">FSx for ONTAP のサポートを受ける</block>
+  <block id="4435b263dd1a35bcd8dfda050db92b3b" category="paragraph">FSx for ONTAP、そのインフラストラクチャ、またはサービスを使用するソリューションに関する技術サポートについては、当該製品の Workload Factory ドキュメントにある「ヘルプの取得」を参照してください。</block>
+  <block id="18cf072964a583150dd247485ba75b92" category="inline-link-macro">Amazon FSx for ONTAP</block>
+  <block id="359d8b16e442ffaa72e03c95fcd60448" category="paragraph"><block ref="359d8b16e442ffaa72e03c95fcd60448" category="inline-link-macro-rx"></block></block>
+  <block id="35f9849ffdd809bda11d0fc56e1e3583" category="paragraph">Workload Factoryおよびそのストレージソリューションとサービスに関する技術サポートを受けるには、以下のサポートオプションをご利用ください。</block>
+  <block id="edd15fbeb7b2dffa163336ecd4f3e80c" category="section-title">セルフサポートオプションを利用する</block>
+  <block id="5e4b821a1a82558dead1ef6961e90666" category="paragraph">これらのオプションは、24時間年中無休で無料でご利用いただけます。</block>
+  <block id="5b6cf869265c13af8566f192b4ab3d2a" category="list-text">ドキュメント</block>
+  <block id="d935525f4850c4638cbf48ae53fb4686" category="paragraph">現在表示中の NetApp Workload Factory のドキュメントです。</block>
+  <block id="19111351b69b6b15668130b38b7f6038" category="inline-link">ナレッジベース</block>
+  <block id="436f63b446dba5a418c698d49bd39718" category="list-text"><block ref="436f63b446dba5a418c698d49bd39718" category="inline-link-rx"></block></block>
+  <block id="ba6274b9c9d1f81bb3a648fa289986b8" category="paragraph">NetApp Workload Factoryのナレッジベースを検索して、問題のトラブルシューティングに役立つ記事を見つけてください。</block>
+  <block id="14526abd8bda5af347775025cd5342cf" category="inline-link">コミュニティ</block>
+  <block id="410fdb9caa9c64da2ff3f88f4836960d" category="list-text"><block ref="410fdb9caa9c64da2ff3f88f4836960d" category="inline-link-rx"></block></block>
+  <block id="7faef90df03399696ba9d4815b37171a" category="paragraph">NetApp Workload Factoryコミュニティに参加して、進行中のディスカッションをフォローしたり、新しいディスカッションを開始したりしましょう。</block>
+  <block id="d88bacf2a9fdcbbc844edcba97c34e30" category="section-title">NetApp サポートでケースを作成する</block>
+  <block id="82812db645b6ff5e9c2a24ddfb66c8d6" category="paragraph">上記のセルフサポートオプションに加えて、サポートを有効化した後は、NetApp サポートスペシャリストと連携してあらゆる問題を解決することができます。</block>
+  <block id="8fece025a1a8fef7018449bf104a2527" category="paragraph-title">始める前に</block>
+  <block id="e2a733504c4088b809813bbb35a3ddfd" category="inline-link-macro">サポートへの登録方法について説明します</block>
+  <block id="a12ea39ddf1c98adfd7f751299705efa" category="paragraph">「ケースの作成」機能を使用するには、まずサポートに登録する必要があります。NetApp Support Siteの認証情報をWorkload Factoryのログインに関連付けてください。<block ref="d9fea24984986beabae03291c4b721de" category="inline-link-macro-rx"></block>。</block>
+  <block id="356c88ac4b0ec3f7689cc91f54701fef" category="list-text">Workload Factory コンソールの右上で、*ヘルプ＞サポート*を選択します。</block>
+  <block id="6e74b203173a9994c366c7e7a3cf4748" category="paragraph">このオプションを選択すると、新しいブラウザタブで NetApp Console が開き、サポートダッシュボードが読み込まれます。</block>
+  <block id="08d96fdd1a845d80db99e6e1dffb8bc7" category="list-text">「リソース」ページで、「テクニカルサポート」の下にある利用可能なオプションからいずれかを選択してください。</block>
+  <block id="6a1b74969231967ed071d465206b15c7" category="list-text">電話で担当者とお話しになりたい場合は、*お問い合わせください*を選択してください。netapp.com のページに移動し、お電話いただける電話番号が記載されています。</block>
+  <block id="d65a2a6fc9caad1867728d4382eeb989" category="list-text">「ケースを作成」を選択して、NetApp サポートスペシャリストとのチケットを開きます：</block>
+  <block id="d7d0da18fbb8f8f85c1364883fbdf4c7" category="list-text">*サービス*：*NetApp Workload Factory* を選択します。</block>
+  <block id="e6f29fb3c7636dc0040600dd0e84bb79" category="list-text">*ケースの優先度*：ケースの優先度を低、中、高、または緊急から選択します。</block>
+  <block id="835eb4008e97c2a7f69bbb2725285e34" category="paragraph">これらの優先事項に関する詳細については、フィールド名の横にある情報アイコンにマウスカーソルを合わせてください。</block>
+  <block id="0f7d9319c95a8be1492e74601c4b3259" category="list-text">*事象の説明*：問題の詳細な説明を、該当するエラーメッセージや実行したトラブルシューティング手順を含めて提供してください。</block>
+  <block id="002c6f26fb01affb37b8cf3cef7a1fb0" category="list-text">*追加のメールアドレス*：この問題について他の方にも通知したい場合は、追加のメールアドレスを入力してください。</block>
+  <block id="c7f5c1a75acc58c6f004efc0ce1eba09" category="list-text">*添付ファイル（任意）*：最大5つの添付ファイルを一度に1つずつアップロードできます。</block>
+  <block id="bfa80e7aaad6da353b431bff3a0e12d6" category="paragraph">添付ファイルは1ファイルあたり25MBまでです。以下のファイル拡張子がサポートされています：txt、log、pdf、jpg/jpeg、rtf、doc/docx、xls/xlsx、およびcsv。</block>
+  <block id="baaf0e61add7d12cf8d12e023d5aef18" category="inline-image-macro">NetApp サポートでケースを作成するための「ケースの作成」フォームのスクリーンショット。</block>
+  <block id="b0c6c3ee60a29925d3f09cd609b79483" category="paragraph"><block ref="b0c6c3ee60a29925d3f09cd609b79483" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bd965e38a0c9cf27aa1bde099308e23f" category="paragraph-title">終了後の操作</block>
+  <block id="18f487556417bb6d9721a7005ae097c9" category="paragraph">サポートのケース番号が記載されたポップアップが表示されます。NetAppのサポート スペシャリストがお客様のケースを確認し、間もなくご連絡いたします。</block>
+  <block id="0ff9b4b8684b9e03c9c1e1320935eae3" category="paragraph">サポートケースの履歴を確認するには、*設定 &gt; タイムライン*を選択し、「サポートケースの作成」という名前のアクションを探してください。一番右にあるボタンをクリックすると、アクションを展開して詳細を表示できます。</block>
+  <block id="5c56753585e89a84941bb3a78bc681af" category="paragraph">ケースを作成しようとした際に、以下のエラーメッセージが表示される場合があります。</block>
+  <block id="a30f69ab0ec85d427a3e8835713525bd" category="paragraph">「選択されたサービスに対してケースを作成する権限がありません」</block>
+  <block id="3f13dd54818447375c92bf35e0a35f00" category="paragraph">このエラーは、NSS アカウントとそれに関連付けられている記録上の会社が、NetApp Console アカウントのシリアル番号（例：960xxxx）またはシステムシリアル番号と同じ記録上の会社でない可能性があることを意味します。以下のいずれかの方法でサポートを受けることができます。</block>
+  <block id="e01df0b4dfd95eba2c59333419e4fac6" category="list-text">製品内チャットを使用する</block>
+  <block id="d41d8cd98f00b204e9800998ecf8427e" category="inline-link"></block>
+  <block id="639be990cfca56ab4b63685d8bacd437" category="list-text">技術的な内容以外のケースを提出するには<block ref="2298f47e4dad19a3156da7ce6116d9b1" category="inline-link-rx"></block></block>
+  <block id="898e35e1a4bf4b025c3edec879439b08" category="section-title">サポート案件を管理する（プレビュー）</block>
+  <block id="289d2ab2d9b0e116790d035921c12b56" category="paragraph">アクティブおよび解決済みのサポートケースは、NetApp Console から直接表示および管理できます。NSSアカウントおよび所属企業に関連付けられたケースを管理できます。</block>
+  <block id="394ef093ad3259b9ff0fe7406f015b83" category="paragraph">ケースマネジメント機能はプレビュー版として利用可能です。今後のリリースでは、このユーザー体験をさらに洗練させ、機能強化を加えていく予定です。製品内のチャット機能を使用して、フィードバックをお送りください。</block>
+  <block id="cf3a2d2c139bf5c9cc87fe714bfff3b1" category="paragraph">次の点に注意してください。</block>
+  <block id="5e4e7672ec2ba2b8a763da7f6714e212" category="list-text">ページ上部のケース管理ダッシュボードには、2つの表示方法があります。</block>
+  <block id="01c3ffea552d74a5ae390b10e71a1f26" category="list-text">左側の画面には、ご提供いただいたユーザー NSS アカウントで過去 3 ヶ月間にオープンされた案件の総数が表示されます。</block>
+  <block id="e3b6c09a5686233f72ce1ea60a1eb088" category="list-text">右側の画面には、ユーザーのNSSアカウントに基づいて、過去3か月間に貴社レベルで開設されたケースの総数が表示されます。</block>
+  <block id="b19b168cc8a2b8c984465e140256b3a2" category="paragraph">表に表示されている結果は、選択したビューに関連する事例を反映しています。</block>
+  <block id="56dcadeee6b0e5c47a52673f9b5a0bb3" category="list-text">関心のある列を追加または削除したり、優先度やステータスなどの列の内容をフィルタリングしたりできます。その他の列は、ソート機能のみを提供します。</block>
+  <block id="6f936762e1223311f031685422fcd3a4" category="paragraph">詳細については、以下の手順をご覧ください。</block>
+  <block id="b14929795a61440e9b4ec9f8a4885ae3" category="list-text">案件ごとに、案件メモを更新したり、既に「クローズ済み」または「クローズ保留中」の状態になっていない案件をクローズしたりする機能を提供しています。</block>
+  <block id="f9a63cd3a07378e169c58addd5fdce8d" category="paragraph">このオプションを選択すると、NetApp Console が新しいブラウザタブで開き、サポートダッシュボードが読み込まれます。</block>
+  <block id="785b440c0be1d853c5e2f4fb1f1ee2ab" category="list-text">「ケース管理」を選択し、プロンプトが表示されたら、NSSアカウントを NetApp Console に追加します。</block>
+  <block id="c80d8addb8aa8e8872bbc44894b077f3" category="paragraph">「ケース管理」ページには、お客様の NetApp Console ユーザーアカウントに関連付けられている NSS アカウントに関する未解決のケースが表示されます。これは、「NSS 管理」ページの最上部に表示されている NSS アカウントと同じものです。</block>
+  <block id="2ae5ae78bdb2d222f15fd8e89248709c" category="list-text">テーブルに表示される情報を必要に応じて変更できます。</block>
+  <block id="1d39d3ab518e1e3f16cbafb2a56e1fd9" category="list-text">*組織のケース*の下にある*表示*を選択すると、貴社に関連付けられているすべてのケースが表示されます。</block>
+  <block id="059e856250b59be3069246887b74a23c" category="list-text">日付範囲を変更するには、正確な日付範囲を選択するか、別の期間を選択してください。</block>
+  <block id="dfb3764bce2548df4e06357403f9c7d0" category="inline-image-macro">ケース管理ページの表の上にあるオプションのスクリーンショット。正確な日付範囲、または過去7日間、30日間、3か月間を選択できます。</block>
+  <block id="4f7062c5c309a833cf46e4a1a5a5d366" category="paragraph"><block ref="4f7062c5c309a833cf46e4a1a5a5d366" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a1bb576be9e5a356290f231efb51b3f5" category="list-text">列の内容をフィルタリングします。</block>
+  <block id="3753f10a59e21f58b30e3e67d416453e" category="inline-image-macro">ステータス列のフィルターオプションのスクリーンショット。アクティブやクローズなどの特定のステータスに一致するケースを除外できます。</block>
+  <block id="8f624dee500d9670a27c4404084a7a62" category="paragraph"><block ref="8f624dee500d9670a27c4404084a7a62" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1c6ea5ef583389e18e7d7bda70beaa71" category="inline-image-macro">表に表示されるプラスアイコン</block>
+  <block id="002f1c0a8cf4a68b888010ddef3a7f7e" category="list-text">テーブルに表示される列を変更するには、<block ref="e55ec8dc42ae68d9326c51261c8a5f4f" category="inline-image-macro-rx" type="image"></block>を選択してから、表示する列を選択します。</block>
+  <block id="370b44009f1b82d0b6b178bb80cc62fa" category="inline-image-macro">テーブルに表示できる列を示すスクリーンショット。</block>
+  <block id="72c5c65442a2c44e7f2546b8b4c957df" category="paragraph"><block ref="72c5c65442a2c44e7f2546b8b4c957df" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ad0ae9ea1f2e8d973a9a0f6bb169f494" category="inline-image-macro">表の最後の列に表示される、3つの点が描かれたアイコン</block>
+  <block id="000a1376035909240f559b8ab724030c" category="list-text"><block ref="54181d1b918b28e5f92545f8b3b4a30c" category="inline-image-macro-rx" type="image"></block>を選択し、利用可能なオプションのいずれかを選択して、既存のケースを管理します：</block>
+  <block id="6d9dd74e7709ef802d299966f7898f6b" category="list-text">*ケースを表示*：特定のケースに関する詳細情報を表示します。</block>
+  <block id="8e6b52a532a4fbbfc98dca3ebfa5f1e6" category="list-text">*ケースメモの更新*：問題に関する詳細情報を入力するか、*ファイルのアップロード*を選択して最大5つのファイルを添付してください。</block>
+  <block id="bb6d5d351525342dd6b3cf4d15b6f298" category="list-text">*ケースを閉じる*：ケースを閉じる理由の詳細を入力し、*ケースを閉じる*を選択してください。</block>
+  <block id="e93217b2f709a398ce3c0fb753beb05f" category="inline-image-macro">テーブルの最後の列にあるメニューを選択した後に実行できる操作を示すスクリーンショット。</block>
+  <block id="6f7cf78e14aa346236a87d9541221fb2" category="paragraph"><block ref="6f7cf78e14aa346236a87d9541221fb2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="697e181c992fd61808824540e4ba16b1" category="summary">NetApp Workload Factory は、Lambda リンクのアクセス許可境界を使用して、Lambda の実行および Workload Factory の呼び出しに必要な IAM アクセスを定義します。これらの権限は任意ですが、ONTAP ネイティブ操作には必要です。</block>
+  <block id="d7bd95cad1bccdf0a47d579915962720" category="doc">Lambda リンクの IAM 権限（NetApp Workload Factory 用）</block>
+  <block id="e385699fc5ad8aa115f586c834926c7c" category="paragraph">NetApp Workload Factory は、Lambda リンクのアクセス許可境界を使用して、Lambda の実行および Workload Factory の呼び出しに必要な IAM アクセスを定義します。これらの権限は任意ですが、ONTAP ネイティブ操作には必須です。Secrets Manager サポートを設定すると、リンクは実行時に AWS Secrets Manager から ONTAP 認証情報を直接取得し、パスワードは VPC 内でのみ転送されます。Secrets Manager から Lambda 関数、そして ONTAP エンドポイントへと転送されます。</block>
+  <block id="e60c3ad2237426a9a97cf78a300c633a" category="inline-link-macro">Lambdaリンクポートと呼び出し</block>
+  <block id="92666e891219e3c221ef1434cff49a5a" category="paragraph">リクエストパスとポートの要件については、<block ref="4905cc0a517d5199ddb6cc56382a6425" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="89db385dcbe0d3f84cbdac70bb629a4d" category="section-title">Lambda実行ロールの権限</block>
+  <block id="0e061feab12b96b1f41b8e33f0ebb755" category="paragraph">VPC内にリンクをデプロイする際、Lambda実行ロールには以下の権限が必要です：</block>
+  <block id="a73bd31daeac3758b853e534cdaec351" category="cell">ec2:CreateNetworkInterface / ec2:DescribeNetworkInterfaces / ec2:DeleteNetworkInterface</block>
+  <block id="81c68c56799d505af7ff645ef9829343" category="cell">標準のVPC接続型Lambdaネットワーク</block>
+  <block id="47d688b55b5fe1639642e2aa370ee33a" category="cell">ec2:AssignPrivateIpAddresses / ec2:UnassignPrivateIpAddresses</block>
+  <block id="582a43783ed1a1e612d23922574c33e3" category="cell">VPC ENI IP管理</block>
+  <block id="70757a66616a159402fa2c4296de9ba2" category="cell">secretsmanager:GetSecretValue （FSxSecret* にスコープ設定）</block>
+  <block id="8c6c8254d894dff4693d61d4bf167c02" category="cell">ONTAP 認証情報の取得（Secrets Manager が有効になっている場合のみ）</block>
+  <block id="1d9db47508aec775b1c693ec88284093" category="cell">CloudWatch ログ（管理ポリシー）</block>
+  <block id="55382d277a15cb21d700cb916cd0786e" category="cell">Lambda実行ログ</block>
+  <block id="69cfa22208c5bf2ae087266f95cf8d97" category="section-title">Workload Factory の呼び出し権限</block>
+  <block id="12814af220e91227acced340b9d16dfe" category="paragraph">Lambda リンクのリソースベースポリシーは、NetApp Workload Factory のサービスプリンシパルに次の権限を付与します：</block>
+  <block id="f83f9c33f721f289d66ffd89e3a3ce41" category="cell">lambda:InvokeFunction</block>
+  <block id="b28d80d2fdce1674201439c2ef6df65c" category="cell">Lambda関数を実行する</block>
+  <block id="a7acbafbf920c0858cb3e7590ec34b89" category="cell">lambda:GetFunction</block>
+  <block id="ce589933fd4aa8f6fa7351378266b837" category="cell">健康状態とステータスの確認</block>
+  <block id="5562fdbc0e3f883ad84293bab475fd9d" category="cell">lambda:UpdateFunctionCode</block>
+  <block id="2dd0e6fe52e02f98dc7a05590262e2d7" category="cell">バージョンアップグレード（イメージ更新）</block>
+  <block id="ab228d160c41218837aa1b55d7b8a4c2" category="cell">lambda:GetFunctionConfiguration</block>
+  <block id="7c71015fa1289d15ecc26f45f5a5efea" category="cell">構成検証</block>
+  <block id="96e4535ace7673910470c23b446fbc82" category="summary">NetApp Workload Factoryは、Lambdaリンクのライフサイクル制御を利用して、運用上のリスクを最小限に抑えながら、デプロイメント、ヘルスモニタリング、および制御されたイメージ更新を管理します。</block>
+  <block id="a82455589531ab39ea4c163ed199e1e6" category="doc">NetApp Workload FactoryのLambdaリンクのライフサイクル</block>
+  <block id="d7282ac4e1b6f5b65adc8025ebc47561" category="paragraph">NetApp Workload Factoryは、Lambdaリンクのライフサイクル制御を利用して、運用上のリスクを最小限に抑えながら、デプロイメント、ヘルスモニタリング、および制御されたイメージ更新を管理します。Amazon CloudFormationスタックを再デプロイすることなく、<block ref="5562fdbc0e3f883ad84293bab475fd9d" prefix=" " category="inline-code"></block>権限を使用して、Lambdaリンクコンテナイメージを更新し、改善点やセキュリティパッチをデプロイできます。ライフサイクル制御では、リンクの状態を監視する方法や、Lambdaリンクとその関連リソースが不要になったときに削除する方法も定義されます。</block>
+  <block id="c8e7046fae47843f831a71b2ea66ce55" category="section-title">ライフサイクル管理ポイント</block>
+  <block id="e925025cd72aca13d64b1b37193c0d54" category="list-text">デプロイ：Amazon CloudFormation または Terraform スタックのデプロイを介して自動化</block>
+  <block id="9e09c5606fa64d3b00d85d3c466fd124" category="list-text">監視：ヘルスチェックで接続の問題を検出し、障害カウンターで信頼性を追跡します。</block>
+  <block id="c88026bfec86ea9e1a3a73abbdfd37df" category="list-text">削除：CloudFormation スタックを削除すると、AWS アカウントから Lambda と関連リソースが削除されます。</block>
+  <block id="d00f5c0a222775783b54514a9bccba4b" category="summary">NetApp Workload Factory は、VPC にデプロイされた AWS Lambda 関数である _link_ を使用して、Amazon FSx for NetApp ONTAP API がこれらの操作を公開していない場合に、ONTAP ネイティブ操作を AWS アカウント境界内に保持します。</block>
+  <block id="53b9d52063ce0377dabc49cee1823179" category="doc">NetApp Workload Factory の Lambda リンクについて</block>
+  <block id="7ba904fc9a72f24504e2f60dcbf6862a" category="paragraph">NetApp Workload Factory は、VPC にデプロイされた AWS Lambda 関数である _link_ を使用して、Amazon FSx for NetApp ONTAP API がこれらの操作を公開していない場合でも、ONTAP ネイティブ操作を AWS アカウント境界内に保持します。このリンクはお客様のサブネットとセキュリティグループ内で実行されるため、実行コンポーネントはお客様の AWS 環境内に留まります。Workload Factory は、利用可能な AWS サービス API ではなく、ONTAP への直接アクセスが必要な操作に対してのみリンクを呼び出します。リンクのアーキテクチャを、NetApp Console エージェントのセキュリティおよび運用プロファイルと比較します。</block>
+  <block id="8ee4203494265e57fedea182d2084538" category="section-title">リンクセキュリティアーキテクチャ</block>
+  <block id="5ad96879a11f37652715b1674a7d6115" category="paragraph">Workload Factory リンクは、Workload Factory アカウントと 1 つ以上の FSx for ONTAP ファイルシステムとの間に信頼関係と間接的な接続を作成します。</block>
+  <block id="0cf381e7d4d203cdd3d115a96e4d926f" category="paragraph">以下の表は、Lambdaリンクのセキュリティアーキテクチャの概要を示しています。この情報を使用して、AWSアカウントにおけるLambda関数のデプロイおよび実行方法（ネットワーク構成、実行環境、運用上の制限など）を理解してください。</block>
+  <block id="5ad234cb2cde4266195252a23ca7d84e" category="cell">プロパティ</block>
+  <block id="a254c25adc7d10d7e9c4889484f875a5" category="cell">詳細</block>
+  <block id="a623a8d0366bf079411aa30be45b2d10" category="cell">コンピューティング</block>
+  <block id="09a292e9b7243301a5cef0878206f4df" category="cell">AWS Lambda（コンテナイメージ）</block>
+  <block id="88cd0b47d78df68ae0cb9100c508304f" category="cell">Node.js 22</block>
+  <block id="ea355214fd4bc7c57f471bd92918879b" category="cell">導入</block>
+  <block id="d5763ac72a602e8578b2ce867d40a3b4" category="cell">CloudFormation AWS アカウントのスタック</block>
+  <block id="20f98dfb9c02ecf109311df066e79285" category="cell">VPCの配置</block>
+  <block id="bba35eb233cac3c041d349cac1de85ea" category="cell">お客様のサブネット、お客様のセキュリティグループ</block>
+  <block id="c85a251cc457840f1e032f1b733e9398" category="cell">Timeout</block>
+  <block id="d32c26e7d7b694081fb636cf6f618604" category="cell">呼び出しごとに10秒</block>
+  <block id="da495869897c5c6c4ad8b3348989762f" category="cell">呼び出し</block>
+  <block id="6ae6b49651fea979667b175bd9f5a1e5" category="cell">同期（RequestResponse）</block>
+  <block id="519044510c97365906cb7e8370ee07db" category="cell">パッケージの種類</block>
+  <block id="d36f94c36a75d8621a4f3e82567486f7" category="cell">コンテナイメージ（NetApp ECR）</block>
+  <block id="13311c4c4676678a83c3ec8435c4106c" category="paragraph">以下の図は、Lambdaリンクのセキュリティアーキテクチャを示しています。</block>
+  <block id="fc646b825472a1035524e6ed5912ce54" category="inline-image-macro">Lambdaリンクのセキュリティアーキテクチャを示す図。</block>
+  <block id="a0b0c411755d02f1cb565d75d6427415" category="paragraph"><block ref="a0b0c411755d02f1cb565d75d6427415" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="85987282a3ba67324ab8024c85774fcc" category="section-title">Lambda link対NetApp Console agent</block>
+  <block id="c632567aa7911a12b8f27597086f4bb8" category="paragraph">LambdaリンクとNetApp Consoleエージェントは、異なる目的を果たし、セキュリティおよび運用上の影響もそれぞれ異なります。</block>
+  <block id="9e0e31246b7b078403969b265870b3f4" category="cell">寸法</block>
+  <block id="ace4d7951f4a45454f8a2812055823ae" category="cell">リンク（Lambdaベース）</block>
+  <block id="a57767794f409526a42adaf3ebca317f" category="cell">NetApp コンソールエージェント（VM/Pods ベース）</block>
+  <block id="ee78f38cb6fe8737ddc921f7392c6dfb" category="cell">ランタイムモデル</block>
+  <block id="bf547b91f8cf98eaca408e159a6edcdf" category="cell">サーバーレス（AWS Lambda）、顧客によるデプロイ</block>
+  <block id="2d55d8e900a09dbdccdd5b375e629f77" category="cell">顧客がデプロイしたVM/コンテナ。NetAppコンソールサービスポッドを実行します。</block>
+  <block id="ae5d763e83682ac38d9c832814c4209c" category="cell">主な範囲</block>
+  <block id="18e41f5530da436347c85d2557f6b686" category="cell">コントロールプレーン ONTAP REST 操作（AWS API が当該操作をサポートしていない場合のみ）</block>
+  <block id="6392d1593b85e745b028dede0be1766c" category="cell">データサービスのオーケストレーションとサポート</block>
+  <block id="8288da93dae1352a8b3b464e7acfa657" category="cell">データサービスサポート</block>
+  <block id="09acc2ba4ee586428918f6e651200fa7" category="cell">データサービスは提供していません</block>
+  <block id="166f369bc2f2c4fa92738261b6b7327e" category="cell">データサービスをホストできます（NetApp コンソールサービスポッドを実行します）</block>
+  <block id="19cce72d454e39a6a01b982e7ca532a4" category="cell">運営上の諸経費</block>
+  <block id="9d4dc0c22bb4af6f0735c1f543943a4f" category="cell">常時稼働のVMはありません</block>
+  <block id="b4b866f2197b1b8ecfec9e0aab1956fe" category="cell">VMライフサイクル管理とアップグレード</block>
+  <block id="6bd69dd600d3d81973b0e85194a8b885" category="paragraph">システム間の接続性マップ全体については、<block ref="99ebaf77705a119234345f8cf9fb6a9f" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="493b97a0d712b7d22cf393781012a19e" category="summary">NetApp Workload Factory は、Lambda リンク要求とポート境界を使用して、必要なアウトバウンド接続と IAM 認証済み呼び出しを定義します。</block>
+  <block id="b30add353b22a335c3f371d270f4cb99" category="doc">NetApp Workload Factory向けのLambdaリンクのポートと呼び出し</block>
+  <block id="1cb033e8531c74d9f51b0e598895bcfb" category="paragraph">NetApp Workload Factory は、Lambda リンク要求とポート境界を使用して、必要なアウトバウンド接続と IAM 認証済み呼び出しを定義します。このリンクは、ONTAP 管理エンドポイントへの HTTPS リクエスト、診断用の読み取り専用 SSH コマンド、およびヘルスチェックをサポートします。すべての接続は VPC 内のリンクからアウトバウンドで行われるため、インバウンド接続や公開エンドポイントは必要ありません。Workload Factory は、IAM ベースの認証を使用して AWS Lambda API 経由でリンクを呼び出します。</block>
+  <block id="dfba8729ba29a6e9c012ec644ce8386f" category="section-title">リクエストの種類</block>
+  <block id="752321f15c48165a422a855891d59fd6" category="list-text">HTTPS（ONTAP REST API）：HTTPS 呼び出しをボリューム、ストレージ VM、およびクラスタ操作のための ONTAP 管理エンドポイント（ポート 443）にプロキシします。</block>
+  <block id="2c1b8da88c71a63f8b5e51f6a5b4cd83" category="list-text">SSH （ONTAP CLI）：診断およびパフォーマンスデータ取得のため、ポート22で読み取り専用の ONTAP CLI コマンドを実行します。</block>
+  <block id="55a2f148e495fc5dd3cd954db0b7aec0" category="list-text">ヘルスチェック：ステータスとサポートされている機能を返します。</block>
+  <block id="ab8b1dee0dd0fb72726215e26369a8fb" category="section-title">アウトバウンドネットワーク境界</block>
+  <block id="12007e1d59f4d09c87dbe2c438256244" category="cell">デスティネーション</block>
+  <block id="83de60f888490a415c4d8d02f474db89" category="cell">ONTAP管理用IPアドレス（VPC内）</block>
+  <block id="ebdbd0470c7f62f146b8021298cf232e" category="cell">REST API操作</block>
+  <block id="0225f3308d4fb0f77604d8bcbc595a60" category="cell">SSH CLIコマンド</block>
+  <block id="3ec9b95a8ae6f93416cf8442ca7b8e78" category="cell">AWS Secrets Managerエンドポイント（オプション）</block>
+  <block id="77fd0eb52b46132b1ca2e9361bf201fd" category="cell">Secrets Manager使用時の認証情報の取得</block>
+  <block id="ff9a446db49d05d3288e9ae78409ea9e" category="paragraph">受信接続は不要です。このリンクはエンドポイントを公開していません。Workload Factory はAWS<block ref="f83f9c33f721f289d66ffd89e3a3ce41" prefix=" " category="inline-code"></block> APIを使用してそれを呼び出します。</block>
+  <block id="35828f2c8ceb4d6b1b2377e9e607f787" category="section-title">Workload FactoryがLambdaリンクを呼び出します</block>
+  <block id="e6fdf13fa3a083a3dcca5804e3456ee4" category="paragraph">Workload Factory は、IAM ベースの認証を使用して、AWS Lambda API <block ref="f83f9c33f721f289d66ffd89e3a3ce41" prefix="(" category="inline-code"></block>）を介して Lambda リンクを呼び出します。</block>
+  <block id="6036362dda5acd1953a060524ae12572" category="paragraph">呼び出しペイロードには以下が含まれます：</block>
+  <block id="f3f9e7871d96ecc034ebf2fd28c9d635" category="list-text">ターゲットONTAP管理エンドポイント（IPアドレス／ホスト名）</block>
+  <block id="467dae23a3f3873d2b296c4e2e38806d" category="list-text">実行する操作（REST APIパスまたはSSHコマンド）</block>
+  <block id="ec2a0e07ecdd554ba708009669766abf" category="list-text">認証情報（インライン認証情報またはSecrets Manager ARN参照）</block>
+  <block id="98c778fa3870c62687cfe943190eb372" category="paragraph">システム間の接続性マップ全体については、<block ref="71ee473288a155db0dbd0d5fefa71686" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="2ed10307ffa46f8b98db6d272dfe2c9e" category="summary">NetApp Workload Factoryは、情報セキュリティとデータ保護の実践を重視しており、データ処理方法とアクセス要件に重点を置き、最小権限構成と潜在的なセキュリティ強化に関するガイダンスを提供しています。</block>
+  <block id="959c03dd443d17c86595f3f842446ea3" category="doc">NetApp Workload Factoryの情報セキュリティについて学ぶ</block>
+  <block id="8b5365df20590671b13578db1d53ae69" category="paragraph">情報セキュリティは、NetApp Workload Factory の設計と運用の中核をなす部分です。情報セキュリティ、クラウドプラットフォーム、ストレージの各チームは、これらの詳細情報を活用して、企業のセキュリティ要件をサポートする形で Workload Factory を評価・導入することができます。</block>
+  <block id="607efb75bc505340a11d534848e6d1bb" category="section-title">Workload Factoryとは</block>
+  <block id="b653a7dba78ef8c5f7055df1ec5d23c6" category="paragraph">Workload Factory は、Amazon FSx for NetApp ONTAP を使用して、ワークロード（ストレージ、VMware 移行、EDA プロジェクト、データベース環境など）を最適化および管理するための SaaS ライフサイクル管理プラットフォームです。お客様のワークロードは AWS 上で実行されます。</block>
+  <block id="f140fdc3cbfb1da5ce43e6a966fdb9b3" category="paragraph">Workload Factory は、AWS を通じてネイティブに利用可能なすべての FSx for ONTAP 操作に AWS API を使用し、プラットフォームでサポートされているものの AWS API を通じてネイティブに利用できない Workload Factory 操作には ONTAP REST API を使用します。</block>
+  <block id="85e6a28e481055462ce32046d42b2d6a" category="section-title">このガイドで使用される基本的なセキュリティ原則</block>
+  <block id="7310289d42f662613510d4520b3fe67c" category="list-text">機密保持</block>
+  <block id="59e9d5fa5514bd2b1b57a906c30407cb" category="list-text">ID管理、最小権限の原則、暗号化、ネットワーク境界の設定などを通じて、不正アクセスからデータを保護します。</block>
+  <block id="f3f97de67c80480904f958df15b8a57b" category="list-text">整合性</block>
+  <block id="0359faac8eb3504444e5b9e3c3cd01df" category="list-text">権限範囲の設定、変更管理、および監査可能性を活用することで、システムと構成を不正な変更や意図しない変更から保護します。</block>
+  <block id="faeaec9eda6bc4c8cb6e1a9156a858be" category="list-text">使用の可否</block>
+  <block id="e567c0b31ac468a35fe8341be486e9dc" category="list-text">堅牢なAWS設計と運用監視を通じて、承認されたユーザーがサービスとワークロードにアクセスできるようにします。</block>
+  <block id="84cea73d4fd562da22e7352b79d6a3ca" category="section-title">このガイドで取り上げる情報の種類</block>
+  <block id="68ab0752c1d1f9cfe9d659753bdc75a8" category="paragraph">以下のセクションでは、企業のセキュリティ要件をサポートする形で Workload Factory を評価し、オンボードするのに役立つ情報を提供します。</block>
+  <block id="2dee056d046172623e9ab8b91b844e56" category="list-text">セキュリティモデルと責任</block>
+  <block id="3abf13be969acfc79b6f19a4dde3e95f" category="inline-link-macro">セキュリティモデルの概要</block>
+  <block id="41425a8ad228f11b22cffb2ce0c34aa1" category="list-text"><block ref="41425a8ad228f11b22cffb2ce0c34aa1" category="inline-link-macro-rx"></block></block>
+  <block id="d99a0c202a15cbf339a9c8c2dd928b82" category="inline-link-macro">責任の共有範囲</block>
+  <block id="497411aac0bea806358427417c5ac5d3" category="list-text"><block ref="497411aac0bea806358427417c5ac5d3" category="inline-link-macro-rx"></block></block>
+  <block id="3b6365bca88cc4bb07408c9232669b84" category="list-text">アーキテクチャと接続性</block>
+  <block id="bb578015250f94dc0a40050a24c9d9e8" category="inline-link-macro">接続性と信頼の経路</block>
+  <block id="c94ed78a28f43392eacfbba5c435f3b8" category="list-text"><block ref="c94ed78a28f43392eacfbba5c435f3b8" category="inline-link-macro-rx"></block></block>
+  <block id="bcf548884551acff793fc591608fcb34" category="list-text">アイデンティティ、資格情報、そして最小限の特権</block>
+  <block id="ed91153c791299d1316432fb714612c6" category="inline-link-macro">AWSアカウントの統合</block>
+  <block id="544c0a2fe3c2bc365eecd765b0966b10" category="list-text"><block ref="544c0a2fe3c2bc365eecd765b0966b10" category="inline-link-macro-rx"></block></block>
+  <block id="9123b393544ff2d9596c3b63e3dfc3cf" category="list-text">データガバナンス、プライバシー、ライフサイクル</block>
+  <block id="746adf4e84a84901fcd35c09789c4fee" category="inline-link-macro">データ処理とデータ所在地</block>
+  <block id="87d744a5d3717ebb550c2a48cde70712" category="list-text"><block ref="87d744a5d3717ebb550c2a48cde70712" category="inline-link-macro-rx"></block></block>
+  <block id="d84d2e30de7be656d2f8a84533dd20cb" category="inline-link-macro">アカウント削除チェックリスト</block>
+  <block id="37bcf849d6ce7af2d14487dad347ceaa" category="list-text"><block ref="37bcf849d6ce7af2d14487dad347ceaa" category="inline-link-macro-rx"></block></block>
+  <block id="965a0caf28156aac11b6460fc52f2051" category="list-text">可観測性とモニタリング</block>
+  <block id="9264d875fb527a2da8d21099786d2a40" category="inline-link-macro">指標とテレメトリ</block>
+  <block id="f1c26453771b58a51cf87671418e6073" category="list-text"><block ref="f1c26453771b58a51cf87671418e6073" category="inline-link-macro-rx"></block></block>
+  <block id="5fb9365b28a4db680676958fe415569e" category="list-text">AI制御とVPCコンポーネント</block>
+  <block id="ba932869980ec8545d6a2a91661fc92f" category="inline-link-macro">AI制御の概要</block>
+  <block id="ef28dc8b3051281f6fa5f3c395639a47" category="list-text"><block ref="ef28dc8b3051281f6fa5f3c395639a47" category="inline-link-macro-rx"></block></block>
+  <block id="b3fb3b97b3903142bb5c18330787728d" category="section-title">すぐに始める</block>
+  <block id="91812ebb5627b3db7da12d8be134dc28" category="list-text">まずは_view、planning、analysis_（読み取り専用）の権限から始め、必要に応じて権限を拡張してください。</block>
+  <block id="74d5e70bd364a973507961e7180b8346" category="list-text">AWS CloudTrail を使用して、統合ロールのアクティビティを検証します<block ref="60cfe31830d467874bb430da1683504e" prefix=" " category="inline-code"></block>。</block>
+  <block id="029bf93187092518fcd5b40e80f49deb" category="list-text">LambdaリンクまたはNetApp Consoleエージェントのデプロイを必要とするONTAPネイティブ操作が必要かどうかを事前に決定してください。</block>
+  <block id="a3383ae136d2372758456979b0295bfd" category="list-text">生成AIの使用が許可されているかどうか、また居住地の制約により単一リージョン推論プロファイルが必要かどうかを事前に決定してください。</block>
+  <block id="d9186b0a27b5b835f06c5d6408286a7e" category="doc">NetApp Workload Factoryの最小権限のアクセス許可階層</block>
+  <block id="418dcbb4a08e8e2a0893a95da942d404" category="paragraph">Workload Factory の IAM 権限は、最小権限の要件に合わせていつでも制限できます。例えば、特定のリソース（ARN）へのアクセスを制限したり、タグや CIDR 範囲などの IAM 条件を適用したりできます。</block>
+  <block id="128e58d321ee4bf170ce36048d908b7c" category="section-title">階層型権限モデル</block>
+  <block id="4961e62d68458489040ae8240e432a7d" category="paragraph">Workload Factoryは、最小権限の原則に沿った階層型権限モデルを採用しています。AWS認証情報を追加する際に、有効にする機能レベルを選択できます。読み取り専用の検出機能から始めて、必要に応じて拡張していくことができます。</block>
+  <block id="aaf9f546928ec8a4a338ccfe2e273d3b" category="paragraph">Workload Factoryは、外部IDを使用してSTS経由で引き受けるAWSアカウント内のIAMロールを通じて、すべての権限を付与します。</block>
+  <block id="e7c899658fa24ca7a745599cff1cdf35" category="paragraph">Workload Factoryは、インラインセッションポリシーを使用して、各API呼び出しの範囲をさらに詳細に指定します。</block>
+  <block id="b5c4fb47ac0ad39176efd041f61c16b7" category="paragraph">Workload Factory コンソールでは、AI チャット機能 _Ask Me_ が、制限オプションを提案し、AWS に適用する更新されたポリシーを生成することで、安全に権限を調整するのに役立ちます。</block>
+  <block id="039727239d5248f9f141984a526c5307" category="section-title">権限の付与</block>
+  <block id="d407b51f274f45e6167ca6dda253ee88" category="paragraph">Workload FactoryにAWS認証情報を追加する際、有効にする権限レベルを選択できます。階層はいつでも有効または無効にできます。</block>
+  <block id="564cd84499debe05935b48419f625f70" category="paragraph">階層は累積的です。上位の階層を有効にすると、下位のすべての階層も自動的に有効になります。</block>
+  <block id="3e265b668fb365db436e23411e27697d" category="list-text">外部ID（混乱した代理の保護）</block>
+  <block id="3789708ccf6965626efa02ee0161ac95" category="list-text">操作ごとのセッションポリシー（リクエストごとの最小権限）</block>
+  <block id="03e2dfde5e609debd4317a64f2d0b675" category="list-text">タグベースの条件（セキュリティグループの変更は Workload Factory で作成されたリソースに限定される）</block>
+  <block id="1e97ac5aa3063a45835812927ca40b89" category="list-text">シークレットARNスコープ（Secrets Managerへのアクセスを<block ref="4e7ac6946d9d0866cca5f3153dff7741" prefix=" " category="inline-code"></block>に制限）</block>
+  <block id="07a9c1d549f04dc7d5c58345e3ecf5e7" category="list-text">実行時権限の検証（対象を絞った修復のために不足しているアクション/リソースが報告されます）</block>
+  <block id="2107b42c0c5102465121e5ec8705ca05" category="section-title">権限に関するドキュメント</block>
+  <block id="9d8756af99e6ba953331af86b86fe733" category="inline-link-macro">権限リファレンス</block>
+  <block id="12643469f0fbd2d5aad92bc54b51e92a" category="paragraph">Workload Factory の権限に関する主な参照先は、Workload Factory のセットアップおよび管理に関するドキュメントの <block ref="86d546199bf7e7e189a44cce3e98b32d" category="inline-link-macro-rx"></block> です。ストレージ IAM ポリシーからアクセス許可を削除した場合の影響については、こちらの資料をご参照ください。</block>
+  <block id="3a84cef0233ac32a841f51da8d052f65" category="doc">NetApp Workload Factoryの法的通知</block>
+  <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="paragraph">法的通知から、著作権情報、商標、特許などを確認できます。</block>
+  <block id="6016a2b341113bf496b719905398ecd2" category="section-title">著作権</block>
+  <block id="52009bb7ee17227f566cd26a02caee56" category="inline-link-macro"><block ref="52009bb7ee17227f566cd26a02caee56" category="inline-link-rx"></block></block>
+  <block id="a1a9afcf552a769c282769271829889a" category="paragraph"><block ref="a1a9afcf552a769c282769271829889a" category="inline-link-macro-rx"></block></block>
+  <block id="126a02652da6de02962cf1b654fd6376" category="section-title">商標</block>
+  <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NetApp、NetAppのロゴ、NetAppの商標一覧のページに掲載されているマークは、NetApp, Inc.の商標です。その他の会社名と製品名は、それを所有する各社の商標である場合があります。</block>
+  <block id="f99aa604031e5049799e73b5c3748a98" category="inline-link-macro"><block ref="f99aa604031e5049799e73b5c3748a98" category="inline-link-rx"></block></block>
+  <block id="5d545fe5152641e2ebe654e336e520e5" category="paragraph"><block ref="5d545fe5152641e2ebe654e336e520e5" category="inline-link-macro-rx"></block></block>
+  <block id="be89498d2f8a22ce47c02ba9795fe2af" category="section-title">特許</block>
+  <block id="d0b19d36be2c5f16e9aef46c8a452d3d" category="paragraph">現在NetAppが所有する特許の一覧は以下のページから閲覧できます。</block>
+  <block id="88e5eabd3917048b6927c42496b98f86" category="inline-link-macro"><block ref="88e5eabd3917048b6927c42496b98f86" category="inline-link-rx"></block></block>
+  <block id="dd38f906b37d412de7d1c1dcf4cbf31c" category="paragraph"><block ref="dd38f906b37d412de7d1c1dcf4cbf31c" category="inline-link-macro-rx"></block></block>
+  <block id="56c34c6410dd45c5cec44149ad0ce037" category="section-title">プライバシー ポリシー</block>
+  <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
+  <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
+  <block id="c0227cef6f07a8cd2ac72f2945b031aa" category="section-title">オープンソース</block>
+  <block id="9b73989307c1975dfa4d5e1581e4afe8" category="paragraph">通知ファイルは、NetAppソフトウェアで使用されるサードパーティの著作権とライセンスに関する情報を提供します。</block>
+  <block id="aeb31c9f8c311597856b129ab948b4e6" category="inline-link">NetApp Workload Factory</block>
+  <block id="55f7843f27571db97da76bdf68a76d22" category="paragraph"><block ref="55f7843f27571db97da76bdf68a76d22" category="inline-link-rx"></block></block>
+  <block id="bef7b0fa7c024988f7d2096895036f9c" category="summary">NetApp Workload Factory は、ボリュームレベルおよびファイルシステムレベルのメトリクスを収集して AWS CloudWatch に保存し、ストレージのパフォーマンスと容量に関する運用上の可視性を提供します。</block>
+  <block id="29cea2413c94021e75af1ee68a6f97a5" category="doc">NetApp Workload Factoryのメトリクスとテレメトリ</block>
+  <block id="adecdc66805ff3238d868ca03ce1035d" category="paragraph">NetApp Workload Factory は、ボリュームレベルおよびファイルシステムレベルのメトリクスを収集して AWS CloudWatch に保存し、ストレージのパフォーマンスと容量に関する運用上の可視性を提供します。スループットなどの計算メトリクスは、これらの収集された値から導出されます。メトリクスの定義、収集頻度、更新動作、および保持の詳細をご確認ください。</block>
+  <block id="12ba142cac3f1268846bfc963157b693" category="section-title">含まれる指標</block>
+  <block id="657d0ae7a064a2dcd5876dd086faa484" category="paragraph">NetApp Workload Factoryは、運用ログとイベントに以下のメトリクスを使用します：</block>
+  <block id="cf45807585a5cdf01d2aad6464ef4932" category="list-text">ボリュームレベルのCloudWatchメトリクス（ボリュームごとに収集）</block>
+  <block id="8eaeba0c41b848a7cfeaa2f99d8aded0" category="list-text">ファイルシステムレベルのCloudWatchメトリクス（ファイルシステムごとに収集）</block>
+  <block id="08be5e1d2d18d626d0538b272de428cd" category="list-text">計算済みメトリクス</block>
+  <block id="16249599c9eec41b26af44db7608ce44" category="list-text">収集スケジュールと保管期間</block>
+  <block id="c9c9ba8b1b44541f777d24879581c5f6" category="section-title">運用指標について</block>
+  <block id="564bd3de956132ab7f95848cd9d60765" category="paragraph">計算されたメトリクスは、次の式を使用します：</block>
+  <block id="6b334ed56aa6956d1f6166cc2a22d7b1" category="list-text">スループット（バイト/秒）=（NetworkSentBytes + NetworkReceivedBytes） / 期間</block>
+  <block id="e9e18d4473e8824f470fd65cfc0c6ea9" category="paragraph">更新動作：</block>
+  <block id="88882da096561488634253388865fcf4" category="list-text">ボリュームとクラスタのメトリクスは12時間ごとに更新されます。</block>
+  <block id="beb56aafb5106e10df138c9b071edd6d" category="list-text">レイテンシの指標は20分ごとに更新されます。</block>
+  <block id="f0929c02b196f8ddb0d85f51aef32183" category="list-text">DynamoDB のアイテムは14日後に自動的に期限切れになります。</block>
+  <block id="aa0a0b41fc28da2f334d59bb1528c61b" category="section-title">テレメトリデータ収集について</block>
+  <block id="751f7be5e9cbb8dcaffa809b00fa079d" category="list-text">OpenTelemetry トレースは OTLP HTTP 経由で SigNoz にエクスポートされます（内部オブザーバビリティ）</block>
+  <block id="81267c0215fbbf018b49b785c2363784" category="list-text">AIの使用状況計測（トークン数、モデルコスト）はAWS Timestreamに保存されます。</block>
+  <block id="c811e1f9e16809265e73d21d2a227407" category="list-text">NetApp Console監査記録（アクション名、ステータス、リクエスト／レスポンスのメタデータ、タイムスタンプ）</block>
+  <block id="216ab40cda5c7c00ff42a4efb1827d89" category="cell">指標</block>
+  <block id="e47968d23161243dce030a9386a4395e" category="cell">AWS CloudWatch 名前</block>
+  <block id="19c562a36aeb455d09534f93b4f5236f" category="cell">単位</block>
+  <block id="85c3e14744d86f2b3848b8685d9c5366" category="cell">測定対象</block>
+  <block id="b3e9c4cd60af78168e1dfa0923b34db0" category="cell">ボリュームストレージ容量</block>
+  <block id="617329fecd67c24176298b54c11ecfdb" category="cell">StorageCapacity</block>
+  <block id="600e754f49b68aa0fc90a9cd64eb7051" category="cell">バイト</block>
+  <block id="47e1fef9c9daf3c2b0b394d6b0d18f76" category="cell">総プロビジョニング容量</block>
+  <block id="8a83a3693fbeea338030954271df0e2c" category="cell">ストレージ使用量</block>
+  <block id="42fd0e3f836a3283fbc8dd726b9d73a3" category="cell">StorageUsed</block>
+  <block id="889dd3578bc34ba61fa08921f98f7a7a" category="cell">実際に保存されたデータ</block>
+  <block id="079fcb9b0c6420ac7c85720f05daac87" category="cell">読み取られたデータバイト数</block>
+  <block id="c1929329db66f1a5b4fc210febc71478" category="cell">DataReadBytes</block>
+  <block id="8d6a77ffbbf7b13e07ced2b4c6cada11" category="cell">読み取りスループット</block>
+  <block id="1c52cb04d74c214e9474cac77b886d73" category="cell">データ書き込みバイト数</block>
+  <block id="9ad91595784880e9bbb04cb7ea86bb22" category="cell">DataWriteBytes</block>
+  <block id="f065806b8d90a21785624f56bbbfd705" category="cell">書き込みスループット</block>
+  <block id="a1d3ac22ef5e8be0595fec09e30f5eaa" category="cell">データ読み取り操作</block>
+  <block id="73d8588689ba9870753a58faecf3aea2" category="cell">DataReadOperations</block>
+  <block id="e93f994f01c537c4e2f7d8528c3eb5e9" category="cell">数</block>
+  <block id="86cfa2758dc24270f86861fe92aedae4" category="cell">Read IOPS</block>
+  <block id="2273b78e812bbe4786cda2d0faf19cde" category="cell">データ書き込み操作</block>
+  <block id="af36d93274827f4506acc55ed20c9986" category="cell">DataWriteOperations</block>
+  <block id="06dfefa7d295854682c6a6f2f613ca2d" category="cell">Write IOPS</block>
+  <block id="bcb598846f52a45771f7b5eb195ffa58" category="cell">メタデータ操作</block>
+  <block id="8c7f1db9c62b703ae627f33c159f5c05" category="cell">MetadataOperations</block>
+  <block id="082cd5c6b8b5bd183c696fc7d544f484" category="cell">メタデータIOPS</block>
+  <block id="8b8176b45990b4e06ee1ba1f3c92ac69" category="cell">データ読み取り操作時間</block>
+  <block id="37620dd581af8acb80c316585703082c" category="cell">DataReadOperationTime</block>
+  <block id="8f19a8c7566af54ea8981029730e5465" category="cell">秒</block>
+  <block id="cf9afbba5dc3d6546bf5f110bb1a8486" category="cell">読み取りレイテンシ</block>
+  <block id="48cbd816dc52596050619b3ea734c823" category="cell">データ書き込み操作時間</block>
+  <block id="39f67ae3609ea4652e64513b0ae65fcc" category="cell">DataWriteOperationTime</block>
+  <block id="d80906a49158ecc08546e169f755d9b9" category="cell">書き込みレイテンシ</block>
+  <block id="aa13456f424a30d485c661f4cdfa11a1" category="cell">メタデータ操作時間</block>
+  <block id="0b178902b4a0aa1eeb6744f705ffe646" category="cell">MetadataOperationTime</block>
+  <block id="89798dbdddac0f98ae0daf12503549fc" category="cell">メタデータ遅延</block>
+  <block id="caa419c06e9141baccd8c1f93fed02b4" category="section-title">ファイルシステムレベルのCloudWatchメトリクス</block>
+  <block id="dbcdce0df591a5821f381209133390e5" category="cell">SSDストレージ容量</block>
+  <block id="c512c8d5e285af060d6c6f3342ea26de" category="cell">SSD階層の合計容量</block>
+  <block id="c68360be8eb15a3ec154ccc15ae1c4bf" category="cell">SSDストレージ使用</block>
+  <block id="d8bdaefa24e5e14ffb6e9b6961c5ba0f" category="cell">StorageUsed（SSDティア）</block>
+  <block id="6eb0c0806206b6acfea795aea6552e8b" category="cell">SSD階層の消費量</block>
+  <block id="581a574b3423127dcbc3236e842f4079" category="cell">使用された容量プール</block>
+  <block id="2c6ed60f2e0e461bee42c6d9fda5905e" category="cell">StorageUsed（キャパシティプール）</block>
+  <block id="24fc63a7b05ce258f8b14f349db8614e" category="cell">容量プール消費量</block>
+  <block id="fb8326e1edbd06b1bf6ea0332e089055" category="cell">CPU利用率</block>
+  <block id="e4fa0b47fa54fc7226baea824078cb88" category="cell">CPUUtilization</block>
+  <block id="adaaee4b22041c27198d410c68d952c9" category="cell">パーセント</block>
+  <block id="a986262ce735a85529f01195a5e1e464" category="cell">ファイルサーバーCPU</block>
+  <block id="d2d9bfb471eaafa9f0774d54e40ddbda" category="cell">SSDの容量利用率</block>
+  <block id="097b3ab7d0b839a2c5b5e0aa20a14d1c" category="cell">StorageCapacityUtilization</block>
+  <block id="a7295fc258014e8410ac4ada9d5e982e" category="cell">SSD階層の使用率</block>
+  <block id="d5c077f0799922ec9890f2a994494fd9" category="cell">ネットワークスループット利用率</block>
+  <block id="921fe88b5ba4f43fc968cf150e7327ea" category="cell">NetworkThroughputUtilization</block>
+  <block id="898589ce64c4408fc545fb8d15a49354" category="cell">ネットワーク利用率</block>
+  <block id="0a4131f42a7884c79713c88154df8d52" category="cell">ディスクIOPS使用率</block>
+  <block id="baabb7e8b61ce3cfc7ba2a815fc1375d" category="cell">DiskIopsUtilization</block>
+  <block id="05702ae69456f77fc232c2c430b3f788" category="cell">ディスクIOPS利用率</block>
+  <block id="3805ffea182af8f8e649ef5a3ddde3d0" category="cell">ディスクスループット利用率</block>
+  <block id="25396189e67c08d31e63d89d891d7c71" category="cell">FileServerDiskThroughputUtilization</block>
+  <block id="e37e59fd6f3a27d2486438212dd873b3" category="cell">ディスクスループット利用率</block>
+  <block id="c2e070e92f055f6e49098abc39bdc053" category="cell">ディスクIOPS使用率（サーバー）</block>
+  <block id="64749188ec7697746671319c9db23092" category="cell">FileServerDiskIopsUtilization</block>
+  <block id="a10cc478b3b5d7cd5a329caabbe43bb9" category="cell">サーバーディスクのIOPS利用率</block>
+  <block id="0e63e1a4096a86da3bdbb23c4222aef2" category="cell">ストレージ効率化による削減効果</block>
+  <block id="3b1271b3e1e7dc5bb635f7f209e9c6ca" category="cell">StorageEfficiencySavings</block>
+  <block id="b392c56b53dacfe3d5d5f328a3ba358f" category="cell">効率化によりスペースを節約</block>
+  <block id="4f31691a2aad91ed29ea2b96dfa40cfd" category="cell">ネットワーク受信</block>
+  <block id="896a7a5aa761f110126e8a9c027a4004" category="cell">NetworkReceivedBytes</block>
+  <block id="56b0f815de4b0f68772c9a48670a6ac5" category="cell">インバウンドネットワーク</block>
+  <block id="847b9e0887e0aaccb8e7e94f8911b49c" category="cell">ネットワーク送信</block>
+  <block id="8046ba9ef5ea28f217759f37c4328603" category="cell">NetworkSentBytes</block>
+  <block id="c94e839e793a9bf1fae316f8f4bc3021" category="cell">アウトバウンドネットワーク</block>
+  <block id="8ae4a627e28635267b1fc532c618e41b" category="cell">Time range</block>
+  <block id="ef3d144d18d141f6a4e73a06e4a348d3" category="cell">収集期間</block>
+  <block id="90fd43f146814c9c0cb1e9040b914fa0" category="cell">データポイント</block>
+  <block id="8c4aa541ee911e8d80451ef8cc304806" category="cell">ストレージ</block>
+  <block id="7f6d38d7d0f6e5ede0664468079dfb06" category="cell">保持</block>
+  <block id="e3b481d5297f475abc283227bedbd9b9" category="cell">1日</block>
+  <block id="00970c9ca37aa88dc959bcc3250bc82c" category="cell">24分</block>
+  <block id="4e8328e60b25d82b27fe129ca0750612" category="cell">約60</block>
+  <block id="6ebb7423072c5943f52c11274fd71b0b" category="cell">DynamoDB</block>
+  <block id="b5df581dd21ad389ad77d892c0b23399" category="cell">14日間（TTL）</block>
+  <block id="705fbbd6e1667845569c00fd7523d343" category="cell">1週間</block>
+  <block id="917baadb82ae77abe24e40eb396b1d3f" category="cell">約2.8時間</block>
+  <block id="1634e66b522edaa910370cc5581a47f1" category="cell">1ヶ月</block>
+  <block id="a32d6f77b4cd387776263c94eaaa52ff" category="cell">12 時間</block>
+  <block id="de0353cab16c9faa68162dffe7b3ec08" category="cell">3カ月</block>
+  <block id="a7343b00ee0b3860d95aa33bbfa82b0e" category="cell">約1.5日</block>
+  <block id="ca4c73c1f333c437a47c58afd0623530" category="cell">1年</block>
+  <block id="e9f096c83d6235d983b901df04ed36ee" category="cell">約6日間</block>
+  <block id="96d510e07d4793fecba562c7a0e6fb4d" category="summary">可観測性シグナルは、運用監視、トラブルシューティング、および調査をサポートするのに役立ちます。NetApp Workload Factoryにおける可観測性には、サービス動作、AIの使用状況、およびWorkload Factoryを通じて実行されたアクションを可視化するメトリクス、テレメトリ、および運用レコードが含まれます。</block>
+  <block id="50ed157fb664d3ee633efe845f6d74b7" category="doc">NetApp Workload Factoryの可観測性について</block>
+  <block id="0f287a5706ad9eabca9b2428379aa356" category="paragraph">可観測性シグナルは、運用監視、トラブルシューティング、および調査をサポートします。NetApp Workload Factoryの可観測性には、サービスの動作、AIの使用状況、およびWorkload Factoryを通じて実行されるアクションを可視化するメトリクス、テレメトリ、および運用記録が含まれます。テレメトリと運用記録は、内部監視と顧客向け監査の可視性をサポートし、トラッカーは、サポート対象の運用の進捗状況、ステータス、および詳細を確認するのに役立ちます。</block>
+  <block id="afbfe64bedf0aa1b3200acd9514d0dba" category="section-title">テレメトリおよび運用記録</block>
+  <block id="30f69f916007cd6aaa34e3fa4bd342ca" category="paragraph">Workload Factoryは、以下のテレメトリおよび運用記録タイプを使用します：</block>
+  <block id="bc53eda97bfbe9e09e30ce14aee5be6c" category="section-title">Workload Factoryにおける監査ログ</block>
+  <block id="145813b0d1b5bcb1ddec60c42ffa4f74" category="paragraph">Workload Factoryには、監視機能であるTrackerが搭載されており、どの操作がいつ実行されているかを監視できます。Trackerを使用すると、FSx for ONTAPの進捗状況とステータス、クレデンシャル、およびリンク操作を追跡し、操作タスクとサブタスクの詳細を確認し、問題や障害を診断できます。</block>
+  <block id="d73fd05e9c4331e9d1af30ae3dcfd75c" category="paragraph">Trackerでは、いくつかの操作が可能です。ジョブは、期間（過去24時間、7日間、14日間、または30日間）、ワークロード、ステータス、およびユーザーでフィルタリングしたり、検索機能を使用してジョブを検索したり、ジョブテーブルをCSVファイルとしてダウンロードしたりできます。</block>
+  <block id="bbcc3d77b8d7921725fb0f747cf0c4bb" category="inline-link-macro">Workload Factory の Tracker を使用して操作を監視する</block>
+  <block id="a41bdbf9803f4f390fc59e16b259386a" category="list-text"><block ref="a41bdbf9803f4f390fc59e16b259386a" category="inline-link-macro-rx"></block></block>
+  <block id="108fb3bdf8bc31cb0de9178a07dea83e" category="list-text"><block ref="108fb3bdf8bc31cb0de9178a07dea83e" category="inline-link-macro-rx"></block></block>
+  <block id="44f3f76df08f2953ae314abe0f58ae9c" category="summary">NetApp Workload Factoryへのオンボーディングにより、製品の使用を開始する前に、お客様のAWS環境への安全なアクセスが確立されます。</block>
+  <block id="61366223199ce2252f0d9930298c6569" category="doc">NetApp Workload Factory オンボーディングセキュリティワークフロー</block>
+  <block id="25ecb47a1602dea549b92558fd02ef27" category="paragraph">NetApp Workload Factoryへのオンボーディングは、製品の使用を開始する前に、お客様のAWS環境への安全なアクセスを確立します。このプロセスは、AWSの信頼設定、権限スコープの設定、接続性のセットアップ、可観測性の検証、およびオプションのAI診断の有効化を組み合わせたものです。</block>
+  <block id="893f7a5e42f0cc2b555d99ea7379e0cc" category="section-title">ステップ1：オンボーディングの方針を決定する</block>
+  <block id="2a834ac0df3a003c929e66b9bdd28e70" category="list-text">AWSアカウントと環境境界（例：本番環境と非本番環境の分離）を特定します。</block>
+  <block id="9e6e0866445ae2c61fdc62d622510627" category="list-text">必要なワークフロー（読み取り専用の検出、プロビジョニング、ONTAPネイティブ操作）を特定します。</block>
+  <block id="5dcb5dba894df689d7ded57f982063d8" category="list-text">ワークフローのニーズに基づいて、VPC実行コンポーネント（例：Lambda リンク）をデプロイするかどうかを決定します。</block>
+  <block id="9a11f5d322377bc8fd3d66a7d8cc5707" category="list-text">AI診断を有効にするかどうかを決定します（デフォルトでは有効）。</block>
+  <block id="2ef07eb8787a63f2c077f581db7de377" category="list-text"><block ref="2ef07eb8787a63f2c077f581db7de377" category="inline-link-macro-rx"></block></block>
+  <block id="2eee1235aaa9e2c78fd8464b8e498c45" category="section-title">ステップ2：AWSの信頼関係とアクセスを確立する</block>
+  <block id="24b26f2b0e8fb62879f557b01457ba1d" category="list-text">AWSアカウントにIAMロールをデプロイします。</block>
+  <block id="b71e572a5c261a2134bd499eec03c6fa" category="list-text">信頼ポリシーで外部IDを使用したゲートロールの引き受けを行います。</block>
+  <block id="5ab4146446ff5f4b56c1aa1f5549d0ba" category="section-title">ステップ3：最小権限のアクセス許可を適用する</block>
+  <block id="3a992e9144af06303108319ec4598b1d" category="list-text">想定するワークフローをサポートする最小限の権限レベルを選択してください。</block>
+  <block id="5457fc6ef4d8745ace850f6c441c737c" category="list-text">リクエストごとのセッションポリシーによって、実行される操作に対するアクションが制限されていることを確認します。</block>
+  <block id="f163abb067723f28487ac052cffe5a71" category="paragraph"><block ref="470abcaa1ec503caa1f909e24384f857" category="inline-link-macro-rx"></block>。</block>
+  <block id="904950ddef61a0d894e263aac77703d8" category="section-title">ステップ4：接続性とVPC境界の設定（必要に応じて）</block>
+  <block id="58dc51ba9809050d0cf33762f086c9dc" category="list-text">AWSエンドポイントへの必要なネットワークパスを検証します。</block>
+  <block id="b7160c09f6a36371d8dc3bb720f03dda" category="list-text">ONTAPネイティブ操作が必要な場合は、VPC内で適切な実行オプションをデプロイして検証してください。</block>
+  <block id="99ebaf77705a119234345f8cf9fb6a9f" category="list-text"><block ref="99ebaf77705a119234345f8cf9fb6a9f" category="inline-link-macro-rx"></block></block>
+  <block id="cd999cf62ea454164f7660db743ae1bf" category="inline-link-macro">NetApp Workload FactoryにおけるONTAPの実行オプション</block>
+  <block id="e95eda9cdd8ebf53d68bb2eada60ece7" category="list-text"><block ref="e95eda9cdd8ebf53d68bb2eada60ece7" category="inline-link-macro-rx"></block></block>
+  <block id="dcc2be1fa0f998cc0b9beb1f8cb6f0e7" category="section-title">ステップ5：可観測性の検証</block>
+  <block id="c64a054dcc88b668d6edef7c11d61348" category="list-text">メトリクスとテレメトリが想定どおりに収集および保持されていることを確認してください。</block>
+  <block id="02a3fbe3b0d7680706f04ebe921805cb" category="list-text">トラブルシューティングや調査に必要な運用記録にアクセスできることを確認してください。</block>
+  <block id="ec538b8a8f5dd3e890f200a773eb294c" category="inline-link-macro">NetApp Workload Factoryの可観測性の概要</block>
+  <block id="c7c9bb42da91c4746c89fd9ac151df8b" category="list-text"><block ref="c7c9bb42da91c4746c89fd9ac151df8b" category="inline-link-macro-rx"></block></block>
+  <block id="97c44537a2c9b087fcb1b49064f63850" category="section-title">ステップ6：AI診断を有効にする（オプション）</block>
+  <block id="52c22999823078fa4f6f870e5f13b021" category="paragraph">AI診断はデフォルトで有効になっています。これらを有効にする場合は、前提条件を満たしていること、および必要な最小限の権限範囲であることを確認してください。</block>
+  <block id="36c4b396e59e85a57ce13345a9405aff" category="summary">一部のNetApp Workload Factoryのワークフローでは、AWS APIを通じて公開されていないONTAPネイティブの操作が必要です。Workload Factoryは、これらの操作をAWSアカウントの境界内に保持するための2つの実行オプションを提供しています。</block>
+  <block id="104051cf68d5e97556c69412c71b3e2f" category="paragraph">いくつかの NetApp Workload Factory のワークフローでは、AWS API を通じて公開されていない ONTAP ネイティブの操作が必要です。Workload Factory は、これらの操作を AWS アカウントの境界内に留める 2 つの実行オプションを提供します：VPC 内から ONTAP 操作を実行する Lambda リンク、および EC2 インスタンスからの送信専用接続を使用する NetApp Console Agent です。どちらのオプションでも、ネットワーク、認証情報、ライフサイクルに関する決定事項をセキュリティモデルの範囲内に保ちながら、必要な ONTAP 操作を実行できます。</block>
+  <block id="880ee77775ef24f61df7473e24da8839" category="section-title">実行オプション</block>
+  <block id="9d18c0c7be709a00164ff346d9df8d35" category="list-text">Lambdaリンク（VPC内のAWS Lambda）</block>
+  <block id="7ddfb9d89de561a389cd89e1b037a475" category="list-text">VPC内からONTAP RESTおよび読み取り専用のONTAP CLI診断を実行しますが、ONTAPを外部に公開しません。</block>
+  <block id="f5f9a6629d7072a5fd34544f00868506" category="list-text">NetApp Console Agent（お客様のVPC内のEC2、送信専用）</block>
+  <block id="54168f04c2cb5307e0d68a4fc80ed444" category="list-text">プロキシされた ONTAP 処理を実行します。エージェントが発信接続を開始し、Workload Factory がエージェントへの着信接続を開始することはありません。</block>
+  <block id="e267da5d3ce594aee233daa50baa6853" category="section-title">セキュリティに関する考慮事項</block>
+  <block id="a2f8cf22d3ad7b97e6c8a0638ceb5bb6" category="list-text">ネットワーク境界：必要な送信ポート（443/22）と宛先を確認してください。</block>
+  <block id="7756ab3ce9a23d5de3fc3931d3cd1a7e" category="list-text">認証情報の境界：ONTAP 認証情報を Workload Factory に保存する（エンベロープ暗号化）か、AWS Secrets Manager から参照するかを決定します。</block>
+  <block id="5465ef86b9d7ca1b717ce0d45a9ca3c8" category="list-text">監査可能性：コンポーネントの動作および障害に関する運用記録を確認します。</block>
+  <block id="e0daadd716788856f3d83cbb78c9f7ce" category="list-text">ライフサイクル管理：更新と削除がどのように行われるかを確認します。</block>
+  <block id="39f4e7991235e69a06c9960efb9fe3d6" category="inline-link-macro">NetApp Workload FactoryのLambdaリンクの概要</block>
+  <block id="0c4438fd627125c0191e7276e3fc7b90" category="list-text"><block ref="0c4438fd627125c0191e7276e3fc7b90" category="inline-link-macro-rx"></block></block>
+  <block id="3416e67013b2e232d7725e559917ea8f" category="list-text"><block ref="3416e67013b2e232d7725e559917ea8f" category="inline-link-macro-rx"></block></block>
+  <block id="b334128403ed60ff931947907046e1f0" category="summary">NetAppテクニカルサポートでサポートケースを開く前に、NetApp Support SiteアカウントをWorkload Factoryに追加し、サポートへの登録を行う必要があります。</block>
+  <block id="a974c4cc3e5ab4ff9e0eff9af208bde1" category="doc">NetAppサポートへの登録</block>
+  <block id="3d9b602ae77ac6a4951ca31b05b6b54f" category="paragraph">NetApp Workload Factoryおよびそのストレージ ソリューションとサービスに特化したテクニカル サポートを受けるには、サポートへの登録が必要です。サポートへの登録は、Workload Factoryとは別のWebベースのコンソールであるNetApp Consoleから行う必要があります。</block>
+  <block id="c552970fd4dc8118ba1806da596acad9" category="paragraph">サポートに登録しても、クラウド プロバイダのファイルサービスに対するNetAppサポートは有効になりません。クラウド プロバイダのファイルサービス、そのインフラストラクチャ、またはそのサービスを使用するソリューションに関するテクニカルサポートについては、該当製品のWorkload Factoryドキュメントの「Getting help」を参照してください。</block>
+  <block id="0b0e252af8897fbe981ec6682d2aa33b" category="section-title">サポート登録の概要</block>
+  <block id="eb803e55617f13b716b5e56642cce2b0" category="paragraph">アカウントIDサポートサブスクリプションの登録（NetApp Consoleのサポートリソースページにある20桁の960xxxxxxxxxシリアル番号）は、お客様の単一のサポートサブスクリプションIDとして機能します。各NetAppアカウントレベルのサポートサブスクリプションは登録が必要です。</block>
+  <block id="4cffd3c1dbf2f1038c01d18e7a860305" category="paragraph">登録することで、サポートチケットの発行や自動ケース生成などの機能を利用できるようになります。登録は、以下に説明するように NetApp Support Site （NSS） アカウントを NetApp Console に追加することで完了します。</block>
+  <block id="856edc4caec68fece6859c4be9360f3c" category="section-title">NetAppサポートにお客様のアカウントを登録します</block>
+  <block id="f6c4a3ae75d6616126e6da8310ae7384" category="paragraph">サポートに登録してサポートの利用権限を有効にするには、アカウント内の1人のユーザーが NetApp Support Site アカウントを NetApp Console のログインに関連付ける必要があります。NetApp サポートへの登録方法は、すでに NetApp Support Site （NSS）アカウントをお持ちかどうかによって異なります。</block>
+  <block id="bf4c731c0ee7f60c8018ad8f96828dda" category="section-title">NSSアカウントをお持ちの既存顧客</block>
+  <block id="f732375b4bc27328f202e3b10a957017" category="paragraph">NSS アカウントをお持ちの NetApp のお客様は、NetApp Console からサポートに登録するだけで済みます。</block>
+  <block id="f65aaf10469eac2932fc53c6a37afb71" category="list-text">NetApp コンソールメニューから「管理」を選択し、次に「認証情報」を選択します。</block>
+  <block id="f19ab635e6d5f884a22ee4ce067fdbfd" category="list-text">「ユーザー認証情報」を選択します。</block>
+  <block id="0c788a722f31f8f0cf36539ee04615cf" category="list-text">「NSS認証情報の追加」を選択し、NetApp Support Site（NSS）認証プロンプトに従ってください。</block>
+  <block id="cfc5506589d5a4d055e721267d5f0732" category="list-text">登録手続きが正常に完了したことを確認するには、ヘルプアイコンを選択し、*サポート*を選択してください。</block>
+  <block id="8add4eb0d3f6ce61d374f3df3ee4eadf" category="paragraph">「リソース」ページには、お客様のアカウントがサポート対象として登録されていることが表示されます。</block>
+  <block id="10c56875db7a47f791d653e5d5bff0e9" category="inline-image-macro">アカウントのシリアル番号と緑色のチェックボックス、および「サポートに登録済み」というテキストが表示されたスクリーンショット。</block>
+  <block id="fa7897454f637026faa3e00ccbfec239" category="paragraph"><block ref="fa7897454f637026faa3e00ccbfec239" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9094354ffd09e4644caa0010edc66d24" category="paragraph">他のNetApp Console ユーザーが NetApp Support Site アカウントを NetApp Console ログインに関連付けていない場合、同じサポート登録ステータスは表示されません。ただし、これはお客様の NetApp アカウントがサポート対象として登録されていないことを意味するわけではありません。アカウント内の少なくとも1人のユーザーがこれらの手順を完了していれば、アカウントは登録済みです。</block>
+  <block id="1ff5aefce774ec72a211f2b3bb10b950" category="section-title">既存顧客だがNSSアカウントは持っていない</block>
+  <block id="a8f62b208e5177a219f0b0d4ce88e0a9" category="paragraph">既存のライセンスとシリアル番号をお持ちのNetAppの既存のお客様で、NSSアカウントをお持ちでない場合は、NSSアカウントを作成し、NetApp Consoleのログインに関連付ける必要があります。</block>
+  <block id="5b2b7f628f804bcb786a097c7e45aa41" category="inline-link">NetApp Support Site ユーザー登録フォーム</block>
+  <block id="0c4a8b62da9473fbd5401273c4f85ee0" category="list-text">NetApp Support Site アカウントを作成するには、<block ref="041bcb6d9bdf91f7d6ac92ae3a196e12" category="inline-link-rx"></block></block>
+  <block id="d61c9f72493817776f392db42ac446a2" category="list-text">適切なユーザーレベルを選択してください。通常は *NetApp Customer/End User* です。</block>
+  <block id="fb9b6bbcab5fb396a13f67594a0ba1ee" category="list-text">シリアル番号フィールドには、上記で使用した NetApp アカウントシリアル番号（960xxxx）を必ずコピーしてください。これにより、アカウント処理が迅速化されます。</block>
+  <block id="40eff8559acd41057187b6cb11fa1919" category="list-text">新しい NSS アカウントを NetApp Console のログインに関連付けるには、<block ref="2f3aba04ec49ee5f0573a6c80a1b9df2" category="inline-xref-macro-rx"></block> の手順を完了してください。</block>
+  <block id="e9b1f53d6cabb3394833a4e102eb6a69" category="section-title">NetAppをご利用いただくのが初めての方へ</block>
+  <block id="c20c107d0d4eef6351660f3590324232" category="paragraph">NetAppを初めてご利用になる方で、NSSアカウントをお持ちでない場合は、以下の手順に従ってください。</block>
+  <block id="f5d7029ed18f998c0a9d780b2554e538" category="list-text">サポートリソースページからアカウントIDのシリアル番号をご確認ください。</block>
+  <block id="b50f0a46135bcb7083b1f2f82032fc26" category="inline-image-macro">ヘルプメニューのスクリーンショット。「サポート」が最初のオプションとして表示されています。</block>
+  <block id="55adf589d087b17fca134b34f65498ed" category="paragraph"><block ref="55adf589d087b17fca134b34f65498ed" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dd50e314c18933734174c1156dd9237f" category="inline-link">NetAppのサポート登録サイト</block>
+  <block id="78f94e749b89d69dcbf3baff21ccb958" category="list-text"><block ref="e1c4be66250fd76d5c52bfe2cb7daee2" category="inline-link-rx"></block>に移動し、*登録済みの NetApp のお客様ではありません*を選択します。</block>
+  <block id="d4f633ef130727b2776fa7f45024ca7d" category="list-text">必須項目（赤いアスタリスクが付いている項目）を入力してください。</block>
+  <block id="1128fc8d5ec64880f4d49337ed798d31" category="list-text">「Product Line」フィールドで「Cloud Manager」を選択し、該当する請求プロバイダーを選択してください。</block>
+  <block id="50a1dc01b7312307c34a888071586955" category="list-text">上記のステップ2のアカウントシリアル番号をコピーし、セキュリティチェックを完了してから、NetAppのグローバルデータプライバシーポリシーを読んだことを確認してください。</block>
+  <block id="3a24c87c9971d2011b4df223718f84b4" category="paragraph">この安全な取引を完了するために、ご提供いただいたメールアドレスに直ちにメールが送信されます。確認メールが数分以内に届かない場合は、迷惑メールフォルダをご確認ください。</block>
+  <block id="03413baeca1ff7222737d8ce299bd4e8" category="list-text">メール本文から操作内容を確認してください。</block>
+  <block id="201080500e946070a2e4873042507c77" category="paragraph">確認すると、リクエストが NetApp に送信され、NetApp Support Site アカウントを作成することをお勧めします。</block>
+  <block id="cc8b0535948da368f832027c19b7f853" category="list-text">必ず上記のアカウントシリアル番号（960xxxx）をコピーして、シリアル番号欄に入力してください。これにより、アカウント処理が迅速化されます。</block>
+  <block id="684375e279a289295b72a006d93e2c4c" category="paragraph">NetApp のサポート担当者がこのプロセス中にご連絡いたします。これは新規ユーザー向けの初回のみのオンボーディング手順です。</block>
+  <block id="f335678326583cea28377216c5515221" category="paragraph">NetApp Support Site アカウントを取得したら、<block ref="2f3aba04ec49ee5f0573a6c80a1b9df2" category="inline-xref-macro-rx"></block>の手順を完了して、アカウントを NetApp Console ログインに関連付けてください。</block>
+  <block id="5ee0ffcbc0868f2752b4e1ef23b4ddcc" category="summary">NetApp Workload Factoryは、お客様のAWS環境でAmazon FSx for NetApp ONTAP上で実行されるワークロードの管理と最適化を支援するSaaSコントロールプレーンです。</block>
+  <block id="235ee935fcf1f80bd8010a48d153f4d6" category="doc">NetApp Workload Factory のセキュリティモデルについて</block>
+  <block id="df6c39931b4ff1a4a4f813f53516e211" category="paragraph">NetApp Workload Factoryは、AWS環境でAmazon FSx for NetApp ONTAP上で実行されるワークロードの管理と最適化を支援するSaaSコントロールプレーンです。セキュリティの成果は、NetApp、AWS、およびお客様の組織間での責任共有によって決まります。</block>
+  <block id="8355753a2ee58f10ef2f9c5626ab3eb3" category="section-title">高レベルのセキュリティモデル</block>
+  <block id="8f952e7edd6ea5a754e9ee4d27245197" category="list-text">Workload Factoryは、IAMのassume-roleモデルを使用して、お客様のアカウント内のAWS APIを呼び出すための一時的なAWS STS認証情報を取得します。</block>
+  <block id="9c423a0cb16ec9658cd69d3b3a1d31e0" category="list-text">ワークフローによっては、AWS API を通じて公開されていない ONTAP ネイティブの操作が必要となる場合があります。そのような操作は、お客様がデプロイした実行コンポーネント（Lambda リンクなど）を使用して、VPC 内で実行できます。</block>
+  <block id="a4bb11c5ebb27f3a58ba74af8dcc4567" category="list-text">観測可能性シグナル（メトリクス、テレメトリ、運用記録）は、運用監視および調査をサポートします。</block>
+  <block id="efa1784e2378c40d6784e3d01d326a58" category="section-title">重要な復習問題</block>
+  <block id="bdaab2cf472610a3c2d8fededdd0fcc7" category="list-text">Workload Factoryは、お客様のAWSアカウントに対してどのようなアクセス権限（ロールの信頼＋アクセス許可）を必要としますか？</block>
+  <block id="80681d2fca175dfb71dee20c6ba79c9d" category="list-text">想定されるワークフロー（AWS APIのみの操作、またはVPCコンポーネントを介したONTAPネイティブ操作）には、どの実行パスが適用されますか？</block>
+  <block id="db811043ee5b5c50b7bb9ff502bae56d" category="list-text">どのようなデータカテゴリ（設定/メタデータ、運用ログ/イベント、テレメトリ）が処理され、それらはどこに保存されますか？</block>
+  <block id="40528fae98d54d885ea8c3dd73a9b488" category="list-text">どのような監視シグナルが存在し、それらの保持特性はどのようなものですか？</block>
+  <block id="01e12de62fa77fda2815719aed8ff892" category="section-title">次の手順</block>
+  <block id="51d0640cffcf3166d189ae3659eeee68" category="inline-link-macro">NetApp Workload Factoryの共同責任の境界</block>
+  <block id="2e2ee63a379e039c60a59db259e790fa" category="list-text"><block ref="2e2ee63a379e039c60a59db259e790fa" category="inline-link-macro-rx"></block></block>
+  <block id="470abcaa1ec503caa1f909e24384f857" category="list-text"><block ref="470abcaa1ec503caa1f909e24384f857" category="inline-link-macro-rx"></block></block>
+  <block id="65625937c73079b6ea7c1d74edb5c3f5" category="summary">NetApp Workload Factory のセキュリティ責任は、NetApp（SaaS運用）、AWS（クラウドインフラストラクチャおよびマネージドサービス）、およびお客様（顧客設定）の間で共有されます。</block>
+  <block id="178c4c9ffd88ef065b79dc99c8ca3944" category="paragraph">NetApp Workload Factory のセキュリティ責任は、NetApp （SaaS運用）、AWS （クラウドインフラストラクチャおよびマネージドサービス）、およびお客様（顧客設定）の間で共有されます。各当事者の責任範囲を理解することで、AWS環境を正しく構成し、セキュリティ上のギャップを回避することができます。これらの境界線は、NetApp が運用するもの、AWS が保護するもの、およびお客様自身が設定・維持する必要があるものを明確にします。</block>
+  <block id="9614419eb90f312b043ee2a4a41cf80c" category="section-title">NetAppの責任範囲（サービス側）</block>
+  <block id="cf958bef3be5b00887ef83f6f7b45ed4" category="paragraph">NetAppは、Workload Factory SaaSプラットフォームの運用とセキュリティ確保を担当しています。これには、保存された構成参照と運用データのサービス側での処理が含まれます。</block>
+  <block id="c620d0c6085e93f8726d026181b76ac7" category="section-title">AWSの責任範囲（クラウドプラットフォーム）</block>
+  <block id="bc78c1452201742cf659194bba712434" category="paragraph">AWS は、デプロイメントやワークフローで使用されるクラウドインフラストラクチャとマネージドサービス（例：IAM/STS、FSx for ONTAP、CloudWatch、KMS、Secrets Manager、CloudFormation、Lambda、およびネットワークプリミティブ）のセキュリティに責任を負います。</block>
+  <block id="e527a27f52031f654d3cee98706703df" category="section-title">お客様の責任（お客様の設定）</block>
+  <block id="0ac6d7e58bdcdd03588430c747957bae" category="paragraph">お客様は以下の責任を負います：</block>
+  <block id="70bf9232820645b7c2e8862503895786" category="list-text">AWS IAMロール、信頼ポリシー、および最小権限のアクセス許可</block>
+  <block id="706b148aeb1628621b171ba2e335f9eb" category="list-text">VPCの制御（サブネット、セキュリティグループ、ルーティング、エンドポイント、およびエグレス）</block>
+  <block id="6025aadaac9f7a87e58ea1e556bdde0e" category="list-text">クレデンシャル管理（ワークフローで必要な場合は ONTAP クレデンシャルを含む）</block>
+  <block id="a9386acc40271e497bf629c5bdeda579" category="list-text">暗号化とキー管理の決定（たとえば、FSx for ONTAP のオプションのカスタマー管理 KMS キー）</block>
+  <block id="837126a6769bc80c3b4d129b371e01f3" category="list-text">監視、アラート、データ保持ポリシー、およびインシデント対応プロセス</block>
+  <block id="1d943c32a5927ce2487452931f22630b" category="section-title">収集する証拠</block>
+  <block id="aad0ef0f727d9e9fdb610998af6116c3" category="list-text">IAMロールの信頼関係（外部ID条件を含む）</block>
+  <block id="1f9862df8c89368ce8823cb23999af87" category="list-text">IAM権限階層の選択とポリシー成果物</block>
+  <block id="77e7a3ae451f8d35a1a0d8654510f17c" category="list-text">ネットワーク境界の決定（AWS APIのみか、LambdaリンクなどのVPC実行コンポーネントか）</block>
+  <block id="c8a090dc466363f34a7db985a1a4e836" category="list-text">可観測性に関する決定と保持に関する期待</block>
+  <block id="e46e86c0bcf88e8a51a31a4cdc8df66f" category="list-text">AI有効化の決定（AI診断は、明示的に無効化されない限り、デフォルトで有効になります）</block>
+  <block id="46c1dcc77329c2ea9396c86aff6719c7" category="sidebar">NetApp Workload Factoryには、データの収集、保存、保持、アクセス方法など、セキュリティとデータ保護に関するガイダンスが含まれています。このリファレンスを使用して、アーキテクチャ、権限、およびコンプライアンス体制を理解し、より迅速で一貫性のあるセキュリティレビューとオンボーディングプロセスをサポートしてください。</block>
+  <block id="ca3d222c28addc7f03269d358f6a99a5" category="sidebar">NetApp Workload Factoryの情報セキュリティ</block>
+  <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">はじめに</block>
+  <block id="512a1656fff6876a42e3177a70af0af8" category="sidebar">オンボーディングセキュリティワークフロー</block>
+  <block id="45d25c062bc3ec8b4bf9436c8e58c147" category="sidebar">セキュリティと接続性</block>
+  <block id="8670548aa113cffb6c6bf814dd4c87f1" category="sidebar">コンプライアンスとセキュリティ体制</block>
+  <block id="9c43e5e6d49a3a598c99296cb4a2c640" category="sidebar">AWS認証情報フロー</block>
+  <block id="0ed02153c798ff59aa26fdba20dd07d3" category="sidebar">認証情報の保存オプション</block>
+  <block id="42ef5ce9159b94351827912365f28929" category="sidebar">最小限の権限要件</block>
+  <block id="cdf8b1112911b37c25e8e30cfab17573" category="sidebar">暗号化と鍵管理</block>
+  <block id="0104b1c48fe8dbacf595b673f8209e12" category="sidebar">可観測性（ログ、メトリクス、テレメトリ）</block>
+  <block id="ce7de0d2d3268b87e04a63020adf4e63" category="sidebar">可観測性の概要</block>
+  <block id="bcd7555baa738ea17cc3b07fd015b887" category="sidebar">生成AIセキュリティ制御</block>
+  <block id="b50d2c6c1773236fe470d0d2f580eb97" category="sidebar">BedrockのAI診断へのオプトイン</block>
+  <block id="af91107c4278124f30a1414ffa67d4a9" category="sidebar">AIツールの境界</block>
+  <block id="685328e02aa5a2f42c3a732be7be9070" category="sidebar">AIモデルのパラメータと課金</block>
+  <block id="99766a99f9128229766ce2a730f02f14" category="sidebar">ONTAPオペレーションとLambdaリンク</block>
+  <block id="1418f29d53b916b6897c5fa0f67ce486" category="sidebar">LambdaリンクのIAM権限</block>
+  <block id="0adc03eac86772ad2c75c8f140be417e" category="sidebar">ナレッジとサポート</block>
+  <block id="42748df9eaa0be17ddc5cc1593cf57ab" category="sidebar">サポートに登録</block>
+  <block id="fabfc25ef8996fd90836e58a4c0b26b6" category="sidebar">ヘルプを表示</block>
+  <block id="813011e2103649bb71f124adedcc10ea" category="sidebar">ブログとコミュニティ</block>
+  <block id="3c031b939f6ec312ee601d021e7a6644" category="sidebar">NetApp Console</block>
+  <block id="cc58d3a9b2264c4fd8cb1d3f61b90bdc" category="sidebar">NetApp Data Services</block>
+  <block id="dd490b81914dd945601e442a41cb4222" category="sidebar">NetAppコミュニティ</block>
+  <block id="01891381b46127715f1ff77c772edaf8" category="sidebar">Workload Factoryの情報セキュリティについて</block>
+  <block id="718a296036b3734fb967232381cf3df5" category="sidebar">資格情報の保持</block>
+  <block id="7545768961310611a3f58a52ccdc09c9" category="sidebar">CloudWatch 監視権限</block>
+  <block id="dee12d83249dd7abd9012ae73fc3b012" category="sidebar">アカウント削除</block>
+  <block id="0a48f49460f6f689a9da82a9cf2b4219" category="sidebar">Amazon BedrockのAI診断機能へのオプトイン</block>
+  <block id="e89477f461ecef2d895595553cc0cfbf" category="sidebar">Ask Me AIアシスタント</block>
+  <block id="0adf29a021a9a48af6279e10449f2bbf" category="sidebar">Ask Me セキュリティアーキテクチャ</block>
+  <block id="e80c2f90cfc11a974dd003be6c0cb360" category="sidebar">Ask Me アクセス制御</block>
+  <block id="f13f00b0f38cb5d39ae46a660f3730e2" category="sidebar">Ask Me 実行モード</block>
+  <block id="082650d690280d5ac61dd2bb38899196" category="sidebar">Ask Me のプライバシーと可用性</block>
+  <block id="4d9cde297d1c003eba9c5b3021d6839e" category="sidebar">ONTAP運用とLambdaリンク（顧客VPCコンポーネント）</block>
+  <block id="a3a6979c264d714e00c70c8cf88cc14b" category="sidebar">ラムダリンクのライフサイクル</block>
+  <block id="30d965eef5ba25c6b9998ae38270b43e" category="sidebar">法律上の表示</block>
+</blocks>

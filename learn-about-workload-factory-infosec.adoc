@@ -1,0 +1,91 @@
+---
+sidebar: sidebar 
+permalink: learn-about-workload-factory-infosec.html 
+keywords: infosec, security, data handling, data retention, data collection, permissions, credentials, iam, assume role, least privilege, compliance, soc 2, govcloud, amazon bedrock, lambda, link, fsx for ontap, logging, audit, access control, onboarding, hardening 
+summary: NetApp Workload Factoryは、情報セキュリティとデータ保護の実践を重視しており、データ処理方法とアクセス要件に重点を置き、最小権限構成と潜在的なセキュリティ強化に関するガイダンスを提供しています。 
+---
+= NetApp Workload Factoryの情報セキュリティについて学ぶ
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+情報セキュリティは、NetApp Workload Factory の設計と運用の中核をなす部分です。情報セキュリティ、クラウドプラットフォーム、ストレージの各チームは、これらの詳細情報を活用して、企業のセキュリティ要件をサポートする形で Workload Factory を評価・導入することができます。
+
+
+
+[[what-workload-factory-is]]
+== Workload Factoryとは
+
+Workload Factory は、Amazon FSx for NetApp ONTAP を使用して、ワークロード（ストレージ、VMware 移行、EDA プロジェクト、データベース環境など）を最適化および管理するための SaaS ライフサイクル管理プラットフォームです。お客様のワークロードは AWS 上で実行されます。
+
+Workload Factory は、AWS を通じてネイティブに利用可能なすべての FSx for ONTAP 操作に AWS API を使用し、プラットフォームでサポートされているものの AWS API を通じてネイティブに利用できない Workload Factory 操作には ONTAP REST API を使用します。
+
+
+
+[[core-security-principles-used-in-this-guide]]
+== このガイドで使用される基本的なセキュリティ原則
+
+機密保持:: ID管理、最小権限の原則、暗号化、ネットワーク境界の設定などを通じて、不正アクセスからデータを保護します。
+整合性:: 権限範囲の設定、変更管理、および監査可能性を活用することで、システムと構成を不正な変更や意図しない変更から保護します。
+使用の可否:: 堅牢なAWS設計と運用監視を通じて、承認されたユーザーがサービスとワークロードにアクセスできるようにします。
+
+
+
+
+[[types-of-information-covered-in-this-guide]]
+== このガイドで取り上げる情報の種類
+
+以下のセクションでは、企業のセキュリティ要件をサポートする形で Workload Factory を評価し、オンボードするのに役立つ情報を提供します。
+
+. セキュリティモデルと責任
++
+** link:security-model.html["セキュリティモデルの概要"]
+** link:shared-responsibility-boundaries.html["責任の共有範囲"]
+
+
+. アーキテクチャと接続性
++
+** link:connectivity-trust-paths.html["接続性と信頼の経路"]
+** link:ontap-execution-options.html["ONTAP実行オプション"]
+
+
+. アイデンティティ、資格情報、そして最小限の特権
++
+** link:aws-account-integration.html["AWSアカウントの統合"]
+** link:least-privilege-permissions.html["最小権限のアクセス許可階層"]
+
+
+. データガバナンス、プライバシー、ライフサイクル
++
+** link:data-handling-residency.html["データ処理とデータ所在地"]
+** link:account-deletion.html["アカウント削除チェックリスト"]
+
+
+. 可観測性とモニタリング
++
+** link:metrics-telemetry.html["指標とテレメトリ"]
+
+
+. AI制御とVPCコンポーネント
++
+** link:ai-controls-overview.html["AI制御の概要"]
+** link:lambda-link-overview.html["Lambdaリンクの概要"]
+
+
+
+
+
+
+[[get-started-quickly]]
+== すぐに始める
+
+* まずは_view、planning、analysis_（読み取り専用）の権限から始め、必要に応じて権限を拡張してください。
+* AWS CloudTrail を使用して、統合ロールのアクティビティを検証します `sts:AssumeRole`。
+* LambdaリンクまたはNetApp Consoleエージェントのデプロイを必要とするONTAPネイティブ操作が必要かどうかを事前に決定してください。
+* 生成AIの使用が許可されているかどうか、また居住地の制約により単一リージョン推論プロファイルが必要かどうかを事前に決定してください。
+

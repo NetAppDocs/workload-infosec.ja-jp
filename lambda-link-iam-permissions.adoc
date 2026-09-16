@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: lambda-link-iam-permissions.html 
+keywords: Lambda link, IAM permissions, execution role, Secrets Manager, ONTAP credentials, VPC networking, lambda InvokeFunction, resource-based policy 
+summary: NetApp Workload Factory は、Lambda リンクのアクセス許可境界を使用して、Lambda の実行および Workload Factory の呼び出しに必要な IAM アクセスを定義します。これらの権限は任意ですが、ONTAP ネイティブ操作には必要です。 
+---
+= Lambda リンクの IAM 権限（NetApp Workload Factory 用）
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory は、Lambda リンクのアクセス許可境界を使用して、Lambda の実行および Workload Factory の呼び出しに必要な IAM アクセスを定義します。これらの権限は任意ですが、ONTAP ネイティブ操作には必須です。Secrets Manager サポートを設定すると、リンクは実行時に AWS Secrets Manager から ONTAP 認証情報を直接取得し、パスワードは VPC 内でのみ転送されます。Secrets Manager から Lambda 関数、そして ONTAP エンドポイントへと転送されます。
+
+リクエストパスとポートの要件については、link:lambda-link-ports-calls.html["Lambdaリンクポートと呼び出し"]を参照してください。
+
+
+
+[[lambda-execution-role-permissions]]
+== Lambda実行ロールの権限
+
+VPC内にリンクをデプロイする際、Lambda実行ロールには以下の権限が必要です：
+
+[cols="2,3"]
+|===
+| アクセス許可 | 目的 
+
+
+| ec2:CreateNetworkInterface / ec2:DescribeNetworkInterfaces / ec2:DeleteNetworkInterface | 標準のVPC接続型Lambdaネットワーク 
+
+
+| ec2:AssignPrivateIpAddresses / ec2:UnassignPrivateIpAddresses | VPC ENI IP管理 
+
+
+| secretsmanager:GetSecretValue （FSxSecret* にスコープ設定） | ONTAP 認証情報の取得（Secrets Manager が有効になっている場合のみ） 
+
+
+| CloudWatch ログ（管理ポリシー） | Lambda実行ログ 
+|===
+
+
+[[workload-factory-invocation-permissions]]
+== Workload Factory の呼び出し権限
+
+Lambda リンクのリソースベースポリシーは、NetApp Workload Factory のサービスプリンシパルに次の権限を付与します：
+
+[cols="2,3"]
+|===
+| アクセス許可 | 目的 
+
+
+| lambda:InvokeFunction | Lambda関数を実行する 
+
+
+| lambda:GetFunction | 健康状態とステータスの確認 
+
+
+| lambda:UpdateFunctionCode | バージョンアップグレード（イメージ更新） 
+
+
+| lambda:GetFunctionConfiguration | 構成検証 
+|===

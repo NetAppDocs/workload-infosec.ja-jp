@@ -1,0 +1,67 @@
+---
+sidebar: sidebar 
+permalink: lambda-link-ports-calls.html 
+keywords: Lambda link ports, outbound connectivity, HTTPS, SSH, ONTAP REST API, port 443, port 22, lambda InvokeFunction, health check 
+summary: NetApp Workload Factory は、Lambda リンク要求とポート境界を使用して、必要なアウトバウンド接続と IAM 認証済み呼び出しを定義します。 
+---
+= NetApp Workload Factory向けのLambdaリンクのポートと呼び出し
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory は、Lambda リンク要求とポート境界を使用して、必要なアウトバウンド接続と IAM 認証済み呼び出しを定義します。このリンクは、ONTAP 管理エンドポイントへの HTTPS リクエスト、診断用の読み取り専用 SSH コマンド、およびヘルスチェックをサポートします。すべての接続は VPC 内のリンクからアウトバウンドで行われるため、インバウンド接続や公開エンドポイントは必要ありません。Workload Factory は、IAM ベースの認証を使用して AWS Lambda API 経由でリンクを呼び出します。
+
+
+
+[[request-types]]
+== リクエストの種類
+
+* HTTPS（ONTAP REST API）：HTTPS 呼び出しをボリューム、ストレージ VM、およびクラスタ操作のための ONTAP 管理エンドポイント（ポート 443）にプロキシします。
+* SSH （ONTAP CLI）：診断およびパフォーマンスデータ取得のため、ポート22で読み取り専用の ONTAP CLI コマンドを実行します。
+* ヘルスチェック：ステータスとサポートされている機能を返します。
+
+
+
+
+[[outbound-network-boundaries]]
+== アウトバウンドネットワーク境界
+
+[cols="1,1,3,3"]
+|===
+| 送受信方向 | ポート | デスティネーション | 目的 
+
+
+| アウトバウンド | 443 | ONTAP管理用IPアドレス（VPC内） | REST API操作 
+
+
+| アウトバウンド | 22 | ONTAP管理用IPアドレス（VPC内） | SSH CLIコマンド 
+
+
+| アウトバウンド | 443 | AWS Secrets Managerエンドポイント（オプション） | Secrets Manager使用時の認証情報の取得 
+|===
+受信接続は不要です。このリンクはエンドポイントを公開していません。Workload Factory はAWS `lambda:InvokeFunction` APIを使用してそれを呼び出します。
+
+
+
+[[workload-factory-calls-lambda-link]]
+== Workload FactoryがLambdaリンクを呼び出します
+
+Workload Factory は、IAM ベースの認証を使用して、AWS Lambda API (`lambda:InvokeFunction`）を介して Lambda リンクを呼び出します。
+
+呼び出しペイロードには以下が含まれます：
+
+* ターゲットONTAP管理エンドポイント（IPアドレス／ホスト名）
+* 実行する操作（REST APIパスまたはSSHコマンド）
+* 認証情報（インライン認証情報またはSecrets Manager ARN参照）
+
+
+
+
+[[related-information]]
+== 関連情報
+
+システム間の接続性マップ全体については、link:connectivity-trust-paths.html["NetApp Workload Factoryの接続性と信頼パス"]を参照してください。

@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: onboarding-security-workflow.html 
+keywords: onboarding, security workflow, IAM role, external ID, permission scoping, connectivity setup, AI diagnostics, Lambda link, trust configuration 
+summary: NetApp Workload Factoryへのオンボーディングにより、製品の使用を開始する前に、お客様のAWS環境への安全なアクセスが確立されます。 
+---
+= NetApp Workload Factory オンボーディングセキュリティワークフロー
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factoryへのオンボーディングは、製品の使用を開始する前に、お客様のAWS環境への安全なアクセスを確立します。このプロセスは、AWSの信頼設定、権限スコープの設定、接続性のセットアップ、可観測性の検証、およびオプションのAI診断の有効化を組み合わせたものです。
+
+
+
+[[step-1-decide-your-onboarding-posture]]
+== ステップ1：オンボーディングの方針を決定する
+
+* AWSアカウントと環境境界（例：本番環境と非本番環境の分離）を特定します。
+* 必要なワークフロー（読み取り専用の検出、プロビジョニング、ONTAPネイティブ操作）を特定します。
+* ワークフローのニーズに基づいて、VPC実行コンポーネント（例：Lambda リンク）をデプロイするかどうかを決定します。
+* AI診断を有効にするかどうかを決定します（デフォルトでは有効）。
+
+
+.関連情報
+* link:credential-types.html["認証情報の種類"]
+* link:lambda-link-overview.html["Lambdaリンクの概要"]
+* link:ai-controls-overview.html["AI制御の概要"]
+
+
+
+
+[[step-2-establish-aws-trust-and-access]]
+== ステップ2：AWSの信頼関係とアクセスを確立する
+
+. AWSアカウントにIAMロールをデプロイします。
+. 信頼ポリシーで外部IDを使用したゲートロールの引き受けを行います。
+. Workload Factory にロール ARN と外部 ID を登録します。
+
+
+.関連情報
+link:aws-account-integration.html["AWSアカウントの統合"]
+
+
+
+[[step-3-apply-least-privilege-permissions]]
+== ステップ3：最小権限のアクセス許可を適用する
+
+. 想定するワークフローをサポートする最小限の権限レベルを選択してください。
+. リクエストごとのセッションポリシーによって、実行される操作に対するアクションが制限されていることを確認します。
+
+
+.関連情報
+link:least-privilege-permissions.html["NetApp Workload Factoryの最小権限のアクセス許可階層"]。
+
+
+
+[[step-4-configure-connectivity-and-vpc-boundaries-as-needed]]
+== ステップ4：接続性とVPC境界の設定（必要に応じて）
+
+. AWSエンドポイントへの必要なネットワークパスを検証します。
+. ONTAPネイティブ操作が必要な場合は、VPC内で適切な実行オプションをデプロイして検証してください。
+
+
+.関連情報
+* link:connectivity-trust-paths.html["NetApp Workload Factory の接続性と信頼パス"]
+* link:ontap-execution-options.html["NetApp Workload FactoryにおけるONTAPの実行オプション"]
+
+
+
+
+[[step-5-verify-observability]]
+== ステップ5：可観測性の検証
+
+. メトリクスとテレメトリが想定どおりに収集および保持されていることを確認してください。
+. トラブルシューティングや調査に必要な運用記録にアクセスできることを確認してください。
+
+
+.関連情報
+* link:observability-overview.html["NetApp Workload Factoryの可観測性の概要"]
+* link:metrics-telemetry.html["NetApp Workload Factoryのメトリクスとテレメトリ"]
+
+
+
+
+[[step-6-enable-ai-diagnostics-optional]]
+== ステップ6：AI診断を有効にする（オプション）
+
+AI診断はデフォルトで有効になっています。これらを有効にする場合は、前提条件を満たしていること、および必要な最小限の権限範囲であることを確認してください。
+
+.関連情報
+* link:amazon-bedrock-opt-in.html["Bedrock の NetApp Workload Factory AI 診断へのオプトイン"]
+* link:ai-tool-boundaries.html["NetApp Workload FactoryにおけるAIツールの境界"]
+

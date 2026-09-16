@@ -1,0 +1,100 @@
+---
+settings:
+  name: Information Security for Workload Factory
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: ja-jp,us-en,de-de,es-es,fr-fr,it-it,pt-br,ko-kr,zh-cn,zh-tw
+sidebar:
+  entries:
+  - title: Workload Factoryの情報セキュリティについて
+    url: "/learn-about-workload-factory-infosec.html"
+  - title: セキュリティモデルと責任
+    entries:
+    - title: セキュリティモデルの概要
+      url: "/security-model.html"
+    - title: 責任の共有範囲
+      url: "/shared-responsibility-boundaries.html"
+    - title: オンボーディングセキュリティワークフロー
+      url: "/onboarding-security-workflow.html"
+    - title: コンプライアンスとセキュリティ体制
+      url: "/compliance-security-posture.html"
+  - title: アーキテクチャと接続性
+    entries:
+    - title: 接続性と信頼の経路
+      url: "/connectivity-trust-paths.html"
+    - title: ONTAP実行オプション
+      url: "/ontap-execution-options.html"
+  - title: アイデンティティ、資格情報、そして最小限の特権
+    entries:
+    - title: AWSアカウントの統合
+      url: "/aws-account-integration.html"
+    - title: AWS認証情報フロー
+      url: "/aws-credential-flow.html"
+    - title: 資格情報の保持
+      url: "/credential-retention.html"
+    - title: 認証情報の種類
+      url: "/credential-types.html"
+    - title: 認証情報の保存オプション
+      url: "/credential-storage-options.html"
+    - title: 最小限の権限要件
+      url: "/least-privilege-permissions.html"
+    - title: CloudWatch 監視権限
+      url: "/cloudwatch-monitoring-permissions.html"
+  - title: データガバナンス、プライバシー、ライフサイクル
+    entries:
+    - title: データ処理とデータ所在地
+      url: "/data-handling-residency.html"
+    - title: 暗号化と鍵管理
+      url: "/encryption-key-management.html"
+    - title: アカウント削除
+      url: "/account-deletion.html"
+  - title: 可観測性（ログ、メトリクス、テレメトリ）
+    entries:
+    - title: 可観測性の概要
+      url: "/observability-overview.html"
+    - title: メトリクスとテレメトリのリファレンス
+      url: "/metrics-telemetry.html"
+  - title: 生成AIセキュリティ制御
+    entries:
+    - title: AI制御の概要
+      url: "/ai-controls-overview.html"
+    - title: Amazon BedrockのAI診断機能へのオプトイン
+      url: "/amazon-bedrock-opt-in.html"
+    - title: AIツールの境界
+      url: "/ai-tool-boundaries.html"
+    - title: AIモデルのパラメータと課金
+      url: "/ai-model-parameters-billing.html"
+    - title: Ask Me AIアシスタント
+      entries:
+      - title: Ask Me セキュリティアーキテクチャ
+        url: "/ask-me-security-architecture.html"
+      - title: Ask Me アクセス制御
+        url: "/ask-me-access-control.html"
+      - title: Ask Me 実行モード
+        url: "/ask-me-execution-modes.html"
+      - title: Ask Me のプライバシーと可用性
+        url: "/ask-me-privacy-availability.html"
+  - title: ONTAP運用とLambdaリンク（顧客VPCコンポーネント）
+    entries:
+    - title: Lambdaリンクの概要
+      url: "/lambda-link-overview.html"
+    - title: Lambdaリンクポートと呼び出し
+      url: "/lambda-link-ports-calls.html"
+    - title: LambdaリンクのIAM権限
+      url: "/lambda-link-iam-permissions.html"
+    - title: ラムダリンクのライフサイクル
+      url: "/lambda-link-lifecycle.html"
+  - title: ナレッジとサポート
+    entries:
+    - title: サポートに登録
+      url: "/register-support.html"
+    - title: ヘルプを表示
+      url: "/get-help.html"
+  - title: 法律上の表示
+    url: "/legal-notices.html"
+product-family:
+  name: NetApp Workload Factory
+  repo: workload-family

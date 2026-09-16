@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: ask-me-access-control.html 
+keywords: Ask Me access control, authentication, JWT, secrets vault, credential protection, log scrubbing, CORS, non-root container, user identity scoping 
+summary: NetApp Workload Factory において、Ask Me のアクセスセキュリティは、認証済みセッション、ユーザーレベルのアカウンタビリティ、および実行時操作中の保護されたシークレット情報の取り扱いに重点を置いています。 
+---
+= NetApp Workload Factory のアクセス制御について質問する
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory の Ask Me アクセスセキュリティは、認証済みセッション、ユーザーレベルの責任、および実行時操作中の保護された秘密情報の取り扱いに重点を置いています。認証制御は各セッションを検証し、操作を特定のユーザーに関連付けます。機密性の高い認証情報は、実行時に管理対象のシークレット保管庫から取得され、ログから削除されます。このサービスは、非ルートコンテナの実行や制限付き CORS 許可リストなど、インフラストラクチャ制御も適用します。
+
+
+
+[[authentication]]
+== 認証
+
+* 暗号化検証（オーディエンス、発行者、RS256などのアルゴリズムチェックを含む）を備えた署名付きJWT認証
+* サービス境界におけるミドルウェアによる認証
+* ユーザーIDスコープにより、インタラクションを特定のユーザーに帰属させることができます
+
+
+
+
+[[credential-protection-and-secret-handling]]
+== 認証情報の保護と機密情報の取り扱い
+
+* 安全な保管庫ストレージ：サービスで使用される機密性の高い認証情報は、管理されたシークレット保管庫に保存され、実行時に取得されます。アプリケーションコード、設定ファイル、またはコンテナイメージには、シークレットは一切保存されません。
+* ログのスクラビング：機密情報（認証情報、トークン、パスワード、アクセスキー、証明書）は、ログに書き込まれる前に削除されます。
+
+
+
+
+[[infrastructure-security]]
+== インフラストラクチャセキュリティ
+
+* 非ルートコンテナの実行
+* CORSは信頼できるNetAppドメインの明示的な許可リストに制限されています
+

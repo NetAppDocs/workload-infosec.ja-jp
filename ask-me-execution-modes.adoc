@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: ask-me-execution-modes.html 
+keywords: Ask Me execution modes, tool execution safeguards, ephemeral data sandbox, read-only query enforcement, tool call auditability, output controls, token limit, session scope 
+summary: Workload Factoryは、Ask Meに対して複数の実行モードを提供しており、それぞれ異なるセキュリティおよびプライバシー特性を備えています。 
+---
+= Ask Me の実行モード（NetApp Workload Factory）
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factoryは、Ask Meに対して複数の実行モードを提供しており、それぞれ異なるセキュリティおよびプライバシー特性を備えています。Ask Meがツール統合を使用する場合、例えばお客様自身のWorkload Factoryリソースにクエリを実行する場合、ツールの実行は多層的な安全対策によって制御されます。ツールによる実行は、認証されたユーザーの権限の範囲内で行われ、各操作の期間と範囲に制限が適用されます。取得されたデータは、外部からのアクセスを遮断する一時的なセッションサンドボックス内に保持され、セッションが終了すると破棄されます。独立したプロンプトとコード制御により読み取り専用のクエリが強制され、監査記録には機密値が削除されたツールアクティビティが記録されます。
+
+
+
+[[tool-execution-safeguards]]
+== ツール実行時の安全対策
+
+* 認証済みユーザーの権限の範囲内で動作する、認可スコープ付きツールです。
+* ツールの実行タイムアウトは、長時間実行される操作を制限します。
+* 一時的なデータサンドボックスは、ツールによって取得されたデータをセッションスコープ内に保存し、エンジンレベルでの外部アクセス、ファイル I/O、ネットワーク呼び出し、および拡張機能の読み込みをブロックし、セッションが終了すると破棄されます。
+* 読み取り専用クエリの強制適用は、厳格な許可リストを通じて生成されたクエリを検証します。
+* プロンプトによるセキュリティとコードによるセキュリティは、それぞれ独立して適用されます。
+* ツール呼び出しの監査可能性ログには、ツール名、パラメータ、タイムスタンプ、および結果ステータスが記録され、機密性の高い値はスクラビングされます。
+
+
+
+
+[[output-controls]]
+== 出力制御
+
+* トークン制限の適用
+* 分類/セキュリティ上重要な操作のための決定論的出力（温度0）
+* 早期終了とクリーンアップ機能を備えたストリーミング配信
+
