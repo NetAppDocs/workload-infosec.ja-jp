@@ -500,7 +500,6 @@
   <block id="ac252743de820aac9183d9f76d4bed67" category="section-title">NetAppアカウント</block>
   <block id="fa6063b1c2f2305250c0e4398ff9f643" category="list-text">FSx構成、バランスプラン、ARP構成、およびAI使用制限</block>
   <block id="bf287b813cd334fda1fc42e415bf3dc7" category="list-text">一時的なAWS STS認証情報（Redisにキャッシュ）、レスポンスキャッシュ、ロック、およびデプロイメント状態</block>
-  <block id="f61c0a27e4ead4113f37e307fceeac09" category="list-text">CloudFormation/Terraformテンプレート、WAD構成記述子、および圧縮レポート</block>
   <block id="9f80825b2d67b8ccab25b67e670760f5" category="list-text">AI使用状況計測とコレクターのパフォーマンス指標</block>
   <block id="919e790bde6c7da375d06d2d8a044fef" category="list-text">EDA集計指標</block>
   <block id="92d894d5716ae374c87da601cbacccdb" category="list-text">アクション監査証跡</block>
@@ -1215,4 +1214,5 @@
   <block id="4d9cde297d1c003eba9c5b3021d6839e" category="sidebar">ONTAP運用とLambdaリンク（顧客VPCコンポーネント）</block>
   <block id="a3a6979c264d714e00c70c8cf88cc14b" category="sidebar">ラムダリンクのライフサイクル</block>
   <block id="30d965eef5ba25c6b9998ae38270b43e" category="sidebar">法律上の表示</block>
+  <block id="e48f7b50b793847bd7a92cb2216e1751" category="list-text">CloudFormation/Terraformテンプレート、適切に設計された構成記述子、および圧縮されたレポート</block>
 </blocks>

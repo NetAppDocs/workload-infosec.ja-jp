@@ -64,7 +64,7 @@ Workload Factory は以下のデータを保持します：
 
 * FSx構成、バランスプラン、ARP構成、およびAI使用制限
 * 一時的なAWS STS認証情報（Redisにキャッシュ）、レスポンスキャッシュ、ロック、およびデプロイメント状態
-* CloudFormation/Terraformテンプレート、WAD構成記述子、および圧縮レポート
+* CloudFormation/Terraformテンプレート、適切に設計された構成記述子、および圧縮されたレポート
 * AI使用状況計測とコレクターのパフォーマンス指標
 * EDA集計指標
 * アクション監査証跡
